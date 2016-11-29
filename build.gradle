@@ -1,0 +1,56 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            url 'https://repo.spring.io/libs-snapshot'
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'war'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    baseName = 'gs-serving-web-content'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://repo.spring.io/libs-snapshot'
+    }
+}
+configurations{
+    compile.exclude group: 'log4j'
+    compile.exclude group: 'org.apache.logging.log4j'
+}
+
+dependencies {
+    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+    compile fileTree(dir:'src/main/webapp/WEB-INF/lib',include:['*.jar'], exclude:['*-source.jar'])
+
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-devtools")
+
+    compile ([group: 'org.apache.mina', name: 'mina-core', version: '2.0.13'],
+            [group: 'org.apache.derby', name: 'derbytools', version: '10.13.1.1'],
+            [group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'],
+            [group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.5.2'],
+            [group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'],
+            [group: 'com.google.zxing', name: 'core', version: '3.3.0'],
+            [group: 'org.springframework', name: 'spring-orm', version: '5.0.0.M3'],
+            [group:'org.hibernate', name :'hibernate-core', version: '5.2.4.Final'],
+            [group: 'org.aspectj', name: 'aspectjrt', version: '1.8.9'],
+            'org.apache.commons:commons-lang3:3.5',
+            [group: 'org.apache.poi', name: 'openxml4j', version: '1.0-beta']
+    )
+
+    testCompile("junit:junit")
+}
