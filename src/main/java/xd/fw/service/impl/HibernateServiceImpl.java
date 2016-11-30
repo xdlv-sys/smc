@@ -7,6 +7,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xd.fw.util.FwUtil;
 import xd.fw.bean.PrimaryKey;
@@ -16,7 +17,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Service
 @Transactional(readOnly = true)
 public class HibernateServiceImpl implements BaseService{
     final static Map<String, int[]> primaryKeyMap = new HashMap<String, int[]>();
@@ -256,5 +257,10 @@ public class HibernateServiceImpl implements BaseService{
     public void delete(Class<?> cls, Serializable id) {
         Object record = htpl.get(cls,id);
         htpl.delete(record);
+    }
+
+    @Override
+    public <T> List<T> findByExample(T entity) {
+        return htpl.findByExample(entity);
     }
 }

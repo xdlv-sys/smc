@@ -2,3 +2,14 @@
 out
 build/
 .gradle
+/src/main/webapp/www/ext/
+/src/main/webapp/www/.sencha/
+/src/main/webapp/www/build/
+
+/src/main/webapp/www/sass/etc/
+/src/main/webapp/www/sass/example/
+/src/main/webapp/www/modern.json
+/src/main/webapp/www/build.xml
+/src/main/webapp/www/bootstrap.css
+/src/main/webapp/www/classic.json
+/src/main/webapp/www/bootstrap.js

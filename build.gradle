@@ -34,8 +34,9 @@ configurations{
 
 dependencies {
     providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
-    compile fileTree(dir:'src/main/webapp/WEB-INF/lib',include:['*.jar'], exclude:['*-source.jar'])
+    runtime ([group: 'mysql', name: 'mysql-connector-java', version: '6.0.5'])
 
+    compile fileTree(dir:'src/main/webapp/WEB-INF/lib',include:['*.jar'], exclude:['*-source.jar'])
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-devtools")
 
@@ -49,7 +50,8 @@ dependencies {
             [group:'org.hibernate', name :'hibernate-core', version: '5.2.4.Final'],
             [group: 'org.aspectj', name: 'aspectjrt', version: '1.8.9'],
             'org.apache.commons:commons-lang3:3.5',
-            [group: 'org.apache.poi', name: 'openxml4j', version: '1.0-beta']
+            [group: 'org.apache.poi', name: 'openxml4j', version: '1.0-beta'],
+            [group: 'org.aspectj', name: 'aspectjtools', version: '1.8.9']
     )
 
     testCompile("junit:junit")

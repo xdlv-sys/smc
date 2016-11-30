@@ -42,4 +42,6 @@ public interface BaseService extends IConst{
 
     void runSessionCommit(SessionCommit sessionCommit);
 
+    <T> List<T> findByExample(T entity);
+
 }
