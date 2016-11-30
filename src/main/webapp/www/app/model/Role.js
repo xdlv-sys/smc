@@ -6,7 +6,8 @@ Ext.define('XApp.model.Role', {
     proxy: {
         url: 'role/obtainRoles.cmd',
         reader: {
-        	type: 'json'
+        	type: 'json',
+            rootProperty: 'data'
         }
     }
 });

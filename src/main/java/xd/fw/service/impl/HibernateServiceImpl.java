@@ -263,4 +263,5 @@ public class HibernateServiceImpl implements BaseService{
     public <T> List<T> findByExample(T entity) {
         return htpl.findByExample(entity);
     }
+
 }

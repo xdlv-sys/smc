@@ -1,11 +1,20 @@
 Ext.define('XApp.model.Base', {
-	extend : 'Ext.data.Model',
+    extend: 'Ext.data.Model',
 
-	fields : [ {
-		name : 'id',
-		type : 'int'
-	} ],
-	schema: {
+    fields: [{
+        name: 'id',
+        type: 'int'
+    }],
+    schema: {
         namespace: 'XApp.model'
-    }
+    }/*,
+    constructor: function (config) {
+        config.proxy = {
+            reader: {
+                type: 'json',
+                rootProperty: 'users'
+            }
+        };
+        this.callParent(arguments);
+    }*/
 });

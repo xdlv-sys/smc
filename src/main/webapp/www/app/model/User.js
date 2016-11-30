@@ -4,9 +4,10 @@ Ext.define('XApp.model.User', {
 	fields : [ 'name', 'password', 'mail'],
 	
     proxy: {
-        url: 'user/obtainUsers.cmd',
+        url: '/user/obtainUsers.cmd',
         reader: {
-        	type: 'json'
+        	type: 'json',
+            rootProperty: 'data'
         }
     },
     manyToMany : 'Mod'

@@ -31,14 +31,14 @@ Ext.define('XApp.view.user.UserManagerController', {
     },
     delUser: function (btn) {
         var users = this.getGrid(btn).getSelection();
-        var ids = {};
+        var userIds = [];
         Ext.each(users, function (v, i) {
-            ids['users[' + i + '].id'] = v.get('id');
+            userIds.push(v.get('id'));
         });
         this.ajax({
-            url: 'user!deleteUser.cmd',
-            params: ids,
-            success: function (response) {
+            url: '/user/deleteUser.cmd',
+            params: {userIds: userIds},
+            success: function () {
                 btn.up('grid').getStore().reload();
             }
         });

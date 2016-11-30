@@ -6,7 +6,8 @@ Ext.define('XApp.model.Mod',{
 	proxy: {
 		url: 'mod/obtainMods.cmd',
 		reader: {
-			type: 'json'
+			type: 'json',
+			rootProperty: 'data'
 		}
 	},
 

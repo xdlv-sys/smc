@@ -6,7 +6,8 @@ Ext.define('XApp.model.DynamicConfig',{
 	proxy: {
 		url: 'dynamic_config/obtainDynamicConfigs.cmd',
 		reader: {
-			type: 'json'
+			type: 'json',
+			rootProperty: 'data'
 		}
 	}
 });
