@@ -14,23 +14,23 @@ Ext.define("XApp.view.user.UserInfo", {
     title: '用户信息',
     fieldItems: [{
         xtype: 'textfield',
-        name: 'user.id',
+        name: 'id',
         hidden: true,
         bind: '{user.id}'
     }, {
-        name: 'user.name',
+        name: 'name',
         xtype: 'textfield',
         fieldLabel: '用户名',
         bind: '{user.name}'
     }, {
         xtype: 'textfield',
-        name: 'user.password',
+        name: 'password',
         inputType: 'password',
         fieldLabel: '密码',
         bind: '{user.password}'
     }, {
         xtype: 'textfield',
-        name: 'user.mail',
+        name: 'mail',
         fieldLabel: '邮箱',
         bind: '{user.mail}'
     }, {
@@ -61,15 +61,15 @@ Ext.define("XApp.view.user.UserInfo", {
         var me = this;
         Ext.defer(function () {
             XApp.Util.ajax({
-                url: 'role!obtainUserRoles.cmd',
+                url: '/role/obtainUserRoles.cmd',
                 params: {
-                    'user.id': me.getViewModel().getData().user.id
+                    'userId': me.getViewModel().getData().user.id
                 },
                 success: function (records) {
                     var data = grid.getStore().getData();
                     var checkModel = grid.getSelectionModel();
                     Ext.each(data.items, function (d, j) {
-                        Ext.each(records.roles, function (r, i) {
+                        Ext.each(records, function (r, i) {
                             if (d.id == r.id) {
                                 checkModel.select(d, true);
                             }

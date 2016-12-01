@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface FwService extends BaseService{
 
-    User userLogin(User user) throws Exception;
-
     void saveOrUpdateUser(User user) throws Exception;
 
     void saveOrUpdateRole(Role role);

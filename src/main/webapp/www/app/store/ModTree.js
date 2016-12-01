@@ -8,15 +8,15 @@ Ext.define('XApp.store.ModTree', {
     },
     proxy: {
         type: 'ajax',
-        url: 'mod!obtainMods.cmd',
+        url: '/mod/obtainMods.cmd',
         reader: {
             type: 'json',
-            transform: function(data){
+            transform: function(mods){
                 var root = {
                     children:[]
                 };
                 var map={0 : root};
-                var mods = Ext.Array.sort(data.mods, function (a,b) {
+                var mods = Ext.Array.sort(mods.data, function (a,b) {
                     return a.id - b.id;
                 });
                 Ext.each(mods, function(v,i,a){

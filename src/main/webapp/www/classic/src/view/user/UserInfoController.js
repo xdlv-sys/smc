@@ -6,11 +6,11 @@ Ext.define('XApp.view.user.UserInfoController', {
         var win = btn.up('window');
         var params = Ext.apply({}, btn.up('form').getValues());
         Ext.each(win.down('grid').getSelection(), function (v, i) {
-            params['user.rolesL[' + i + '].id'] = v.id;
+            params['rolesL[' + i + '].id'] = v.id;
         });
         var saveCallback = this.getView().getInitialConfig().saveCallback;
         XApp.Util.ajax({
-            url: 'user!saveUser.cmd',
+            url: '/user/saveUser.cmd',
             params: params,
             success: function (response) {
                 win.close();

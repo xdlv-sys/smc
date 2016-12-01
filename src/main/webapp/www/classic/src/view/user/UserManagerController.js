@@ -56,11 +56,11 @@ Ext.define('XApp.view.user.UserManagerController', {
             },
             fieldItems: [{
                 xtype: 'textfield',
-                name: 'role.id',
+                name: 'id',
                 hidden: true,
                 bind: '{role.id}'
             }, {
-                name: 'role.name',
+                name: 'name',
                 xtype: 'textfield',
                 fieldLabel: '角色名',
                 bind: '{role.name}'
@@ -76,12 +76,12 @@ Ext.define('XApp.view.user.UserManagerController', {
             }
             Ext.defer(function () {
                 XApp.Util.ajax({
-                    url: 'mod!obtainModsByRole.cmd',
-                    params: {'role.id': role.id},
+                    url: '/mod/obtainModsByRole.cmd',
+                    params: {'roleId': role.id},
                     success: function (records) {
                         win.down('modtree').getRootNode().cascadeBy({
                             before: function (node) {
-                                Ext.each(records.mods, function (v, i) {
+                                Ext.each(records, function (v, i) {
                                     if (node.get('modId') == v.id) {
                                         var tempNode = node;
                                         while (tempNode) {
@@ -105,11 +105,11 @@ Ext.define('XApp.view.user.UserManagerController', {
         var params = Ext.apply({}, btn.up('form').getValues());
 
         Ext.each(mods, function (v, i) {
-            params['role.modsL[' + i + '].id'] = v.get('modId');
+            params['modsL[' + i + '].id'] = v.get('modId');
         });
 
         XApp.Util.ajax({
-            url: 'role!saveRole.cmd',
+            url: '/role/saveRole.cmd',
             params: params,
             success: function (response) {
                 win.getViewModel().get('grid').getStore().reload();
@@ -127,13 +127,13 @@ Ext.define('XApp.view.user.UserManagerController', {
     },
     delRole: function (btn) {
         var roles = this.getGrid(btn).getSelection();
-        var ids = {};
+        var ids = [];
         Ext.each(roles, function (v, i) {
-            ids['roles[' + i + '].id'] = v.get('id');
+            ids.push(v.get('id'));
         });
         this.ajax({
-            url: 'role!deleteRole.cmd',
-            params: ids,
+            url: '/role/deleteRole.cmd',
+            params: {roleIds: ids },
             success: function (response) {
                 btn.up('grid').getStore().reload();
             }

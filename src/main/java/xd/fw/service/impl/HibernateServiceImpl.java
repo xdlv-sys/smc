@@ -1,41 +1,43 @@
 package xd.fw.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.HibernateTemplate;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import xd.fw.util.FwUtil;
 import xd.fw.bean.PrimaryKey;
 import xd.fw.service.*;
+import xd.fw.util.FwUtil;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-@Service
+
 @Transactional(readOnly = true)
 public class HibernateServiceImpl implements BaseService{
-    final static Map<String, int[]> primaryKeyMap = new HashMap<String, int[]>();
+    final static Map<String, int[]> primaryKeyMap = new HashMap<>();
     final static int PRE_OCCUPY_MAX = 10;
 
     @Autowired
-    protected HibernateTemplate htpl;
+    protected HibernateTemplate htp;
+
+    @PersistenceContext
+    EntityManager em;
 
     @Override
     @Transactional
     public <T> T runInSession(SessionProcessor<T> processor) {
-        return processor.process(htpl);
+        return processor.process(htp);
     }
 
     @Override
     @Transactional
     public void runSessionCommit(SessionCommit sessionCommit) {
-        sessionCommit.process(htpl);
+        sessionCommit.process(htp);
     }
 
     public int getPrimaryKey(Class<?> cls){
@@ -67,11 +69,11 @@ public class HibernateServiceImpl implements BaseService{
     @Override
     @Transactional
     public void saveOrUpdate(Object entity) {
-        htpl.saveOrUpdate(entity);
+        htp.saveOrUpdate(entity);
     }
 
     private <T> String constructHsql(String prefix, Class<T> cls, T params, String orderBy){
-        StringBuffer hsql = new StringBuffer(prefix).append("from ").append(cls.getSimpleName());
+        StringBuilder hsql = new StringBuilder(prefix).append("from ").append(cls.getSimpleName());
         if (params != null){
             final boolean[] appendWhere = new boolean[]{false};
             try {
@@ -118,150 +120,127 @@ public class HibernateServiceImpl implements BaseService{
     }
 
     public <T> List<T> getList(String hsql, T params, int start, int limit){
-        return htpl.execute(new HibernateCallback<List<T>>() {
-            @Override
-            public List<T> doInHibernate(Session session) throws HibernateException {
-                Query query = session.createQuery(hsql);
-                if (params != null){
-                    try {
-                        FwUtil.invokeBeanFields(params, (f, o) -> {
-                            if (o != null && StringUtils.isNotBlank(o.toString())) {
-                                if (o instanceof String){
-                                    query.setParameter(f.getName(),"%" + o + "%");
-                                } else {
-                                    query.setParameter(f.getName(),o);
-                                }
+        return htp.execute((HibernateCallback<List<T>>) session -> {
+            Query query = session.createQuery(hsql);
+            if (params != null){
+                try {
+                    FwUtil.invokeBeanFields(params, (f, o) -> {
+                        if (o != null && StringUtils.isNotBlank(o.toString())) {
+                            if (o instanceof String){
+                                query.setParameter(f.getName(),"%" + o + "%");
+                            } else {
+                                query.setParameter(f.getName(),o);
                             }
-                        });
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    }
+                        }
+                    });
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
                 }
-                if (start > -1){
-                    query.setFirstResult(start);
-                }
-                if (limit > 0){
-                    query.setMaxResults(limit);
-                }
-                return query.list();
             }
+            if (start > -1){
+                query.setFirstResult(start);
+            }
+            if (limit > 0){
+                query.setMaxResults(limit);
+            }
+            return query.list();
         });
     }
 
     public <T> List<T> getLists(String hsql,T param, SetParameters setParameters, ConstructHql<T> constructHql, int start, int limit){
-        return htpl.execute(new HibernateCallback<List<T>>() {
-            @Override
-            public List<T> doInHibernate(Session session) throws HibernateException {
-                String hsql2 = hsql + constructHql.process(param);
-                Query query = session.createQuery(hsql2);
-                setParameters.process(query);
-                if (start > -1){
-                    query.setFirstResult(start);
-                }
-                if (limit > 0){
-                    query.setMaxResults(limit);
-                }
-                return query.list();
+        return htp.execute((HibernateCallback<List<T>>) session -> {
+            String hsql2 = hsql + constructHql.process(param);
+            Query query = session.createQuery(hsql2);
+            setParameters.process(query);
+            if (start > -1){
+                query.setFirstResult(start);
             }
+            if (limit > 0){
+                query.setMaxResults(limit);
+            }
+            return query.list();
         });
     }
 
     @Override
     public <T> List<T> getLists(String hsql, SetParameters setParameters) {
-        return htpl.execute(new HibernateCallback<List<T>>() {
-            @Override
-            public List<T> doInHibernate(Session session) throws HibernateException {
-                Query query = session.createQuery(hsql);
-                if (setParameters != null){
-                    setParameters.process(query);
-                }
-                return query.list();
+        return htp.execute((HibernateCallback<List<T>>) session -> {
+            Query query = session.createQuery(hsql);
+            if (setParameters != null){
+                setParameters.process(query);
             }
+            return query.list();
         });
     }
 
     public <T> int getAllCount(T param, SetParameters setParameters, ConstructHql<T> constructHql){
-        return htpl.execute(new HibernateCallback<List<Long>>() {
-            @Override
-            public List<Long> doInHibernate(Session session) throws HibernateException {
-                String hsql2 = "select count(*) " + constructHql.process(param);
-                Query query = session.createQuery(hsql2);
-                setParameters.process(query);
-                return query.list();
-            }
+        return htp.execute((HibernateCallback<List<Long>>) session -> {
+            String hsql2 = "select count(*) " + constructHql.process(param);
+            Query query = session.createQuery(hsql2);
+            setParameters.process(query);
+            return query.list();
         }).get(0).intValue();
     }
 
     public int update(String sql, SetParameters setParameters, boolean original){
-        return htpl.execute(new HibernateCallback<Integer>() {
-            @Override
-            public Integer doInHibernate(Session session) throws HibernateException {
-                Query query;
-                if (original){
-                    query = session.createSQLQuery(sql);
-                } else {
-                    query = session.createQuery(sql);
-                }
-
-                if (setParameters != null){
-                    setParameters.process(query);
-                }
-                return query.executeUpdate();
+        return htp.execute(session -> {
+            Query query;
+            if (original){
+                //noinspection deprecation
+                query = session.createSQLQuery(sql);
+            } else {
+                query = session.createQuery(sql);
             }
+
+            if (setParameters != null){
+                setParameters.process(query);
+            }
+            return query.executeUpdate();
         });
     }
-    public <T> T getOne(String where, Class<T> cls, SetParameters setParameters){
-        String hsql = "from " + cls.getSimpleName() + " where " + where;
-        List<Object> lists = getLists(hsql, setParameters);
-        if (lists == null || lists.size() < 1){
-            return null;
-        }
-        return (T)lists.get(0);
-    }
-
     public <T> T get(Class<T> tClass, Serializable id) {
-        return htpl.get(tClass, id);
+        return htp.get(tClass, id);
     }
 
 
     protected <T> T load(Class<T> tClass, Serializable id) {
-        return htpl.load(tClass, id);
+        return htp.load(tClass, id);
     }
 
     @Override
     @Transactional
     public void update(Object entity) {
-        htpl.update(entity);
+        htp.update(entity);
     }
 
     @Override
     @Transactional
     public void save(Object entity) {
-        htpl.save(entity);
+        htp.save(entity);
     }
 
     @Override
     @Transactional
     public Object merge(Object entity) {
-        return htpl.merge(entity);
+        return htp.merge(entity);
     }
 
     @Override
     @Transactional
     public void delete(Object entity) {
-        htpl.delete(entity);
+        htp.delete(entity);
     }
 
     @Override
     @Transactional
     public void delete(Class<?> cls, Serializable id) {
-        Object record = htpl.get(cls,id);
-        htpl.delete(record);
+        Object record = htp.get(cls,id);
+        htp.delete(record);
     }
 
     @Override
     public <T> List<T> findByExample(T entity) {
-        return htpl.findByExample(entity);
+        return htp.findByExample(entity);
     }
 
 }

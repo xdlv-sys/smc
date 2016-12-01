@@ -16,6 +16,7 @@ Ext.define("XApp.view.mod.ModPanel", {
         margin: '0 0 10 10',
         xtype: 'container',
         layout: 'hbox',
+        hidden: true,
         items: [{
             xtype: 'button',
             text: '增加权限',

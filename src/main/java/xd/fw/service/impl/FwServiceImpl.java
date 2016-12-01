@@ -1,18 +1,14 @@
 package xd.fw.service.impl;
 
-import org.hibernate.HibernateException;
-import org.hibernate.query.Query;
-import org.hibernate.Session;
-import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import xd.fw.util.FwUtil;
 import xd.fw.bean.Event;
 import xd.fw.bean.Mod;
 import xd.fw.bean.Role;
 import xd.fw.bean.User;
 import xd.fw.service.FwService;
 import xd.fw.service.IConst;
+import xd.fw.util.FwUtil;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
@@ -21,24 +17,6 @@ import java.util.List;
 
 @Service
 public class FwServiceImpl extends HibernateServiceImpl implements FwService, IConst {
-
-    @Override
-    public User userLogin(User user) throws Exception {
-        List<User> users = htpl.execute(new HibernateCallback<List<User>>() {
-            @Override
-            public List<User> doInHibernate(Session session) throws HibernateException {
-                Query query = session.createQuery("from User where name=:name");
-                query.setParameter("name",user.getName());
-                return query.list();
-            }
-        });
-        User ret;
-        if (users.size() > 0
-                && (ret = users.get(0)).getPassword().equals(FwUtil.md5(user.getPassword()))){
-            return ret;
-        }
-        return null;
-    }
 
     @Override
     @Transactional
