@@ -1,4 +1,4 @@
-package xd.fw.bean.wx;
+package xd.fw.bean.pay;
 
 /**
  * Created by xd on 2016/6/29.

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import xd.fw.bean.DynamicConf;
+import xd.fw.dao.ConfRepository;
 import xd.fw.service.FwService;
 
 import javax.annotation.PostConstruct;
@@ -38,14 +39,14 @@ public class Conf {
     }
 
     @Autowired
-    FwService fwService;
+    ConfRepository confRepository;
 
     @PostConstruct
     public void readFromDb() {
         if (!loadFromDb){
             return;
         }
-        List<DynamicConf> dynamicConfigs = fwService.getList(DynamicConf.class, null, 0, -1);
+        List<DynamicConf> dynamicConfigs = confRepository.findAll();
         Field[] fields = this.getClass().getDeclaredFields();
         FwUtil.safeEach(dynamicConfigs, (config) -> {
             String name = config.getConfName();

@@ -1,0 +1,13 @@
+<beans xmlns:s="http://www.springframework.org/schema/security"
+         xmlns="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <s:http/>
+
+    <s:user-service>
+        <s:user name="user" password="password" authorities="ROLE_USER"/>
+    </s:user-service>
+
+</beans>

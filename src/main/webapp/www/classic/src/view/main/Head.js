@@ -63,7 +63,7 @@ Ext.define('XApp.view.main.Head', {
         },{
             width: 50,
             text : '退出',
-            href: 'index.html',
+            href: '/user/userLogout.cmd',
             hrefTarget: '_self'
         }/*,
         {

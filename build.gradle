@@ -39,6 +39,11 @@ dependencies {
     compile fileTree(dir:'src/main/webapp/WEB-INF/lib',include:['*.jar'], exclude:['*-source.jar'])
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-devtools")
+    compile 'org.springframework.security:spring-security-web:4.2.1.BUILD-SNAPSHOT'
+    compile 'org.springframework.security:spring-security-config:4.2.0.RELEASE'
+    compile 'org.springframework.data:spring-data-jpa:1.10.5.RELEASE'
+    compile group: 'org.springframework', name: 'spring-context', version: '5.0.0.M3'
+
 
     compile ([group: 'org.apache.mina', name: 'mina-core', version: '2.0.13'],
             [group: 'org.apache.derby', name: 'derbytools', version: '10.13.1.1'],

@@ -1,4 +1,4 @@
-package xd.fw.bean;
+package xd.fw.bean.pay;
 
 public class AliPayBean {
     String service = "alipay.wap.create.direct.pay.by.user";

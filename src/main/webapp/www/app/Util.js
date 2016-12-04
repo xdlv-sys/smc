@@ -14,16 +14,16 @@ Ext.define('XApp.Util', {
                     return;
                 }
                 var blockTips = false;
-                if (!success || Ext.isEmpty(jsonObj)){
+                if (!success || jsonObj.errorMsg){
                     if (objs.failure) {
                         blockTips = objs.failure(jsonObj);
                     }
                     if (!blockTips) {
-                        Ext.MessageBox.alert('错误', '操作失败:' + Ext.isEmpty(jsonObj) ? "" : jsonObj.msg);
+                        Ext.MessageBox.alert('错误', '操作失败:' + (Ext.isEmpty(jsonObj.errorMsg) ? "" : jsonObj.errorMsg));
                     }
                 } else {
                     if (objs.success) {
-                        blockTips = objs.success(jsonObj);
+                        blockTips = objs.success(jsonObj,response);
                     }
                     if (!blockTips) {
                         Ext.MessageBox.alert('提示', '操作成功');

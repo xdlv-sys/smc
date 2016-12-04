@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xd.fw.bean.Role;
 import xd.fw.bean.User;
+import xd.fw.dao.RoleRepository;
+import xd.fw.dao.UserRepository;
 import xd.fw.service.FwService;
 
 import java.util.List;
@@ -17,26 +19,28 @@ public class RoleController extends BaseController {
 
     @Autowired
     FwService fwService;
+    @Autowired
+    RoleRepository roleRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @RequestMapping("obtainUserRoles")
     @ResponseBody
     public Set<Role> obtainUserRoles(int userId) {
-        return fwService.runInSession((htp)->htp.get(User.class, userId).getRoles());
+        return userRepository.findOne(userId).getRoles();
     }
 
     @RequestMapping("obtainRoles")
     @ResponseBody
-    public PageContent obtainRoles(int start, int limit) {
-        int total = fwService.getAllCount(Role.class);
-        List<Role> list = fwService.getList(Role.class, null, start, limit);
-        return page(total, list);
+    public PageContent obtainRoles(int page, int limit) {
+        return page(roleRepository.findAll(pageRequest(page, limit)));
     }
 
     @RequestMapping("deleteRole")
     @ResponseBody
     public String deleteRole(int[] roleIds) {
         for (int id : roleIds) {
-            fwService.delete(Role.class, id);
+            roleRepository.delete(id);
         }
         return DONE;
     }
@@ -44,7 +48,7 @@ public class RoleController extends BaseController {
     @RequestMapping("saveRole")
     @ResponseBody
     public String saveRole(Role role) throws Exception {
-        fwService.saveOrUpdateRole(role);
+        roleRepository.save(role);
         return DONE;
     }
 }

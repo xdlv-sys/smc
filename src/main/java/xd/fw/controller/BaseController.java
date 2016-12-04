@@ -1,5 +1,11 @@
 package xd.fw.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import xd.fw.bean.User;
+
+import java.util.List;
+
 /**
  * Created by xd on 2016/11/30.
  */
@@ -7,20 +13,23 @@ public class BaseController {
 
     protected final String DONE = "{\"success\":true}";
 
-    protected PageContent page(int total, Object data){
-        return new PageContent(total, data);
+    protected PageContent page(Page<?> data){
+        return new PageContent(data);
+    }
+    protected PageRequest pageRequest(int page, int limit){
+        return new PageRequest(page, limit);
     }
 
     static class PageContent{
-        int total;
-        Object data;
+        long total;
+        List<?> data;
 
-        PageContent(int total, Object data){
-            this.total = total;
-            this.data = data;
+        PageContent(Page<?> data){
+            this.total = data.getTotalElements();
+            this.data = data.getContent();
         }
 
-        public int getTotal() {
+        public long getTotal() {
             return total;
         }
 

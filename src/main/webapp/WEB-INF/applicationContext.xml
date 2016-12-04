@@ -46,5 +46,6 @@
     <task:annotation-driven executor="executor" scheduler="scheduler" proxy-target-class="true"/>
 
     <import resource="spring-db.xml"/>
+    <import resource="spring-security.xml"/>
 
 </beans>

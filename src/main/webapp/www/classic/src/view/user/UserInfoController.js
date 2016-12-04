@@ -12,7 +12,7 @@ Ext.define('XApp.view.user.UserInfoController', {
         XApp.Util.ajax({
             url: '/user/saveUser.cmd',
             params: params,
-            success: function (response) {
+            success: function () {
                 win.close();
                 if (saveCallback){
                     saveCallback();

@@ -1,7 +1,36 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                     http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+                     http://www.springframework.org/schema/beans/spring-beans.xsd
+                     http://www.springframework.org/schema/tx
+                     http://www.springframework.org/schema/tx/spring-tx.xsd
+                     http://www.springframework.org/schema/data/jpa
+                     http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+    <jpa:repositories base-package="xd.fw.dao" repository-impl-postfix="Impl"/>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="packagesToScan">
+            <list>
+                <value>xd</value>
+            </list>
+        </property>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="false"/>
+                <property name="showSql" value="true"/>
+                <property name="database" value="MYSQL"/>
+            </bean>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.physical_naming_strategy">xd.fw.mk.PhysicalNamingStrategyImpl</prop>
+            </props>
+        </property>
+    </bean>
 
     <bean id="dataSource" destroy-method="close"
           class="org.apache.commons.dbcp.BasicDataSource">
@@ -13,52 +42,11 @@
         <property name="maxActive" value="20"/>
     </bean>
 
-    <!--Hibernate -->
-    <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <!--<property name="mappingLocations">
-            <list>
-                <value>classpath:xd/fw/bean/*.hbm.xml</value>
-                <value>classpath:xd/dl/bean/*.hbm.xml</value>
-            </list>
-        </property>-->
-        <property name="packagesToScan">
-            <list>
-                <value>xd.fw.bean</value>
-                <value>xd.dl.bean</value>
-            </list>
-        </property>
-        <property name="hibernateProperties">
-            <props>
-                <!--<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory
-                </prop>
-                <prop key="hibernate.cache.use_second_level_cache">false</prop>
-                <prop key="hibernate.cache.use_query_cache">true</prop>-->
-                <!--<prop key="hibernate.cache.provider_configuration_file_resource_path">classpath:ehcache/ehcache.properties</prop>-->
-                <!--<prop key="hibernate.search.default.directory_provider">filesystem</prop>
-                <prop key="hibernate.search.default.indexBase">${hibernate.search.default.indexBase}</prop>-->
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="format_sql">false</prop>
-                <prop key="hibernate.dialect">${jdbc_dialect}</prop>
-            </props>
-        </property>
-        <property name="physicalNamingStrategy">
-            <bean class="xd.fw.mk.PhysicalNamingStrategyImpl"/>
-        </property>
-        <!--
-        <property name="implicitNamingStrategy">
-            <bean class="org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl"/>
-        </property>-->
+    <bean id="transactionManager"
+          class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <bean id="transactionManager"
-          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>
