@@ -17,24 +17,33 @@ public class BaseController {
         return new PageContent(data);
     }
     protected PageRequest pageRequest(int page, int limit){
-        return new PageRequest(page, limit);
+        return new PageRequest(page -1, limit);
     }
 
-    static class PageContent{
-        long total;
-        List<?> data;
-
-        PageContent(Page<?> data){
-            this.total = data.getTotalElements();
-            this.data = data.getContent();
-        }
-
-        public long getTotal() {
-            return total;
+    protected ModelRequest modelRequest(Object obj){
+        return new ModelRequest(obj);
+    }
+    static class ModelRequest{
+        Object data;
+        ModelRequest(Object data){
+            this.data = data;
         }
 
         public Object getData() {
             return data;
+        }
+    }
+
+    static class PageContent extends ModelRequest{
+        long total;
+
+        PageContent(Page<?> data){
+            super(data.getContent());
+            this.total = data.getTotalElements();
+        }
+
+        public long getTotal() {
+            return total;
         }
     }
 }

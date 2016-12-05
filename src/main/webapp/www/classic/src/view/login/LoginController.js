@@ -17,14 +17,15 @@ Ext.define('XApp.view.login.LoginController', {
         if (!form.isValid()){
             return;
         }
-		XApp.Util.ajax({
+		Ext.Ajax.request({
 			url : '/user/userLogin.cmd',
+			method : 'POST',
 			params : form.getValues(),
 			scope : this,
 			success : this.loginSuccess
 		});
 	},
-	loginSuccess : function(json,response) {
+	loginSuccess : function(response) {
 		var session = this.getView().getSession();
 		
 		var userReader = Ext.data.schema.Schema.lookupEntity('User').getProxy().getReader();

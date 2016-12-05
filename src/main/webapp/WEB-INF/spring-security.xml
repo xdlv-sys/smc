@@ -4,10 +4,21 @@
          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <s:http/>
+    <s:http pattern="/user/version.cmd" security="none"/>
 
-    <s:user-service>
-        <s:user name="user" password="password" authorities="ROLE_USER"/>
-    </s:user-service>
+    <s:http auto-config="true">
+        <s:intercept-url pattern="/**/*.cmd" access="hasRole('ROLE_EXE')"/>
+        <s:form-login login-page="/www/index.html" login-processing-url="/user/userLogin.cmd"
+                      authentication-success-forward-url="/user/userLogin.cmd"
+                      username-parameter="name" password-parameter="password"/>
+        <s:csrf disabled="true"/>
+
+    </s:http>
+
+    <s:authentication-manager alias="authenticationManager">
+        <s:authentication-provider user-service-ref="securityUserDetail">
+            <s:password-encoder hash="md5" />
+        </s:authentication-provider>
+    </s:authentication-manager>
 
 </beans>

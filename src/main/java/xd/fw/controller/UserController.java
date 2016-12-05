@@ -41,14 +41,14 @@ public class UserController extends BaseController{
 
 	@RequestMapping("userLogin")
     @ResponseBody
-    public User userLogin(User user, HttpSession session)throws Exception {
+    public ModelRequest userLogin(User user, HttpSession session)throws Exception {
 	    user.setPassword(FwUtil.md5(user.getPassword()));
         User dbUser = userRepository.findOne(Example.of(user));
         if (dbUser == null){
             throw new FwException("user name or password is invalidate, please try again");
         }
         session.setAttribute(USER_KEY, dbUser);
-		return dbUser;
+		return modelRequest(dbUser);
 
 	}
     @RequestMapping("userLogout")

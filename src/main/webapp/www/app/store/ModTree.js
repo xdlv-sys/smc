@@ -8,7 +8,7 @@ Ext.define('XApp.store.ModTree', {
     },
     proxy: {
         type: 'ajax',
-        url: '/mod/obtainMods.cmd',
+        url: '/mod/obtainMods.cmd?page=1&limit=99999',
         reader: {
             type: 'json',
             transform: function(mods){

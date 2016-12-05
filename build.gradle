@@ -39,10 +39,8 @@ dependencies {
     compile fileTree(dir:'src/main/webapp/WEB-INF/lib',include:['*.jar'], exclude:['*-source.jar'])
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-devtools")
-    compile 'org.springframework.security:spring-security-web:4.2.1.BUILD-SNAPSHOT'
-    compile 'org.springframework.security:spring-security-config:4.2.0.RELEASE'
-    compile 'org.springframework.data:spring-data-jpa:1.10.5.RELEASE'
-    compile group: 'org.springframework', name: 'spring-context', version: '5.0.0.M3'
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
 
 
     compile ([group: 'org.apache.mina', name: 'mina-core', version: '2.0.13'],
@@ -51,7 +49,6 @@ dependencies {
             [group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.5.2'],
             [group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'],
             [group: 'com.google.zxing', name: 'core', version: '3.3.0'],
-            [group: 'org.springframework', name: 'spring-orm', version: '5.0.0.M3'],
             [group:'org.hibernate', name :'hibernate-core', version: '5.2.4.Final'],
             [group: 'org.aspectj', name: 'aspectjrt', version: '1.8.9'],
             'org.apache.commons:commons-lang3:3.5',
