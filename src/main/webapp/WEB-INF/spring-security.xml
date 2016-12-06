@@ -11,9 +11,16 @@
         <s:form-login login-page="/www/index.html" login-processing-url="/user/userLogin.cmd"
                       authentication-success-forward-url="/user/userLogin.cmd"
                       username-parameter="name" password-parameter="password"/>
+        <s:logout delete-cookies="true" invalidate-session="true"
+                  logout-success-url="/www/index.html" logout-url="/user/userLogout.cmd"/>
         <s:csrf disabled="true"/>
-
+        <s:custom-filter ref="securityFilterChain" before="FILTER_SECURITY_INTERCEPTOR"/>
     </s:http>
+
+    <bean id="securityFilterChain" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+        <property name="accessDecisionManager" ref="securityAccessDecisionManager"/>
+        <property name="securityMetadataSource" ref="emptySecurityMetadataSource"/>
+     </bean>
 
     <s:authentication-manager alias="authenticationManager">
         <s:authentication-provider user-service-ref="securityUserDetail">

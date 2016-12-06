@@ -23,7 +23,7 @@ Ext.define("XApp.view.cdu.CDUGrid", {
             layout: 'hbox',
             items: [{
                 xtype: 'button',
-                text: '增加' + config.modelName,
+                text: '新增' + config.modelName,
                 handler: config.addText? config.addText : ('add' + config.model),
                 hidden: config.hiddenButtons && Ext.Array.contains(config.hiddenButtons,'add')
             }, {
