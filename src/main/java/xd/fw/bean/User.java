@@ -2,12 +2,15 @@ package xd.fw.bean;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "t_user")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "pk_user_id")
+    @TableGenerator(name = "pk_user_id", table = "t_primary_key",
+            pkColumnName = "table_name", valueColumnName = "current_id",
+            initialValue = 100, allocationSize = 1000)
     private Integer id;
     @Column(name = "name")
     private String name;
@@ -21,7 +24,7 @@ public class User {
     @ManyToMany(cascade={CascadeType.PERSIST},fetch=FetchType.EAGER)
     @JoinTable(name="t_user_role" ,joinColumns={@JoinColumn(name="user_id")}
             ,inverseJoinColumns={@JoinColumn(name="role_id")})
-    private Set<Role> roles;
+    private List<Role> roles;
 
     public Integer getId() {
         return id;
@@ -55,23 +58,12 @@ public class User {
         this.mail = mail;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
-    }
-
-    @Transient
-    private List<Role> rolesL;
-
-    public List<Role> getRolesL() {
-        return rolesL;
-    }
-
-    public void setRolesL(List<Role> rolesL) {
-        this.rolesL = rolesL;
     }
 
 }

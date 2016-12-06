@@ -27,18 +27,16 @@ Ext.define('XApp.store.ModTree', {
                         checked: false,
                         expanded: true,
                         modId: id,
-                        children:[]
+                        children:[],
+                        leaf : true
                     });
-
-                    if (!Ext.isEmpty(routerId)){
-                        map[id].leaf = true;
-                    }
                     var parent = map[v.parentId];
                     if (!parent){
                         parent = map[v.parentId]={
                             children:[]
                         };
                     }
+                    parent.leaf = false;
                     parent.children.push(map[id]);
                 });
                 return root.children;

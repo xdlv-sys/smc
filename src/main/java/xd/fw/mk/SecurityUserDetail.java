@@ -25,6 +25,9 @@ public class SecurityUserDetail implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         xd.fw.bean.User user = userRepository.findByName(username);
+        if (user == null){
+            throw new UsernameNotFoundException("user name is invalidate");
+        }
         List<SimpleGrantedAuthority> roles = Collections.singletonList(
                 new SimpleGrantedAuthority("ROLE_EXE"));
         return new User(username,user.getPassword(),true,true,true,true,roles);

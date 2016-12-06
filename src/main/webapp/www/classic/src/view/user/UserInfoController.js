@@ -6,7 +6,7 @@ Ext.define('XApp.view.user.UserInfoController', {
         var win = btn.up('window');
         var params = Ext.apply({}, btn.up('form').getValues());
         Ext.each(win.down('grid').getSelection(), function (v, i) {
-            params['rolesL[' + i + '].id'] = v.id;
+            params['roles[' + i + '].id'] = v.id;
         });
         var saveCallback = this.getView().getInitialConfig().saveCallback;
         XApp.Util.ajax({

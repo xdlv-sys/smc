@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.ListUtils;
+import xd.fw.bean.Role;
 import xd.fw.bean.User;
 import xd.fw.dao.UserRepository;
+import xd.fw.dao.UserRepositoryCustom;
 import xd.fw.service.FwService;
 import xd.fw.util.FwException;
 import xd.fw.util.FwUtil;
@@ -33,6 +35,10 @@ public class UserController extends BaseController{
     FwService fwService;
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserRepositoryCustom userRepositoryCustom;
+
     @Value("${version}")
     String version;
 
@@ -72,7 +78,7 @@ public class UserController extends BaseController{
     @RequestMapping("saveUser")
     @ResponseBody
     public String saveUser(User user) throws Exception {
-        userRepository.save(user);
+        userRepositoryCustom.saveUser(user);
         return DONE;
     }
 

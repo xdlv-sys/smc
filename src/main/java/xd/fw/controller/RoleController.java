@@ -26,7 +26,7 @@ public class RoleController extends BaseController {
 
     @RequestMapping("obtainUserRoles")
     @ResponseBody
-    public Set<Role> obtainUserRoles(int userId) {
+    public List<Role> obtainUserRoles(int userId) {
         return userRepository.findOne(userId).getRoles();
     }
 

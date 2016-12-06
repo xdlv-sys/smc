@@ -16,6 +16,9 @@ public class BaseController {
     protected PageContent page(Page<?> data){
         return new PageContent(data);
     }
+    protected PageContent page(List<?> data){
+        return new PageContent(data);
+    }
     protected PageRequest pageRequest(int page, int limit){
         return new PageRequest(page -1, limit);
     }
@@ -40,6 +43,10 @@ public class BaseController {
         PageContent(Page<?> data){
             super(data.getContent());
             this.total = data.getTotalElements();
+        }
+        PageContent(List<?> data){
+            super(data);
+            this.total = data == null ? 0 : data.size();
         }
 
         public long getTotal() {

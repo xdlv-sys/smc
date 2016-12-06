@@ -1,13 +1,13 @@
 package xd.fw.bean;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "t_role")
 public class Role {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name="name")
     private String name;
@@ -39,16 +39,5 @@ public class Role {
 
     public Set<Mod> getMods() {
         return mods;
-    }
-
-    @Transient
-    public List<Mod> modsL;
-
-    public List<Mod> getModsL() {
-        return modsL;
-    }
-
-    public void setModsL(List<Mod> modsL) {
-        this.modsL = modsL;
     }
 }
