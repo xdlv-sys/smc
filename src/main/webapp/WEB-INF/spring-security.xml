@@ -6,7 +6,7 @@
 
     <s:http pattern="/user/version.cmd" security="none"/>
 
-    <s:http auto-config="true">
+    <s:http auto-config="true" use-expressions="true">
         <s:intercept-url pattern="/**/*.cmd" access="hasRole('ROLE_EXE')"/>
         <s:form-login login-page="/www/index.html" login-processing-url="/user/userLogin.cmd"
                       authentication-success-forward-url="/user/userLogin.cmd"
@@ -17,7 +17,7 @@
         <s:custom-filter ref="securityFilterChain" before="FILTER_SECURITY_INTERCEPTOR"/>
     </s:http>
 
-    <bean id="securityFilterChain" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+    <bean id="securityFilterChain" class="xd.fw.mk.CustomFilterSecurityInterceptor">
         <property name="accessDecisionManager" ref="securityAccessDecisionManager"/>
         <property name="securityMetadataSource" ref="emptySecurityMetadataSource"/>
      </bean>

@@ -30,6 +30,6 @@ public class SecurityUserDetail implements UserDetailsService {
         }
         List<SimpleGrantedAuthority> roles = Collections.singletonList(
                 new SimpleGrantedAuthority("ROLE_EXE"));
-        return new User(username,user.getPassword(),true,true,true,true,roles);
+        return new UserDetail(username,user.getPassword(),roles, user);
     }
 }

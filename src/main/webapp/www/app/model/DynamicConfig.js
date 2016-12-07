@@ -4,7 +4,7 @@ Ext.define('XApp.model.DynamicConfig',{
 	fields : ['confName','confValue','confDesc',{name: 'dirty', type: 'int'}],
 
 	proxy: {
-		url: 'dynamic_config/obtainDynamicConfigs.cmd',
+		url: '/config/obtainConfigs.cmd',
 		reader: {
 			type: 'json',
 			rootProperty: 'data'

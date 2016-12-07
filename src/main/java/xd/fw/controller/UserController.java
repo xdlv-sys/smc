@@ -7,6 +7,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +17,7 @@ import xd.fw.bean.Role;
 import xd.fw.bean.User;
 import xd.fw.dao.UserRepository;
 import xd.fw.dao.UserRepositoryCustom;
+import xd.fw.mk.UserDetail;
 import xd.fw.service.FwService;
 import xd.fw.util.FwException;
 import xd.fw.util.FwUtil;
@@ -47,10 +49,9 @@ public class UserController extends BaseController{
 
 	@RequestMapping("userLogin")
     @ResponseBody
-    public ModelRequest userLogin(User user, HttpSession session)throws Exception {
-        User dbUser = userRepository.findByName(user.getName());
-        session.setAttribute(USER_KEY, dbUser);
-		return modelRequest(dbUser);
+    public ModelRequest userLogin()throws Exception {
+        UserDetail userDetail = (UserDetail)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return modelRequest(userDetail.getUser());
 
 	}
     @RequestMapping("userLogout")
