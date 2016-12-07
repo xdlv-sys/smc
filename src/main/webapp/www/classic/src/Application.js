@@ -5,8 +5,7 @@ Ext.define('XApp.Application', {
     
     controllers: ['Root@XApp.controller'],
     models: ['User','Mod','Role','DynamicConfig'],
-    stores: ['ModTree'
-    ],
+    stores: ['ModTree'],
     
     onLaunch: function () {
         

@@ -21,31 +21,33 @@ Ext.define("XApp.view.cdu.CDUGrid", {
             margin: '0 0 10 10',
             xtype: 'container',
             layout: 'hbox',
-            items: [{
-                xtype: 'button',
-                text: '新增' + config.modelName,
-                handler: config.addText? config.addText : ('add' + config.model),
-                hidden: config.hiddenButtons && Ext.Array.contains(config.hiddenButtons,'add')
-            }, {
-                margin: '0 0 0 10',
-                xtype: 'button',
-                bind: {
-                    disabled: '{!singleSelected}'
-                },
-                text: config.modText ? config.modText : ('修改' + config.modelName),
-                handler: 'mod' + config.model,
-                hidden: config.hiddenButtons && Ext.Array.contains(config.hiddenButtons,'mod')
-            }, {
-                margin: '0 0 0 10',
-                xtype: 'button',
-                bind: {
-                    disabled: '{!multiSelected}'
-                },
-                text: config.delText ? config.delText : ('删除' + config.modelName),
-                handler: 'del' + config.model,
-                hidden: config.hiddenButtons && Ext.Array.contains(config.hiddenButtons,'del')
-            }]
+            items: []
         };
+        var createButtonItem = function(key){
+            if (config.hiddenButtons && Ext.Array.contains(config.hiddenButtons,key)){
+                return;
+            }
+            var ret = {
+                margin: '0 10 0 0',
+                xtype: 'button',
+                handler: key + config.model,
+                hidden: !XApp.store.ModTree.checkMod(config[key + 'ModId']),
+                text : config.addText ? config.addText : ('新增' + config.modelName)
+            };
+            if (key === 'mod'){
+                ret.text = config.modText ? config.modText : ('修改' + config.modelName);
+                ret.bind = { disabled: '{!singleSelected}'};
+            }
+            if (key === 'del'){
+                ret.text = config.delText ? config.delText : ('删除' + config.modelName);
+                ret.bind = { disabled: '{!multiSelected}'};
+            }
+            return ret;
+        };
+        config.tbar.items.push(createButtonItem('add'));
+        config.tbar.items.push(createButtonItem('mod'));
+        config.tbar.items.push(createButtonItem('del'));
+
         Ext.each(config.tbarButtons, function(v,i){
             config.tbar.items.push(v);
         });

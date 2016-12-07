@@ -22,6 +22,9 @@ Ext.define("XApp.view.user.UserManager", {
         xtype: 'cduGrid',
         modelName: '用户',
         model: 'User',
+        addModId: -9901,
+        modModId: -9903,
+        delModId: -9902,
         flex: 1,
         columns: [{
             text: "用户名",
@@ -37,6 +40,9 @@ Ext.define("XApp.view.user.UserManager", {
         modelName: '角色',
         model: 'Role',
         flex: 1,
+        addModId: -9904,
+        modModId: -9906,
+        delModId: -9905,
         columns: [{
             text: "角色名",
             sortable: true,

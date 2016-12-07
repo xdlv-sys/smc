@@ -29,7 +29,7 @@ public class ModController extends BaseController{
 
     @RequestMapping("obtainModsByRole")
     @ResponseBody
-    public Set<Mod> obtainModsByRole(int roleId) throws Exception{
+    public List<Mod> obtainModsByRole(int roleId) throws Exception{
         return roleRepository.findOne(roleId).getMods();
     }
 

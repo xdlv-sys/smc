@@ -2,6 +2,23 @@ Ext.define('XApp.store.ModTree', {
     extend: 'Ext.data.TreeStore',
     alias: 'store.modtreestore',
 
+    statics: {
+        isAdmin : false,
+        mods: {},
+        checkMod : function(modId){
+            if (this.isAdmin || Ext.isEmpty(modId)){
+                return true;
+            }
+            var success = false;
+            Ext.each(this.mods, function(v){
+                if (v.id === modId){
+                    success = true;
+                }
+            });
+            return success;
+        }
+    },
+
     root:{
         text: 'mods',
         expend: false

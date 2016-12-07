@@ -1,21 +1,25 @@
 package xd.fw.bean;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "t_role")
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "pk_role_id")
+    @TableGenerator(name = "pk_role_id", table = "t_primary_key",
+            pkColumnName = "table_name", valueColumnName = "current_id",
+            initialValue = 100, allocationSize = 100)
     private Integer id;
     @Column(name="name")
     private String name;
 
-    @ManyToMany(cascade={CascadeType.PERSIST},fetch=FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="t_role_mod" ,joinColumns={@JoinColumn(name="role_id")}
             ,inverseJoinColumns={@JoinColumn(name="mod_id")})
-    private Set<Mod> mods;
+    private List<Mod> mods;
 
     public Integer getId() {
         return id;
@@ -33,11 +37,11 @@ public class Role {
         this.name = name;
     }
 
-    public void setMods(Set<Mod> mods) {
+    public void setMods(List<Mod> mods) {
         this.mods = mods;
     }
 
-    public Set<Mod> getMods() {
+    public List<Mod> getMods() {
         return mods;
     }
 }

@@ -34,6 +34,9 @@ Ext.define('XApp.controller.Root', {
         var map={0 : root};
         var mods = [];
         Ext.each(user.data.roles, function(role){
+            if (role.id === -2){
+                XApp.store.ModTree.isAdmin = true;
+            }
             Ext.each(role.mods, function(v){
                 mods.push(v);
             });
@@ -41,6 +44,7 @@ Ext.define('XApp.controller.Root', {
         Ext.Array.sort(mods, function(a,b){
             return a.id - b.id;
         });
+        XApp.store.ModTree.mods = mods;
         Ext.each(mods, function(v){
             var id = v.id;
             var routerId = v.routerId;

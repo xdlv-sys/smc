@@ -10,7 +10,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "pk_user_id")
     @TableGenerator(name = "pk_user_id", table = "t_primary_key",
             pkColumnName = "table_name", valueColumnName = "current_id",
-            initialValue = 100, allocationSize = 1000)
+            initialValue = 100, allocationSize = 100)
     private Integer id;
     @Column(name = "name")
     private String name;
@@ -21,7 +21,7 @@ public class User {
     @Column(name="mail")
     private String mail;
 
-    @ManyToMany(cascade={CascadeType.PERSIST},fetch=FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="t_user_role" ,joinColumns={@JoinColumn(name="user_id")}
             ,inverseJoinColumns={@JoinColumn(name="role_id")})
     private List<Role> roles;
