@@ -12,24 +12,38 @@
     <script type="text/javascript" src="js/cache/angular-material.js"></script>
     <script type="text/javascript" src="js/cache/angular-aria.js"></script>
     <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/menu.css" />
     <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/conf.js"></script>
+    <script type="text/javascript" src="js/menu.js"></script>
+
 </head>
 
-<body ng-app="taxApp" ng-controller="taxController">
+<body ng-app="taxApp" layout="column" ng-controller="taxController">
     <md-toolbar layout="row" class="md-toolbar-tools">
-        <md-button class="menu md-icon-button" hide-gt-sm ng-click="toggleList()" aria-label="Show User List">
+        <md-button class="menu md-icon-button" hide-gt-sm ng-click="toggleMenu()" aria-label="Show User List">
             <md-icon md-svg-icon="menu"></md-icon>
         </md-button>
-        <h1>Angular Material - Starter App</h1>
+        <img src="img/logo.png" width="50px" height="50px" />
+        <div flex="100" style="font-size:34px;font-weight:bold;color:white;text-align:center">增值税管理平台</div>
     </md-toolbar>
     <div flex layout="row">
-        <md-sidenav class="md-whiteframe-4dp" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" ng-click="toggleList()">
-            menu
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+        <md-sidenav class="md-whiteframe-4dp" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" ng-click="toggleMenu()">
+        <md-content flex role="navigation">
+        <ul class="side-menu">
+          <li ng-repeat="section in sections" class="parent-list-item"
+              ng-class="{'parentActive' : isSectionSelected(section)}">
+            <h2 class="menu-heading" ng-if="section.type === 'heading'"
+                id="heading_{{ section.name | nospace }}">
+              {{section}}
+            </h2>
+            <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
+            <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
+          </li>
+        </ul>
+
+      </md-content>    
+        </md-content>
         </md-sidenav>
         <md-content flex id="content">
             content
