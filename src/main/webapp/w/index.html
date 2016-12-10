@@ -11,15 +11,23 @@
     <script type="text/javascript" src="js/cache/angular-animate.js"></script>
     <script type="text/javascript" src="js/cache/angular-material.js"></script>
     <script type="text/javascript" src="js/cache/angular-aria.js"></script>
+    <script src="//cdn.bootcss.com/angular-ui-router/1.0.0-beta.3/angular-ui-router.min.js"></script>
+    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- my stuff-->
     <link rel="stylesheet" href="css/app.css" />
     <link rel="stylesheet" href="css/menu.css" />
+    <script type="text/javascript" src="js/modules.js"></script>
+    
+    <script type="text/javascript" src="js/service/menu.js"></script>
+    <script type="text/javascript" src="js/service/menu-directive.js"></script>
+    <script type="text/javascript" src="js/router.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/conf.js"></script>
-    <script type="text/javascript" src="js/menu.js"></script>
-
+    <script type="text/javascript" src="js/controller/user.js"></script>
+    <script type="text/javascript" src="js/controller/login.js"></script>
 </head>
 
-<body ng-app="taxApp" layout="column" ng-controller="taxController">
+<body ng-app="xdApp" layout="column" ng-controller="taxController as vm">
     <md-toolbar layout="row" class="md-toolbar-tools">
         <md-button class="menu md-icon-button" hide-gt-sm ng-click="toggleMenu()" aria-label="Show User List">
             <md-icon md-svg-icon="menu"></md-icon>
@@ -28,25 +36,20 @@
         <div flex="100" style="font-size:34px;font-weight:bold;color:white;text-align:center">增值税管理平台</div>
     </md-toolbar>
     <div flex layout="row">
-        <md-sidenav class="md-whiteframe-4dp" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" ng-click="toggleMenu()">
-        <md-content flex role="navigation">
-        <ul class="side-menu">
-          <li ng-repeat="section in sections" class="parent-list-item"
-              ng-class="{'parentActive' : isSectionSelected(section)}">
-            <h2 class="menu-heading" ng-if="section.type === 'heading'"
-                id="heading_{{ section.name | nospace }}">
-              {{section}}
-            </h2>
-            <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
-            <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
-          </li>
-        </ul>
-
-      </md-content>    
-        </md-content>
+        <md-sidenav class="md-whiteframe-4dp" md-component-id="left" ng-click="toggleMenu()">
+            <md-content role="navigation">
+                <ul class="side-menu">
+                    <li ng-repeat="section in vm.menu.sections" class="parent-list-item" ng-class="{'parentActive' : vm.isSectionSelected(section)}">
+                        <h2 class="menu-heading" ng-if="section.type === 'heading'" id="heading_{{ section.name | nospace }}">
+                            {{section.name}}
+                        </h2>
+                        <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
+                        <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
+                    </li>
+                </ul>
+            </md-content>
         </md-sidenav>
-        <md-content flex id="content">
-            content
+        <md-content flex ui-view id="content" layout="row">
         </md-content>
     </div>
 </body>
