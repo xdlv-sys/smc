@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="../js/cache/angular-material.css" />
+    <script type="text/javascript" src="../js/cache/angular.js"></script>
+    <script type="text/javascript" src="../js/cache/angular-animate.js"></script>
+    <script type="text/javascript" src="../js/cache/angular-material.js"></script>
+    <script type="text/javascript" src="../js/cache/angular-aria.js"></script>
+    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="app.css" />
+    <script type="text/javascript" src="app.js"></script>
+</head>
+
+<body ng-app="taxApp" layout="column" ng-controller="taxController">
+    <!-- <md-button class="btn1" ng-disabled="{{enabled}}"> Button </md-button>
+    <md-button class="md-raised">Raised Button</md-button>
+    <md-button class="md-raised md-cornered">Button</md-button>
+    <md-button>
+        <md-icon md-font-icon="icon-home" ng-style="{color: 'green', 'font-size':'36px', height:'36px'}">
+        </md-icon>
+    </md-button>
+    <section layout="row" layout-align="center center">
+        <md-button class="groupX left">Apple</md-button>
+        <md-button class="groupX middle">Samsung</md-button>
+        <md-button class="groupX middle">Sony</md-button>
+        <md-button class="groupX right">B&amp;O</md-button>
+    </section>
+    <md-checkbox class="green">
+        Green Checkbox
+    </md-checkbox>
+    <div layout="row">
+        <div flex>First item in row</div>
+        <div flex="20">Second item in row</div>
+    </div>
+    <div layout="column">
+        <div flex="66">First item in column</div>
+        <div flex="33">Second item in column</div>
+    </div>
+    <md-divider></md-divider>
+    <br>
+    <md-divider md-inset></md-divider>
+
+    <md-grid-list md-cols="5" md-gutter="1em" md-row-height="4:3">
+        <md-grid-tile>title</md-grid-tile>
+    </md-grid-list>
+
+<md-nav-bar md-selected-nav-item="currentNavItem">
+  <md-nav-item md-nav-click="goto('page1')" name="page1">Page One</md-nav-item>
+  <md-nav-item md-nav-sref="app.page2" name="page2">Page Two</md-nav-item>
+  <md-nav-item md-nav-href="#page3" name="page3">Page Three</md-nav-item>
+</md-nav-bar>
+
+
+<md-progress-circular md-mode="determinate" value="90"></md-progress-circular>
+<br>
+
+<md-progress-circular md-mode="determinate" ng-value="90"></md-progress-circular>
+<br>
+
+<md-progress-circular md-mode="determinate" value="90" md-diameter="100"></md-progress-circular>
+<br>
+<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+
+
+<md-slider md-invert ng-model="myValue" step="10" min="10" max="130">
+</md-slider>
+
+    <md-dialog aria-label="List dialog">
+        <md-dialog-content>
+            <md-list>
+                <md-list-item>
+                    <p>Number 1</p>
+                </md-list-item>
+            </md-list>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="closeDialog()" class="md-primary">Close Dialog</md-button>
+        </md-dialog-actions>
+    </md-dialog>
+
+    <div md-swipe-down="onSwipDown()">Swipe me down!</div>
+
+     <div class="md-toolbar-tools">
+      <span>My App's Title</span>
+
+      
+      <span flex></span>
+
+      <md-button>
+        Right Bar Button
+      </md-button>
+    </div>
+
+  </md-toolbar>
+
+  <br>aaa -->
+<md-virtual-repeat-container>
+  <div md-virtual-repeat="i in items">Hello {{i}}!</div>
+</md-virtual-repeat-container>
+
+<md-virtual-repeat-container md-orient-horizontal>
+  <div md-virtual-repeat="i in items" md-item-size="20">Hello {{i}}!</div>
+</md-virtual-repeat-container>
+-----------<br>
+<div md-whiteframe="8" >
+  <span>Elevation of 3dp</span>
+</div>
+
+<md-button ng-click="show()">Show</md-button>
+
+</body>
+
+</html>
