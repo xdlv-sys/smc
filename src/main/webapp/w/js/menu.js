@@ -12,7 +12,7 @@ app.directive('menuToggle', ['$timeout', function($timeout) {
         link: function($scope, $element) {
             var controller = $element.parent().controller();
             $scope.isOpen = function() {
-                return controller.isOpen($scope.section);
+                return true;
             };
             $scope.toggle = function() {
                 controller.toggleOpen($scope.section);

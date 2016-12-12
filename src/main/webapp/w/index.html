@@ -20,7 +20,7 @@
 </head>
 
 <body ng-app="taxApp" layout="column" ng-controller="taxController">
-    <md-toolbar layout="row" class="md-toolbar-tools">
+    <md-toolbar md-whiteframe="8" layout="row" class="md-toolbar-tools">
         <md-button class="menu md-icon-button" hide-gt-sm ng-click="toggleMenu()" aria-label="Show User List">
             <md-icon md-svg-icon="menu"></md-icon>
         </md-button>
@@ -28,7 +28,7 @@
         <div flex="100" style="font-size:34px;font-weight:bold;color:white;text-align:center">增值税管理平台</div>
     </md-toolbar>
     <div flex layout="row">
-        <md-sidenav class="md-whiteframe-4dp" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" ng-click="toggleMenu()">
+        <md-sidenav md-whiteframe="8" class="md-whiteframe-4dp" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" ng-click="toggleMenu()">
         <md-content flex role="navigation">
         <ul class="side-menu">
           <li ng-repeat="section in sections" class="parent-list-item"

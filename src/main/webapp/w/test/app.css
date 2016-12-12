@@ -57,3 +57,11 @@
 md-checkbox.md-checked.green .md-icon {
  background-color: rgba(0, 255, 0, 0.87);
 }
+
+.ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+    overflow: auto !important;
+    /* or use: overflow-x: hide!important; */
+}
+.ui-grid-pager-control button{
+	height: 40px;
+}

@@ -1,6 +1,26 @@
-var app = angular.module('taxApp', ['ngMaterial']);
+var app = angular.module('taxApp', ['ngMaterial', 'ui.grid', 'ui.grid.pagination']);
 app.controller('taxController', ['$scope', '$mdSidenav', 'modal',
     function($scope, $mdSidenav, modal) {
+
+        $scope.gridOptions1 = {
+        	enableHorizontalScrollbar :1,
+            enableVerticalScrollbar : 1,
+            paginationPageSizes: [25, 50, 75],
+            paginationPageSize: 2,
+            columnDefs: [
+                { name: 'name' },
+                { name: 'gender' }
+            ],
+            onRegisterApi: function(gridApi){
+            	$scope.gridApi = gridApi;
+            },
+            data: [{name: '1_name', 'gender': 'm'},
+            {name: '2_name', 'gender': 'm'},
+            {name: '3_name', 'gender': 'm'},
+            {name: '4_name', 'gender': 'm'}]
+        };
+
+
         $scope.enabled = false;
 
         $scope.show = function() {
