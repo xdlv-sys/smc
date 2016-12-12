@@ -1,79 +1,64 @@
-services.factory('menu', [
-    '$location',
-    '$rootScope',
-    function($location) {
+services.factory('menu', ['$state', function($state) {
+    var sections = [];
+    var self;
 
-        var sections = [{
-            name: 'Getting Started',
-            state: 'home.gettingstarted',
-            type: 'heading'
-        }];
+    return self = {
+        sections: sections,
 
-        sections.push({
-            name: 'Beers',
-            type: 'toggle',
-            pages: [{
-                name: 'Users',
-                type: 'link',
-                state: 'user',
-                icon: 'fa fa-group'
-            }, {
-                name: 'Project',
-                state: 'project',
-                type: 'link',
-                icon: 'fa fa-map-marker'
-            }, {
-                name: 'Wheat',
-                state: 'home.beers.wheat',
-                type: 'link',
-                icon: 'fa fa-plus'
-            }]
-        });
+        toggleSelectSection: function(section) {
+            self.openedSection = (self.openedSection === section ? null : section);
+        },
+        isSectionSelected: function(section) {
+            return self.openedSection === section;
+        },
 
-        sections.push({
-            name: 'Munchies',
-            type: 'toggle',
-            pages: [{
-                name: 'Cheetos',
-                type: 'link',
-                state: 'munchies.cheetos',
-                icon: 'fa fa-group'
-            }, {
-                name: 'Banana Chips',
-                state: 'munchies.bananachips',
-                type: 'link',
-                icon: 'fa fa-map-marker'
-            }, {
-                name: 'Donuts',
-                state: 'munchies.donuts',
-                type: 'link',
-                icon: 'fa fa-map-marker'
-            }]
-        });
+        parseMenu: function(mods, load) {
+            var map = {};
+            mods.each(function(v) {
+                var id = v.id;
+                if (!map[id]) {
+                    map[id] = {
+                        pages: []
+                    };
+                }
+                map[id].name = v.name;
+                map[id].icon = v.addition;
+                if (v.routerId) {
+                    map[id].state = v.routerId;
+                }
+                map[id].type = 'link';
 
-        var self;
-
-        return self = {
-            sections: sections,
-
-            toggleSelectSection: function(section) {
-                self.openedSection = (self.openedSection === section ? null : section);
-            },
-            isSectionSelected: function(section) {
-                return self.openedSection === section;
-            },
-
-            selectPage: function(section, page) {
-                page && page.url && $location.path(page.url);
-                self.currentSection = section;
-                self.currentPage = page;
+                var parent = map[v.parentId];
+                if (!parent) {
+                    parent = map[v.parentId] = {
+                        pages: []
+                    };
+                }
+                parent.type = 'toggle';
+                parent.pages.push(map[id]);
+            });
+            if (load) {
+                this.loadMenu(map[0].pages);
             }
-        };
-
-        function sortByHumanName(a, b) {
-            return (a.humanName < b.humanName) ? -1 :
-                (a.humanName > b.humanName) ? 1 : 0;
+            return map[0].pages;
+        },
+        loadMenu: function(page) {
+            var me = this;
+            me.sections = [];
+            me.sections.push({
+                name: '导航',
+                state: 'home',
+                type: 'heading'
+            });
+            page.each(function(v) {
+                me.sections.push(v);
+            });
         }
+    };
 
+    function sortByHumanName(a, b) {
+        return (a.humanName < b.humanName) ? -1 :
+            (a.humanName > b.humanName) ? 1 : 0;
     }
-]);
+
+}]);

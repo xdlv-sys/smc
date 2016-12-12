@@ -31,3 +31,6 @@ Array.prototype.contains = function (obj, compare) {
     }
     return contains;
 };
+Array.prototype.each = function (f) {
+    angular.forEach(this,f);
+};

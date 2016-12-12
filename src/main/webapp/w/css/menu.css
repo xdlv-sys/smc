@@ -89,3 +89,9 @@ md-sidenav {
   transition: 0.75s cubic-bezier(0.35, 0, 0.25, 1);
   transition-property: max-height;
 }
+
+.menu-heading{
+  color: gray;
+  font-size: 10px;
+  margin-left: 5px;
+}

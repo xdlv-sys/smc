@@ -1,26 +1,34 @@
-controllers.controller('taxController', ['$scope', '$mdSidenav', 'menu', function($scope, $mdSidenav, menu) {
-    var vm = this;
-    var aboutMeArr = ['Family', 'Location', 'Lifestyle'];
-    var budgetArr = ['Housing', 'LivingExpenses', 'Healthcare', 'Travel'];
-    var incomeArr = ['SocialSecurity', 'Savings', 'Pension', 'PartTimeJob'];
-    var advancedArr = ['Assumptions', 'BudgetGraph', 'AccountBalanceGraph', 'IncomeBalanceGraph'];
+controllers.controller('taxController', 
+    ['$scope', '$http', 'modal','menu', '$state', function($scope, $http,modal, menu, $state) {
 
     //functions for menu-link and menu-toggle
-    vm.isOpen = isOpen;
-    vm.toggleOpen = toggleOpen;
-    vm.autoFocusContent = false;
-    vm.menu = menu;
-
-    vm.status = {
-        isFirstOpen: true,
-        isFirstDisabled: false
+    this.isOpen = $scope.isOpen = function(section) {
+        return menu.isSectionSelected(section);
     };
 
-    function isOpen(section) {
-        return menu.isSectionSelected(section);
-    }
-
-    function toggleOpen(section) {
+    this.toggleOpen = $scope.toggleOpen = function(section) {
         menu.toggleSelectSection(section);
+    };
+
+    $scope.menu = menu;
+
+    $scope.loginSuccess = false;
+
+    $scope.$on('loginSuccess', function(event, user) {
+        $scope.loginSuccess = true;
+        $scope.user = user;
+        $state.go('user');
+    });
+
+    $scope.logout = function() {
+        $http.post('/user/userLogout.cmd', {});
+        $scope.loginSuccess = false;
+        $state.go('login')
+    };
+
+    $scope.changePassword = function(e){
+        modal.show({
+            url: 'js/tpl/change_password.html'
+        });
     }
 }]);

@@ -23,7 +23,7 @@ angular.module('xdApp', [
 
 }]).config(['$stateProvider', '$urlRouterProvider', '$logProvider',
     function($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise("/user");
+        $urlRouterProvider.otherwise("/login");
         $stateProvider.state('user', {
             url: '/user',
             templateUrl: 'user.html',
@@ -32,6 +32,10 @@ angular.module('xdApp', [
             url: '/login',
             templateUrl : 'login.html',
             controller: 'LoginCtrl'
+        }).state('conf', {
+            url: '/conf',
+            templateUrl : 'conf.html',
+            controller: 'ConfCtrl'
         });
     }
 ]);
