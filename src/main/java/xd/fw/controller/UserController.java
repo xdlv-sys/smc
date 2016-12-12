@@ -13,6 +13,8 @@ import xd.fw.dao.UserRepository;
 import xd.fw.dao.UserRepositoryCustom;
 import xd.fw.mk.UserDetail;
 import xd.fw.service.FwService;
+import xd.fw.util.FwException;
+import xd.fw.util.FwUtil;
 
 @Controller
 @RequestMapping("user")
@@ -48,6 +50,19 @@ public class UserController extends BaseController{
         //session.removeAttribute(USER_KEY);
         return DONE;
     }
+    @RequestMapping("changePassword")
+    @ResponseBody
+    public String changePassword(User user, String newPassword) throws Exception {
+        User dbUser = userRepository.findByName(user.getName());
+        //check user password first
+        if (!dbUser.getPassword().equals(FwUtil.md5(user.getPassword()))){
+            throw new FwException("original user name is error!");
+        }
+        dbUser.setPassword(FwUtil.md5(newPassword));
+        userRepository.save(dbUser);
+        return DONE;
+    }
+
 
     @RequestMapping("obtainUsers")
     @ResponseBody

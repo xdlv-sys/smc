@@ -1,5 +1,5 @@
 controllers.controller('taxController', 
-    ['$scope', '$http', 'modal','menu', '$state', function($scope, $http,modal, menu, $state) {
+    ['$scope', 'common', 'modal','menu', '$state', function($scope, common,modal, menu, $state) {
 
     //functions for menu-link and menu-toggle
     this.isOpen = $scope.isOpen = function(section) {
@@ -21,14 +21,22 @@ controllers.controller('taxController',
     });
 
     $scope.logout = function() {
-        $http.post('/user/userLogout.cmd', {});
+        common.post('/user/userLogout.cmd', null,{});
         $scope.loginSuccess = false;
         $state.go('login')
     };
 
     $scope.changePassword = function(e){
-        modal.show({
-            url: 'js/tpl/change_password.html'
+        modal.open({
+            url: 'js/tpl/change_password.html',
+            ok : function(user){
+                user.name = $scope.user.name;
+                common.post('/user/changePassword.cmd',user,{
+                    fail: function(){
+                        modal.alert('修改密码失败');
+                    }
+                });
+            }
         });
     }
 }]);

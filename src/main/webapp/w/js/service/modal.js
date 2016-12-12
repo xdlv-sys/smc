@@ -1,19 +1,30 @@
-services.service('modal', ['$scope', '$mdDialog', function($scope, $mdDialog) {
-    this.show = function(conf) {
+services.service('modal', ['$mdDialog', function($mdDialog) {
+    this.alert = function(msg) {
+        $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.body))
+            .clickOutsideToClose(true)
+            .title('提示')
+            .textContent(msg)
+            .ariaLabel('Alert Dialog Demo')
+            .ok('确定')
+        );
+    };
+    this.open = function(conf) {
         $mdDialog.show({
-                controller: conf.controller ? conf.controller : DialogController,
+                controller: DialogController,
                 templateUrl: conf.url,
                 parent: angular.element(document.body),
                 targetEvent: conf.ev,
-                clickOutsideToClose: true
+                clickOutsideToClose: true // Only for -xs, -sm breakpoints.
             })
-            .then(function(answer) {
+            .then(function(data) {
                 if (conf.ok) {
-                    conf.ok(answer);
+                    conf.ok(data);
                 }
             }, function() {
-                if (conf.cancle) {
-                    conf.cancle();
+                if (conf.cancel) {
+                    conf.cancel();
                 }
             });
     };
@@ -27,9 +38,8 @@ services.service('modal', ['$scope', '$mdDialog', function($scope, $mdDialog) {
             $mdDialog.cancel();
         };
 
-        $scope.answer = function(answer) {
-            $mdDialog.hide(answer);
+        $scope.answer = function() {
+            $mdDialog.hide($scope.data);
         };
     }
-
 }]);

@@ -17,6 +17,33 @@ services.config(['$httpProvider', function ($httpProvider) {
     });*/
 }]);
 
+services.service('common', ['$http', function($http){
+    this.post = function(url,params,call){
+        $http.post(url,params).success(function(data){
+            if (data && data.errorMsg){
+                if (call.fail){
+                    call.fail(data);
+                }
+            } else {
+                if (call.success){
+                    call.success(data);
+                }
+            }
+        });
+    };
+
+    this.createGridOption = function(columnDefs, scope){
+        return {
+            paginationPageSizes: [25, 50, 75],
+            paginationPageSize: 2,
+            columnDefs: columnDefs,
+            onRegisterApi: function(gridApi){
+                scope.gridApi = gridApi;
+            }
+        };
+    }
+}]);
+
 Array.prototype.contains = function (obj, compare) {
     var contains = false;
     for (var i in this){
