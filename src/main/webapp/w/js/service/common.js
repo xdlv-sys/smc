@@ -35,8 +35,9 @@ services.service('common', ['$http', function($http){
     this.createGridOption = function(columnDefs, scope){
         return {
             paginationPageSizes: [25, 50, 75],
-            paginationPageSize: 2,
+            paginationPageSize: 25,
             columnDefs: columnDefs,
+            paginationTemplate: 'js/tpl/pagination.html',
             onRegisterApi: function(gridApi){
                 scope.gridApi = gridApi;
             }

@@ -2,11 +2,14 @@ var app = angular.module('taxApp', ['ngMaterial', 'ui.grid', 'ui.grid.pagination
 app.controller('taxController', ['$scope', '$mdSidenav', 'modal',
     function($scope, $mdSidenav, modal) {
 
+        $scope.totalItemsLabel='A';
         $scope.gridOptions1 = {
         	enableHorizontalScrollbar :1,
             enableVerticalScrollbar : 1,
             paginationPageSizes: [25, 50, 75],
             paginationPageSize: 2,
+            paginationTemplate: '../js/tpl/pagination.html',
+
             columnDefs: [
                 { name: 'name' },
                 { name: 'gender' }

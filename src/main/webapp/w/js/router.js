@@ -3,7 +3,8 @@ angular.module('xdApp', [
     'ngAnimate',
     'ui.router',
     'ngMaterial',
-    'ngAria'
+    'ngAria',
+    'ui.grid', 'ui.grid.pagination','ui.grid.selection'
 ]).config(['$mdIconProvider', '$mdThemingProvider', function($mdIconProvider, $mdThemingProvider) {
     /*$mdThemingProvider.theme('default')
         .primaryPalette('light-blue', {

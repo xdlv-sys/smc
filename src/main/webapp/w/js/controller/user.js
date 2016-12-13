@@ -1,6 +1,7 @@
 controllers.controller('UserCtrl', [
     '$scope','common',
     function($scope, common) {
+        $scope.totalItemsLabel = '总页数';
     	$scope.userGrid = common.createGridOption([{
     		name: '用户名',field: 'name'
     	},{
@@ -12,6 +13,7 @@ controllers.controller('UserCtrl', [
     	},{
     		success: function(data){
     			$scope.userGrid.data = data.data;
+                $scope.totalItems = data.total;
     		}
     	});
     }
