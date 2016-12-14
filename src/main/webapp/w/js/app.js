@@ -28,7 +28,12 @@ controllers.controller('taxController',
 
     $scope.changePassword = function(e){
         modal.open({
-            url: 'js/tpl/change_password.html',
+            title: '修改密码',
+            url: 'js/tpl/change-password.html',
+            canGo : function(user){
+                return user.password
+                && user.newPassword && user.newPassword === user.newPassword2;
+            },
             ok : function(user){
                 user.name = $scope.user.name;
                 common.post('/user/changePassword.cmd',user,{

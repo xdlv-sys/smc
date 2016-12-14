@@ -15,7 +15,12 @@
     <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="//cdn.bootcss.com/angular-ui-grid/4.0.0/ui-grid.js"></script>
     <link href="//cdn.bootcss.com/angular-ui-grid/4.0.0/ui-grid.min.css" rel="stylesheet">
-
+    <!-- tree -->
+    <link href="js/comp/kjvelarde-multiselect-searchtree-0.9.5.min.css" rel="stylesheet">
+    <script src="js/comp/kjvelarde-multiselect-searchtree-0.9.5.min.js"></script>
+    <script src="js/comp/kjvelarde-multiselect-searchtree-0.9.5.tpl.js"></script>
+    <script src="js/comp/ngPopover.js"></script>
+    <link href="js/comp/ngpopover.css" rel="stylesheet">
     <!-- my stuff-->
     <link rel="stylesheet" href="css/app.css" />
     <link rel="stylesheet" href="css/menu.css" />
@@ -25,6 +30,7 @@
     <script type="text/javascript" src="js/service/xd-grid.js"></script>
     <script type="text/javascript" src="js/service/menu-directive.js"></script>
     <script type="text/javascript" src="js/service/modal.js"></script>
+    <script type="text/javascript" src="js/service/module.js"></script>
     <script type="text/javascript" src="js/router.js"></script>
     <script type="text/javascript" src="test/app.js"></script>
     <script type="text/javascript" src="js/controller/user.js"></script>
@@ -33,7 +39,14 @@
 </head>
 
 <body ng-app="xdApp" layout="column" ng-controller="taxController">
+    <!--<ng-popover trigger="popover-trigger">
+        <multiselect-searchtree data-input-model="departments" multi-select="false" data-output-model="selectedItem2" data-callback="treeCallback(item, selectedItems)" data-select-only-leafs="false" extra-buttons="true"></multiselect-searchtree>
+    </ng-popover>
     
+    <md-button id="popover-trigger" class="ng-popover-trigger">Open</md-button>
+    -->
+    <md-button ng-click="show()">OPEN</md-button>
+
 </body>
 
 </html>

@@ -1,5 +1,4 @@
 delete from t_mod;
-
 insert into t_mod values(-100,'系统配置',null,null,'fa fa-user-secret',0);
 insert into t_mod values(-99,'用户管理',null,'user','fa fa-user',-100);
 insert into t_mod values(-9901,'新增用户','/user/saveUser',null,null,-99);
@@ -11,3 +10,33 @@ insert into t_mod values(-9905,'删除角色','/role/deleteRole',null,null,-99);
 insert into t_mod values(-9906,'修改角色','/role/saveRole',null,null,-99);
 
 insert into t_mod values(-98,'动态参数',null,'conf','fa fa-pencil',-100);
+
+drop table IF EXISTS t_user;
+create table t_user(
+  id int not null primary key,
+  name VARCHAR(50),
+  password VARCHAR(32),
+  birthday date,
+  sex tinyint,
+  entry_time date,
+  mobile varchar(11),
+  phone varchar(16),
+  id_card varchar(32),
+  mail varchar(20),
+  dept int not null
+)ENGINE = INNODB;
+
+drop table IF EXISTS t_user;
+create table t_user(
+  id int not null primary key,
+  name VARCHAR(50),
+  password VARCHAR(32),
+  birthday date,
+  sex tinyint,
+  entry_time date,
+  mobile varchar(11),
+  phone varchar(16),
+  id_card varchar(32),
+  mail varchar(20),
+  dept int not null
+)ENGINE = INNODB;

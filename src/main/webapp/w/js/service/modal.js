@@ -13,6 +13,8 @@ services.service('modal', ['$mdDialog', function($mdDialog) {
     this.open = function(conf) {
         $mdDialog.show({
                 controller: function($scope, $mdDialog) {
+                    $scope.data = {};
+                    $scope.width = 300;
                     $scope.hide = function() {
                         $mdDialog.hide();
                     };
@@ -27,9 +29,7 @@ services.service('modal', ['$mdDialog', function($mdDialog) {
                     for (var k in conf) {
                         $scope[k] = conf[k];
                     }
-                    this.title= 'MD';
                 },
-                controllerAs: 'modal',
                 templateUrl: 'js/tpl/dialog-common.html',
                 parent: angular.element(document.body),
                 targetEvent: conf.ev,

@@ -1,12 +1,40 @@
-controllers.controller('taxController', ['$scope', '$mdSidenav', 'modal',
-    function($scope, $mdSidenav, modal) {
+controllers.controller('taxController', ['$scope', '$mdSidenav', 'modal', 'ngPopoverFactory',
+    function($scope, $mdSidenav, modal, ngPopoverFactory) {
 
-        modal.open({
-            url: 'js/tpl/change_password.html',
-            ok: function(user) {
-                console.log(user);
-            }
-        });
+        //var data1 = 
+
+        $scope.departments = [{
+            name: 'company',
+            children: [{
+                name: 'department',
+                children: [{
+                    name: 'market'
+                }, {
+                    name: 'rdc'
+                }]
+            }]
+        }];
+
+        $scope.treeCallback = function(item, selectedItems) {
+            ngPopoverFactory.closePopover('popover-trigger');
+            console.log(item);
+            return true;
+        };
+
+        $scope.show = function() {
+            modal.open({
+                url: 'js/tpl/user-info.html',
+                title: 'rename',
+                canGo: function(data) {
+                    return true;
+                },
+                ok: function(user) {
+
+                }
+            });
+        };
+
+
 
         $scope.totalItemsLabel = 'A';
         $scope.gridOptions1 = {

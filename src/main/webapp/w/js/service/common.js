@@ -18,6 +18,14 @@ services.config(['$httpProvider', function ($httpProvider) {
 }]);
 
 services.service('common', ['$http', function($http){
+    this.loadPage = function(url, params, call){
+        params = params || {};
+        if (params){
+            params.page = params.page || 1;
+            params.limit = params.limit || 25;
+        }
+        this.post(url, params, call);
+    };
     this.post = function(url,params,call){
         $http.post(url,params).success(function(data){
             if (data && data.errorMsg){

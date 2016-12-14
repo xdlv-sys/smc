@@ -1,19 +1,24 @@
-<md-dialog aria-label="" style="width:300px;">
+<md-dialog aria-label="" ng-style="{width:width+'px'}">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>{{modal.title}}</h2>
+            <h2>{{title}}</h2>
         </div>
     </md-toolbar>
     <md-dialog-content layout="column" style="padding: 20px;">
         <ng-include src="url"></ng-include>
     </md-dialog-content>
+    <md-divider></md-divider>
     <md-dialog-actions layout="row">
         <span flex></span>
         <md-button ng-click="cancel()">
             取消
         </md-button>
-        <md-button class="md-primary md-raised" ng-click="answer('Y')" style="margin-right:20px;" ng-disabled="!(data.password && data.newPassword2 && data.newPassword2 === data.newPassword)">
+        <md-button class="md-primary md-raised" ng-click="answer('Y')" style="margin-right:20px;" ng-disabled="!canGo(this.data)">
             确定
         </md-button>
     </md-dialog-actions>
 </md-dialog>
+
+
+
+
