@@ -12,8 +12,25 @@ services.service('modal', ['$mdDialog', function($mdDialog) {
     };
     this.open = function(conf) {
         $mdDialog.show({
-                controller: DialogController,
-                templateUrl: conf.url,
+                controller: function($scope, $mdDialog) {
+                    $scope.hide = function() {
+                        $mdDialog.hide();
+                    };
+
+                    $scope.cancel = function() {
+                        $mdDialog.cancel();
+                    };
+
+                    $scope.answer = function() {
+                        $mdDialog.hide($scope.data);
+                    };
+                    for (var k in conf) {
+                        $scope[k] = conf[k];
+                    }
+                    this.title= 'MD';
+                },
+                controllerAs: 'modal',
+                templateUrl: 'js/tpl/dialog-common.html',
                 parent: angular.element(document.body),
                 targetEvent: conf.ev,
                 clickOutsideToClose: true // Only for -xs, -sm breakpoints.
@@ -28,18 +45,4 @@ services.service('modal', ['$mdDialog', function($mdDialog) {
                 }
             });
     };
-
-    function DialogController($scope, $mdDialog) {
-        $scope.hide = function() {
-            $mdDialog.hide();
-        };
-
-        $scope.cancel = function() {
-            $mdDialog.cancel();
-        };
-
-        $scope.answer = function() {
-            $mdDialog.hide($scope.data);
-        };
-    }
 }]);

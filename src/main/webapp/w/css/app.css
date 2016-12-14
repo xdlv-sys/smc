@@ -36,3 +36,7 @@ html, body {
 .ui-grid-pager-control button{
   height: 40px;
 }
+.tool_bar_divider{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

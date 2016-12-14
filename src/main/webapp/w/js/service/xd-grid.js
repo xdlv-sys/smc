@@ -8,7 +8,7 @@
              var controller = $element.parent().controller();
          },
          compile: function($element, attrs) {
-            $element.attr('ui-grid',attrs.grid);
+            //$element.attr('ui-grid',attrs.grid);
         }
 
      };

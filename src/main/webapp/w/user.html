@@ -1,1 +1,23 @@
-<xd-grid grid="userGrid"></xd-grid>
+<md-tabs flex>
+    <md-tab label="用户">
+        <md-content layout="column" class="md-padding">
+            <div layout="row">
+            	<md-button class="md-primary md-raised" ng-click="addUser()">新增用户</md-button>
+            	<md-button class="md-primary md-raised" ng-click="modUser()">修改用户</md-button>
+            	<md-button class="md-primary md-raised" ng-click="delUser()">删除用户</md-button>
+            </div>
+            <md-divider class="tool_bar_divider"></md-divider>
+            <div ui-grid="userGrid" ui-grid-pagination ui-grid-selection class=""></div>
+        </md-content>
+    </md-tab>
+    <md-tab label="角色">
+        <md-content class="md-padding">
+            <div flex ui-grid="userGrid" ui-grid-pagination ui-grid-selection class=""></div>
+        </md-content>
+    </md-tab>
+    <md-tab label="权限">
+        <md-content class="md-padding">
+            <div flex ui-grid="userGrid" ui-grid-pagination ui-grid-selection class=""></div>
+        </md-content>
+    </md-tab>
+</md-tabs>
