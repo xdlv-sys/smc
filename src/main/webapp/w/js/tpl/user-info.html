@@ -1,49 +1,49 @@
 <div layout="row">
     <md-input-container flex>
         <label>用户名</label>
-        <input ng-model="data.name" type="text" required>
+        <input ng-model="modal.data.name" type="text" required>
     </md-input-container>
     <md-input-container flex>
-        <md-datepicker ng-model="data.birthday" md-placeholder="出身日期" required></md-datepicker>
+        <md-datepicker ng-model="modal.data.birthday" md-placeholder="出身日期" required maxDate="new Date()"></md-datepicker>
     </md-input-container>
 </div>
 <div layout="row">
     <md-input-container flex>
-        <md-select ng-model="data.sex" required>
+        <md-select ng-model="modal.data.sex" required>
             <label>性别</label>
             <md-option ng-value="1">男</md-option>
             <md-option ng-value="0">女</md-option>
         </md-select>
     </md-input-container>
     <md-input-container flex>
-        <md-datepicker ng-model="data.entryTime" md-placeholder="入职时间" required></md-datepicker>
+        <md-datepicker ng-model="modal.data.entryTime" md-placeholder="入职时间" required maxDate="new Date()"></md-datepicker>
     </md-input-container>
 </div>
 <div layout="row">
     <md-input-container flex>
         <label>手机号码</label>
-        <input ng-model="data.mobile" type="text" required>
+        <input ng-model="modal.data.mobile" type="text" required>
     </md-input-container>
     <md-input-container flex>
         <label>固定电话</label>
-        <input ng-model="data.phone" type="text">
+        <input ng-model="modal.data.phone" type="text">
     </md-input-container>
 </div>
 <div layout="row">
     <md-input-container flex>
         <label>身份证号</label>
-        <input ng-model="data.idCard" type="text">
+        <input ng-model="modal.data.idCard" type="text">
     </md-input-container>
     <md-input-container flex>
         <label>邮箱</label>
-        <input ng-model="data.mail" type="text">
+        <input ng-model="modal.data.mail" type="text">
     </md-input-container>
 </div>
 <div layout="row">
-    <md-select flex placeholder="部门" ng-model="data.dept" required md-on-open="loadDepts()">
-        <md-option ng-repeat="dept in depts" ng-value="dept.id">{{dept.name}}</md-option>
+    <md-select flex placeholder="部门" ng-model="modal.data.dept" required md-on-open="modal.loadDepts()">
+        <md-option ng-repeat="dept in modal.from.depts" ng-value="dept.id">{{dept.name}}</md-option>
     </md-select>
-    <md-select flex placeholder="角色" ng-model="data.role">
+    <md-select flex placeholder="角色" ng-model="modal.data.roles[0].roleId">
         <md-option ng-value="1">角色1</md-option>
         <md-option ng-value="2">角色2</md-option>
     </md-select required>

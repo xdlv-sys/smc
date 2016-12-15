@@ -31,6 +31,7 @@ controllers.controller('taxController',
             title: '修改密码',
             url: 'js/tpl/change-password.html',
             canGo : function(user){
+                console.log(user);
                 return user.password
                 && user.newPassword && user.newPassword === user.newPassword2;
             },
@@ -42,6 +43,6 @@ controllers.controller('taxController',
                     }
                 });
             }
-        });
+        },$scope);
     }
 }]);

@@ -54,18 +54,24 @@ services.service('common', ['$http', function($http){
 }]);
 
 Array.prototype.contains = function (obj, compare) {
-    var contains = false;
-    for (var i in this){
-        if (compare) {
-            contains = compare(this[i],obj);
+    return this.containsOf(function(v){
+        if (compare){
+            return compare(v, obj);
         } else {
-            contains = this[i] === obj;
+            return v === obj;
         }
-        if (contains){
+    });
+    
+};
+Array.prototype.containsOf = function (compare) {
+    var find;
+    for (var i in this){
+        if (compare(this[i])){
+            find = this[i];
             break;
         }
     }
-    return contains;
+    return find;
 };
 Array.prototype.each = function (f) {
     angular.forEach(this,f);

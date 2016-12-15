@@ -1,6 +1,9 @@
 package xd.fw.bean;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -12,13 +15,21 @@ public class User {
             pkColumnName = "table_name", valueColumnName = "current_id",
             initialValue = 100, allocationSize = 100)
     private Integer id;
-    @Column(name = "name")
+
     private String name;
-
-    @Column(name = "password")
     private String password;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date birthday;
+    private byte sex;
 
-    @Column(name="mail")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @Column(name = "entry_time")
+    private Date entryTime;
+    private String mobile;
+    private String phone;
+    @Column(name = "id_card")
+    private String idCard;
+    private int dept;
     private String mail;
 
     @ManyToMany(fetch=FetchType.EAGER)
@@ -66,4 +77,59 @@ public class User {
         this.roles = roles;
     }
 
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public byte getSex() {
+        return sex;
+    }
+
+    public void setSex(byte sex) {
+        this.sex = sex;
+    }
+
+    public Date getEntryTime() {
+        return entryTime;
+    }
+
+    public void setEntryTime(Date entryTime) {
+        this.entryTime = entryTime;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public int getDept() {
+        return dept;
+    }
+
+    public void setDept(int dept) {
+        this.dept = dept;
+    }
 }

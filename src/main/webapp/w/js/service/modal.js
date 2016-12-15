@@ -10,39 +10,36 @@ services.service('modal', ['$mdDialog', function($mdDialog) {
             .ok('确定')
         );
     };
-    this.open = function(conf) {
+    this.open = function(conf,scope) {
         $mdDialog.show({
-                controller: function($scope, $mdDialog) {
-                    $scope.data = {};
-                    $scope.width = 300;
-                    $scope.hide = function() {
-                        $mdDialog.hide();
-                    };
-
-                    $scope.cancel = function() {
-                        $mdDialog.cancel();
-                    };
-
-                    $scope.answer = function() {
-                        $mdDialog.hide($scope.data);
-                    };
-                    for (var k in conf) {
-                        $scope[k] = conf[k];
-                    }
-                },
-                templateUrl: 'js/tpl/dialog-common.html',
-                parent: angular.element(document.body),
-                targetEvent: conf.ev,
-                clickOutsideToClose: true // Only for -xs, -sm breakpoints.
-            })
-            .then(function(data) {
-                if (conf.ok) {
-                    conf.ok(data);
+            controller: function() {
+                this.data = {};
+                this.width = 300;
+                this.cancel = function(){
+                    $mdDialog.cancel();
+                };
+                this.answer = function() {
+                    $mdDialog.hide(this.data);
+                };
+                for (var k in conf){
+                    this[k] = conf[k];
                 }
-            }, function() {
-                if (conf.cancel) {
-                    conf.cancel();
-                }
-            });
+                this.from = scope;
+            },
+            templateUrl: 'js/tpl/dialog-common.html',
+            parent: angular.element(document.body),
+            targetEvent: conf.ev,
+            controllerAs: 'modal',
+            clickOutsideToClose: true // Only for -xs, -sm breakpoints.
+        })
+        .then(function(data) {
+            if (conf.ok) {
+                conf.ok(data);
+            }
+        }, function() {
+            if (conf.cancel) {
+                conf.cancel();
+            }
+        });
     };
 }]);
