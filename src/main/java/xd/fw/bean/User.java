@@ -1,9 +1,10 @@
 package xd.fw.bean;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import xd.fw.service.IConst;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,24 +19,21 @@ public class User {
 
     private String name;
     private String password;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+
     private Date birthday;
     private byte sex;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
     @Column(name = "entry_time")
     private Date entryTime;
     private String mobile;
     private String phone;
     @Column(name = "id_card")
     private String idCard;
-    private int dept;
-    private String mail;
 
-    @ManyToMany(fetch=FetchType.EAGER)
-    @JoinTable(name="t_user_role" ,joinColumns={@JoinColumn(name="user_id")}
-            ,inverseJoinColumns={@JoinColumn(name="role_id")})
-    private List<Role> roles;
+    private String mail;
+    @ManyToOne
+    @JoinColumn(name = "dept")
+    Dept dept;
 
     public Integer getId() {
         return id;
@@ -69,14 +67,7 @@ public class User {
         this.mail = mail;
     }
 
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
+    @JsonFormat(pattern= IConst.DEFAULT_DATE_PATTERN)
     public Date getBirthday() {
         return birthday;
     }
@@ -93,6 +84,7 @@ public class User {
         this.sex = sex;
     }
 
+    @JsonFormat(pattern= IConst.DEFAULT_DATE_PATTERN)
     public Date getEntryTime() {
         return entryTime;
     }
@@ -125,11 +117,11 @@ public class User {
         this.idCard = idCard;
     }
 
-    public int getDept() {
+    public Dept getDept() {
         return dept;
     }
 
-    public void setDept(int dept) {
+    public void setDept(Dept dept) {
         this.dept = dept;
     }
 }

@@ -68,7 +68,7 @@ insert into t_dynamic_conf(conf_name, conf_value, conf_desc, dirty) VALUE ('appU
 insert into t_user values(-10,'a','0cc175b9c0f1b6a831c399e269772661','a@a.com');
 insert into t_user values(-9,'g','b2f5ff47436671b6e533d8dc3614845d','g@g.com');
 
-insert into t_role values(-2,'administrator');
+insert into t_role values(-2,'管理员');
 insert into t_role values(-1,'guest');
 
 insert into t_user_role values(-2,-10,-2);-- administrator

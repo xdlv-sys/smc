@@ -1,6 +1,7 @@
 package xd.fw.bean;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "t_dept")
@@ -12,6 +13,8 @@ public class Dept {
     private String name;
 
     private Integer parent;
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "")
+    List<Role> roles;
 
     public Integer getId() {
         return id;
@@ -35,5 +38,13 @@ public class Dept {
 
     public void setParent(Integer parent) {
         this.parent = parent;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
     }
 }

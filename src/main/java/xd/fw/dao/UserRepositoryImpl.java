@@ -32,7 +32,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
             }
             //merge(user);
         } else {
-            user.setPassword(FwUtil.md5(user.getPassword()));
+             user.setPassword(FwUtil.md5(user.getPassword()));
             //save(user);
         }
         List<Role> roles = user.getRoles().stream().map(role -> roleRepository.findOne(role.getId())).collect(Collectors.toList());

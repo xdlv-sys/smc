@@ -27,6 +27,13 @@ services.service('common', ['$http', function($http){
         this.post(url, params, call);
     };
     this.post = function(url,params,call){
+        //remove all undefined value
+        params = params || {};
+        for (var k in params){
+            if (!params[k]){
+                delete params[k];
+            }
+        }
         $http.post(url,params).success(function(data){
             if (data && data.errorMsg){
                 if (call.fail){
@@ -40,14 +47,23 @@ services.service('common', ['$http', function($http){
         });
     };
 
-    this.createGridOption = function(columnDefs, scope){
+    this.createGridOption = function(columnDefs, scope, loadData){
         return {
             paginationPageSizes: [25, 50, 75],
             paginationPageSize: 25,
+            useExternalPagination: true,
+            useExternalSorting: true,
             columnDefs: columnDefs,
+            refresh: function(){
+                loadData(this.paginationCurrentPage, this.paginationPageSize);
+            },
             paginationTemplate: 'js/tpl/pagination.html',
             onRegisterApi: function(gridApi){
-                scope.gridApi = gridApi;
+                if (!this.selection){
+                    this.selection =  gridApi.selection;
+                    gridApi.pagination.on.paginationChanged(scope,loadData);
+                }
+                
             }
         };
     }

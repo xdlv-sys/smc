@@ -2,13 +2,10 @@ package xd.fw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xd.fw.bean.User;
@@ -19,17 +16,13 @@ import xd.fw.service.FwService;
 import xd.fw.util.FwException;
 import xd.fw.util.FwUtil;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-
 @Controller
 @RequestMapping("user")
 public class UserController extends BaseController{
     @Autowired
     ApplicationContext applicationContext;
 
-    static final String USER_KEY = "USER_KEY";
-
+    //static final String USER_KEY = "USER_KEY";
     @Autowired
     FwService fwService;
     @Autowired
@@ -92,14 +85,6 @@ public class UserController extends BaseController{
         userRepositoryCustom.saveUser(user);
         return DONE;
     }
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
-
     @RequestMapping("version")
     @ResponseBody
 	public String version(){

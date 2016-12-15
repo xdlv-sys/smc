@@ -23,7 +23,8 @@ create table t_user(
   phone varchar(16),
   id_card varchar(32),
   mail varchar(20),
-  dept int
+  dept int,
+  UNIQUE KEY `user_name` (`name`)
 )ENGINE = INNODB;
 
 insert into t_user(id,name,password,sex,mail,dept) values(-10,'a','0cc175b9c0f1b6a831c399e269772661',0,'a@a.com',1);
@@ -50,3 +51,35 @@ insert into t_dept values(10,2,'信息管理部');
 insert into t_dept values(11,2,'安全环保部');
 insert into t_dept values(12,2,'质量检查部');
 insert into t_dept values(13,2,'法务清欠部');
+
+
+insert into t_role values(1, '会计');
+insert into t_role values(2, '预算员');
+insert into t_role values(3, '材料员');
+insert into t_role values(4, '操作员');
+insert into t_role values(5, '操作员');
+insert into t_role values(6, '操作员');
+insert into t_role values(7, '操作员');
+insert into t_role values(8, '操作员');
+insert into t_role values(8, '操作员');
+insert into t_role values(10, '操作员');
+insert into t_role values(11, '操作员');
+
+drop table IF EXISTS t_dept_role;
+create table t_dept_role(
+  id int not null primary key,
+  dept_id int not null,
+  role_id int not null
+)ENGINE = INNODB;
+
+insert into t_dept_role values(1,3,1);
+insert into t_dept_role values(2,4,2);
+insert into t_dept_role values(3,5,3);
+insert into t_dept_role values(4,6,4);
+insert into t_dept_role values(5,7,5);
+insert into t_dept_role values(6,8,6);
+insert into t_dept_role values(7,9,7);
+insert into t_dept_role values(8,10,8);
+insert into t_dept_role values(9,11,9);
+insert into t_dept_role values(10,12,10);
+insert into t_dept_role values(11,13,11);

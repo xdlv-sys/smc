@@ -2,6 +2,7 @@ package xd.fw.service;
 
 
 public interface IConst {
+    String DEFAULT_DATE_PATTERN = "yyyy-MM-dd";
     int INVALIDATE_INT = -1000;
 
     String SUCCESS_FLAG = "SUCCESS";

@@ -1,7 +1,42 @@
 controllers.controller('taxController', ['$scope', '$mdSidenav', 'modal', 'ngPopoverFactory',
     function($scope, $mdSidenav, modal, ngPopoverFactory) {
 
+        var user = {name: 'a', pwd:1};
+        console.log(angular.extend({id: 1}, user));
         //var data1 = 
+        modal.open({
+                url: 'js/tpl/user-info.html',
+                title: '新增用户',
+                width: 500,
+                canGo: function(data) {
+                    return data.name && data.sex && data.mobile && data.password && data.password2 && data.password === data.password2 && data.roles;
+                },
+                loadDepts: function() {
+                    common.loadPage('/dept/obtainDepts.cmd', {}, {
+                        success: function(data) {
+                            $scope.depts = data.data;
+                        }
+                    });
+                },
+                ok: function(user) {
+                    user.entryTime = $filter('date')(user.entryTime, 'yyyy-MM-dd');
+
+                    user.birthday = $filter('date')(user.birthday, 'yyyy-MM-dd');
+
+                    var roles = user.roles;
+                    delete user.roles;
+                    angular.forEach(roles, function(v, i) {
+                        user['roles[' + i + '].id'] = v;
+                    });
+
+                    common.post('/user/saveUser.cmd', user, {
+                        fail: function() {
+                            modal.alert('新增用户失败');
+                        }
+                    });
+                }
+            }, $scope);
+
 
         $scope.departments = [{
             name: 'company',

@@ -1,5 +1,5 @@
 services.service('module', ['common', function(common) {
-    this.createUserGrid = function(scope) {
+    this.createUserGrid = function(scope, loadData) {
         return common.createGridOption([{
             name: '用户名',
             field: 'name'
@@ -30,6 +30,6 @@ services.service('module', ['common', function(common) {
         }, {
             name: '角色',
             field: 'role'
-        }], scope);
+        }], scope,loadData);
     }
 }]);
