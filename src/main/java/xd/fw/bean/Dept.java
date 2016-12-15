@@ -13,7 +13,9 @@ public class Dept {
     private String name;
 
     private Integer parent;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "")
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(name="t_dept_role" ,joinColumns={@JoinColumn(name="dept_id")}
+            ,inverseJoinColumns={@JoinColumn(name="role_id")})
     List<Role> roles;
 
     public Integer getId() {
