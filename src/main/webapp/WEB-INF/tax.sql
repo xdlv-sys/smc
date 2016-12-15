@@ -52,18 +52,18 @@ insert into t_dept values(11,2,'安全环保部');
 insert into t_dept values(12,2,'质量检查部');
 insert into t_dept values(13,2,'法务清欠部');
 
-
+delete from t_role where id >0;
 insert into t_role values(1, '会计');
 insert into t_role values(2, '预算员');
 insert into t_role values(3, '材料员');
-insert into t_role values(4, '操作员');
-insert into t_role values(5, '操作员');
-insert into t_role values(6, '操作员');
-insert into t_role values(7, '操作员');
-insert into t_role values(8, '操作员');
-insert into t_role values(8, '操作员');
-insert into t_role values(10, '操作员');
-insert into t_role values(11, '操作员');
+insert into t_role values(4, '操作员(4)');
+insert into t_role values(5, '操作员(5)');
+insert into t_role values(6, '操作员(6)');
+insert into t_role values(7, '操作员(7)');
+insert into t_role values(8, '操作员(8)');
+insert into t_role values(9, '操作员(9)');
+insert into t_role values(10, '操作员(10)');
+insert into t_role values(11, '操作员(11)');
 
 drop table IF EXISTS t_dept_role;
 create table t_dept_role(

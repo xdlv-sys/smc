@@ -29,7 +29,7 @@
         <input ng-model="modal.data.phone" type="text">
     </md-input-container>
 </div>
-<div layout="row">
+<div layout="row" ng-if="!(modal.data.id)">
     <md-input-container flex>
         <label>密码</label>
         <input ng-model="modal.data.password" type="password" required>
@@ -50,11 +50,10 @@
     </md-input-container>
 </div>
 <div layout="row">
-    <md-select flex placeholder="部门" ng-model="modal.data.dept" required md-on-open="modal.loadDepts()">
-        <md-option ng-repeat="dept in modal.from.depts" ng-value="dept.id">{{dept.name}}</md-option>
+    <md-select flex placeholder="部门" ng-model="modal.data.dept" required >
+        <md-option ng-repeat="dept in modal.depts" ng-value="dept">{{dept.name}}</md-option>
     </md-select>
     <md-select flex placeholder="角色" ng-model="modal.data.roles" multiple>
-        <md-option ng-value="1">角色1</md-option>
-        <md-option ng-value="2">角色2</md-option>
+        <md-option ng-repeat="role in modal.data.dept.roles" ng-value="role">{{role.name}}</md-option>
     </md-select required>
 </div>

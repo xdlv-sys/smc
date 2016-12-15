@@ -1,6 +1,8 @@
 package xd.fw.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import xd.fw.service.IConst;
 
 import javax.persistence.*;
@@ -34,6 +36,12 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "dept")
     Dept dept;
+
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(name="t_user_role" ,joinColumns={@JoinColumn(name="user_id")}
+            ,inverseJoinColumns={@JoinColumn(name="role_id")})
+    @Fetch(FetchMode.SUBSELECT)
+    List<Role> roles;
 
     public Integer getId() {
         return id;
@@ -123,5 +131,13 @@ public class User {
 
     public void setDept(Dept dept) {
         this.dept = dept;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
     }
 }

@@ -8,7 +8,8 @@ services.service('module', ['common', function(common) {
             field: 'birthday'
         }, {
             name: '性别',
-            field: 'sex'
+            field: 'sex',
+            cellTemplate: '<div class="ui-grid-cell-contents" >{{grid.getCellValue(row, col)===0?\'女\':\'男\'}}</div>'
         }, {
             name: '入职时间',
             field: 'entryTime'
@@ -26,10 +27,7 @@ services.service('module', ['common', function(common) {
             field: 'mail'
         }, {
             name: '部门',
-            field: 'dept'
-        }, {
-            name: '角色',
-            field: 'role'
+            field: 'dept.name'
         }], scope,loadData);
     }
 }]);

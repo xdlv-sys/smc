@@ -7,7 +7,6 @@ import xd.fw.bean.User;
 import xd.fw.util.FwUtil;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +19,10 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
     @Autowired
     UserRepository userRepository;
     @Autowired
+    DeptRepository deptRepository;
+    @Autowired
     RoleRepository roleRepository;
+
 
     @Override
     public void saveUser(User user) throws Exception {
@@ -35,7 +37,10 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
              user.setPassword(FwUtil.md5(user.getPassword()));
             //save(user);
         }
-        List<Role> roles = user.getRoles().stream().map(role -> roleRepository.findOne(role.getId())).collect(Collectors.toList());
+        user.setDept(deptRepository.findOne(user.getDept().getId()));
+
+        List<Role> roles = user.getRoles() != null ? user.getRoles().stream().map(
+                role -> roleRepository.findOne(role.getId())).collect(Collectors.toList()) : new ArrayList<>();
         user.setRoles(roles);
         userRepository.save(user);
     }
