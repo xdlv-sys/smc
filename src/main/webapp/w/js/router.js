@@ -4,8 +4,9 @@ angular.module('xdApp', [
     'ui.router',
     'ngMaterial',
     'ngAria',
-    'ui.grid', 'ui.grid.pagination','ui.grid.selection',
+    'ui.grid', 'ui.grid.pagination','ui.grid.selection','ui.grid.autoResize',
     'multiselect-searchtree','ngPopover',
+    'ui.tree'
 ]).config(['$mdIconProvider', '$mdThemingProvider', function($mdIconProvider, $mdThemingProvider) {
     /*$mdThemingProvider.theme('default')
         .primaryPalette('light-blue', {

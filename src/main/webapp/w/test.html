@@ -16,6 +16,8 @@
     <script src="//cdn.bootcss.com/angular-ui-grid/4.0.0/ui-grid.js"></script>
     <link href="//cdn.bootcss.com/angular-ui-grid/4.0.0/ui-grid.min.css" rel="stylesheet">
     <!-- tree -->
+    <link href="//cdn.bootcss.com/angular-ui-tree/2.22.1/angular-ui-tree.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/angular-ui-tree/2.22.1/angular-ui-tree.js"></script>
     <link href="js/comp/kjvelarde-multiselect-searchtree-0.9.5.min.css" rel="stylesheet">
     <script src="js/comp/kjvelarde-multiselect-searchtree-0.9.5.min.js"></script>
     <script src="js/comp/kjvelarde-multiselect-searchtree-0.9.5.tpl.js"></script>
@@ -36,9 +38,29 @@
     <script type="text/javascript" src="js/controller/user.js"></script>
     <script type="text/javascript" src="js/controller/login.js"></script>
     <script type="text/javascript" src="js/controller/conf.js"></script>
+    <script type="text/ng-template" id="nodes_renderer.html">
+        <div ui-tree-handle class="tree-node tree-node-content">
+            <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)"><span
+        class="glyphicon"
+        ng-class="{
+          'glyphicon-chevron-right': collapsed,
+          'glyphicon-chevron-down': !collapsed
+        }"></span></a> {{node.title}}
+            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span
+        class="glyphicon glyphicon-remove"></span></a>
+            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span
+        class="glyphicon glyphicon-plus"></span></a>
+        </div>
+        <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+            <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+            </li>
+        </ol>
+    </script>
 </head>
 
 <body ng-app="xdApp" layout="column" ng-controller="taxController">
+    <multiselect-searchtree data-input-model="departments" multi-select="true" data-output-model="selectedItem2" data-callback="treeCallback(item, selectedItems)" data-select-only-leafs="false" extra-buttons="true"></multiselect-searchtree>
+
     <!--<ng-popover trigger="popover-trigger">
         <multiselect-searchtree data-input-model="departments" multi-select="false" data-output-model="selectedItem2" data-callback="treeCallback(item, selectedItems)" data-select-only-leafs="false" extra-buttons="true"></multiselect-searchtree>
     </ng-popover>
@@ -46,7 +68,21 @@
     <md-button id="popover-trigger" class="ng-popover-trigger">Open</md-button>
     -->
     <md-button ng-click="show()">OPEN</md-button>
-
+    <div class="row">
+        <div class="col-sm-6">
+            <div ui-tree id="tree-root">
+                <ol ui-tree-nodes ng-model="data">
+                    <li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="info">
+                {{info}}
+            </div>
+            <pre class="code">{{ data | json }}</pre>
+        </div>
+    </div>
 </body>
 
 </html>

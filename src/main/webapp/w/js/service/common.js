@@ -71,26 +71,39 @@ services.service('common', ['$http', function($http) {
         };
     }
 }]);
+if (!angular.isFunction){
+    angular.isFunction = function(object){
+        return object && getClass.call(object) == '[object Function]';
+    };
+}
 
-Array.prototype.contains = function(obj, compare) {
-    return this.containsOf(function(v) {
-        if (compare) {
-            return compare(v, obj);
+Array.prototype.contains = function(compare) {
+    for (var i in this) {
+        if (angular.isFunction(compare)){
+            if (compare(this[i])){
+                return true;
+            }
         } else {
-            return v === obj;
+            if (this[i] === compare){
+                return true;
+            }
         }
-    });
-
+        return false;
+    }
 };
 Array.prototype.containsOf = function(compare) {
-    var find;
     for (var i in this) {
-        if (compare(this[i])) {
-            find = this[i];
-            break;
+        if (angular.isFunction(compare)){
+            if (compare(this[i])){
+                return this[i];
+            }
+        } else {
+            if (this[i] === compare){
+                return this[i];
+            }
         }
+        return null;
     }
-    return find;
 };
 Array.prototype.each = function(f) {
     angular.forEach(this, f);

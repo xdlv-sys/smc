@@ -12,14 +12,14 @@ services.factory('menu', ['$state', function($state) {
             return self.openedSection === section;
         },
 
-        parseMenu: function(mods, load) {
+        parseMenu: function(mods, load,children) {
             var map = {};
+            var pageName = children || 'pages';
             mods.each(function(v) {
                 var id = v.id;
                 if (!map[id]) {
-                    map[id] = {
-                        pages: []
-                    };
+                    map[id] = {};
+                    map[id][pageName] = [];
                 }
                 map[id].name = v.name;
                 map[id].icon = v.addition;
@@ -30,17 +30,16 @@ services.factory('menu', ['$state', function($state) {
 
                 var parent = map[v.parentId];
                 if (!parent) {
-                    parent = map[v.parentId] = {
-                        pages: []
-                    };
+                    parent = map[v.parentId] = {};
+                    parent[pageName]=[];
                 }
                 parent.type = 'toggle';
-                parent.pages.push(map[id]);
+                parent[pageName].push(map[id]);
             });
             if (load) {
-                this.loadMenu(map[0].pages);
+                this.loadMenu(map[0][pageName]);
             }
-            return map[0].pages;
+            return map[0][pageName];
         },
         loadMenu: function(page) {
             var me = this;

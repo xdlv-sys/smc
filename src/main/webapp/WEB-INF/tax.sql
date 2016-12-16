@@ -52,7 +52,10 @@ insert into t_dept values(11,2,'安全环保部');
 insert into t_dept values(12,2,'质量检查部');
 insert into t_dept values(13,2,'法务清欠部');
 
-delete from t_role where id >0;
+delete from t_role;
+insert into t_role values(-2, '管理员');
+insert into t_role values(-1, '副总经理');
+insert into t_role values(0, '总经理');
 insert into t_role values(1, '会计');
 insert into t_role values(2, '预算员');
 insert into t_role values(3, '材料员');
@@ -72,6 +75,7 @@ create table t_dept_role(
   role_id int not null
 )ENGINE = INNODB;
 
+
 insert into t_dept_role values(1,3,1);
 insert into t_dept_role values(2,4,2);
 insert into t_dept_role values(3,5,3);
@@ -83,3 +87,6 @@ insert into t_dept_role values(8,10,8);
 insert into t_dept_role values(9,11,9);
 insert into t_dept_role values(10,12,10);
 insert into t_dept_role values(11,13,11);
+insert into t_dept_role values(12,0,-2);
+insert into t_dept_role values(13,0,-1);
+insert into t_dept_role values(14,0,0);

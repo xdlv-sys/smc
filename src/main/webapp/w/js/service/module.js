@@ -29,5 +29,22 @@ services.service('module', ['common', function(common) {
             name: '部门',
             field: 'dept.name'
         }], scope,loadData);
-    }
+    };
+
+    this.createDeptGrid = function(scope, loadData) {
+        return common.createGridOption([{
+            name: '部门名',
+            field: 'name'
+        },{
+            name: '角色',
+            field: 'roleNames'
+        }], scope,loadData);
+    };
+
+    this.createRoleGrid = function(scope, loadData) {
+        return common.createGridOption([{
+            name: '角色名',
+            field: 'name'
+        }], scope,loadData);
+    };
 }]);
