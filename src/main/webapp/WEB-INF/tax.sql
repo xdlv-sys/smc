@@ -70,7 +70,7 @@ insert into t_role values(11, '操作员(11)');
 
 drop table IF EXISTS t_dept_role;
 create table t_dept_role(
-  id int not null primary key,
+  id int auto_increment primary key,
   dept_id int not null,
   role_id int not null
 )ENGINE = INNODB;
@@ -90,3 +90,96 @@ insert into t_dept_role values(11,13,11);
 insert into t_dept_role values(12,0,-2);
 insert into t_dept_role values(13,0,-1);
 insert into t_dept_role values(14,0,0);
+
+delete from t_mod;
+insert into t_mod values(1,'系统配置',null,null,'fa fa-user-secret',0);
+insert into t_mod values(2,'用户管理',null,'user','fa fa-user',1);
+insert into t_mod values(3,'动态参数',null,'conf','fa fa-pencil',1);
+
+-- user manager
+insert into t_mod values(4,'新增用户','/user/saveUser',null,null,2);
+insert into t_mod values(5,'查看用户','/user/obtainUsers',null,null,2);
+insert into t_mod values(6,'删除用户','/user/deleteUser',null,null,2);
+insert into t_mod values(7,'修改用户','/user/saveUser',null,null,2);
+
+insert into t_mod values(8,'新增角色','/role/saveRole',null,null,2);
+insert into t_mod values(9,'查看角色','/role/obtainRoles',null,null,2);
+insert into t_mod values(10,'删除角色','/role/deleteRole',null,null,2);
+insert into t_mod values(11,'修改角色','/role/saveRole',null,null,2);
+
+insert into t_mod values(12,'查看部门','/dept/obtainDepts',null,null,2);
+
+delete from t_role_mod;
+insert into t_role_mod values(-100,-2,1);
+insert into t_role_mod values(-99,-2,2);
+insert into t_role_mod values(-98,-2,3);
+insert into t_role_mod values(-97,-2,4);
+insert into t_role_mod values(-96,-2,5);
+insert into t_role_mod values(-95,-2,6);
+insert into t_role_mod values(-94,-2,7);
+insert into t_role_mod values(-93,-2,8);
+insert into t_role_mod values(-92,-2,9);
+insert into t_role_mod values(-91,-2,10);
+insert into t_role_mod values(-90,-2,11);
+insert into t_role_mod values(-89,-2,12);
+
+drop table IF EXISTS t_dynamic_conf;
+create table t_dynamic_conf(
+  id int primary key,
+  group_no int,
+  conf_name varchar(60) ,
+  conf_value varchar(128),
+  conf_desc varchar(128)
+)ENGINE = INNODB;
+insert into t_dynamic_conf values(-2, 0, 'test','100','测试');
+
+-- product name manager
+drop table IF EXISTS t_product;
+create table t_product(
+  id int primary key,
+  name varchar(32) not null,
+  model varchar(64) not null,
+  nature TINYINT not null,
+  genre TINYINT not null,
+  batch varchar(64),
+  storage double,
+  count_unit TINYINT,
+  weight_unit TINYINT,
+  bulk_unit TINYINT,
+  trademark varchar(64),
+  approve_code VARCHAR(64),
+  line_code varchar(64),
+  package_type VARCHAR(64) not null,
+  bill_name VARCHAR(64),
+  rate TINYINT not null,
+  status TINYINT,
+  import_id int,
+  create_time DATETIME
+)ENGINE = INNODB;
+insert into t_product values(-1,'a','m',1,1,'b',0.2,1,1,1,'t','a','l','p','b',1,0,-1,now());
+
+drop table IF EXISTS t_product_import;
+create table t_product_import(
+  id int AUTO_INCREMENT primary key,
+  operator VARCHAR(64),
+  status TINYINT,
+  create_time DATETIME
+)ENGINE = INNODB;
+
+insert into t_mod values(13,'商品管理',null,null,'fa fa-truck',0);
+insert into t_mod values(14,'商品导入',null,'product','fa fa-truck',13);
+insert into t_mod values(15,'商品审核',null,'product-approval','fa fa-check-circle',13);
+
+insert into t_mod values(16,'新增商品','/product/saveProduct',null,null,14);
+insert into t_mod values(17,'查看商品','/product/obtainProducts',null,null,14);
+insert into t_mod values(18,'删除商品','/product/deleteProduct',null,null,14);
+insert into t_mod values(19,'审批商品','/product/approveProduct',null,null,15);
+
+insert into t_role_mod values(-88,-2,13);
+insert into t_role_mod values(-87,-2,14);
+insert into t_role_mod values(-86,-2,15);
+insert into t_role_mod values(-85,-2,16);
+insert into t_role_mod values(-84,-2,17);
+insert into t_role_mod values(-83,-2,18);
+insert into t_role_mod values(-82,-2,19);
+

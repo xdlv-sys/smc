@@ -1,4 +1,4 @@
-services.service('module', ['common', function(common) {
+services.service('module', ['common','configuration', function(common,configuration) {
     this.createUserGrid = function(scope, loadData) {
         return common.createGridOption([{
             name: '用户名',
@@ -28,23 +28,94 @@ services.service('module', ['common', function(common) {
         }, {
             name: '部门',
             field: 'dept.name'
-        }], scope,loadData);
+        }], scope, loadData);
     };
 
     this.createDeptGrid = function(scope, loadData) {
         return common.createGridOption([{
             name: '部门名',
             field: 'name'
-        },{
+        }, {
             name: '角色',
             field: 'roleNames'
-        }], scope,loadData);
+        }], scope, loadData);
     };
 
     this.createRoleGrid = function(scope, loadData) {
         return common.createGridOption([{
             name: '角色名',
             field: 'name'
-        }], scope,loadData);
+        }], scope, loadData);
     };
+
+    this.createConfGrid = function(scope, loadData) {
+        return common.createGridOption([{
+            name: '组编号',
+            field: 'groupNo'
+        }, {
+            name: '配置名',
+            field: 'confName'
+        }, {
+            name: '配置值',
+            field: 'confValue'
+        }, {
+            name: '描述',
+            field: 'confDesc'
+        }], scope, loadData);
+    };
+    this.createProductGrid = function(scope, loadData, configuration) {
+        return common.createGridOption([{
+            name: '商品名称',
+            field: 'name',
+            cellTemplate: '<div class="ui-grid-cell-contents" ng-click="grid.appScope.showDetail(row)"><a ng-href="javascript:void(0)">{{grid.getCellValue(row, col)}}</a></div>'
+        }, {
+            name: '规格型号',
+            field: 'model'
+        }, {
+            name: '商品性质',
+            field: 'nature',
+            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{grid.options.configuration.i18n(1,"nature",row.entity.nature)}}' + '</div>'
+
+        }, {
+            name: '所属类型',
+            field: 'genre',
+            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{grid.options.configuration.i18n(1,"genre",row.entity.genre)}}' + '</div>'
+        }, {
+            name: '单位',
+            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{grid.options.configuration.i18n(1,"weightUnit",row.entity.weightUnit) + "/" + grid.options.configuration.i18n(1,"countUnit",row.entity.countUnit) + "/" + grid.options.configuration.i18n(1,"bulkUnit",row.entity.bulkUnit)}}' + '</div>'
+        }, {
+            name: '包装规格',
+            field: 'packageType'
+        }, {
+            name: '税率',
+            field: 'rate'
+        }, {
+            name: '状态',
+            field: 'status',
+            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{row.entity.status === 0 ? "待审核": "己审核"}}' + '</div>'
+        }], scope, loadData, configuration);
+    };
+
+    this.createProductImportGrid = function(scope, loadData) {
+        return common.createGridOption([{
+            name: '导入员',
+            field: ''
+        }, {
+            name: '状态',
+            field: 'status'
+        }, {
+            name: '导入时间',
+            field: 'createTime'
+        }], scope, loadData);
+    };
+
+    this.getProductTypes = function(m) {
+        m = m || {};
+        m.natures = configuration.group(1, 'nature');
+        m.genres = configuration.group(1, 'genre');
+        m.countUnits = configuration.group(1, 'countUnit');
+        m.weightUnits = configuration.group(1, 'weightUnit');
+        m.bulkUnits = configuration.group(1, 'bulkUnit');
+        return m;
+    }
 }]);

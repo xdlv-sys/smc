@@ -18,23 +18,25 @@ services.factory('menu', ['$state', function($state) {
             mods.each(function(v) {
                 var id = v.id;
                 if (!map[id]) {
-                    map[id] = {};
+                    map[id] = angular.copy(v);
                     map[id][pageName] = [];
+                    map[id].type = 'link';
+                } else {
+                    //parent
+                    map[id] = angular.extend(map[id],v);
                 }
-                map[id].name = v.name;
-                map[id].icon = v.addition;
+                
                 if (v.routerId) {
                     map[id].state = v.routerId;
                 }
-                map[id].type = 'link';
-
+                
                 var parent = map[v.parentId];
                 if (!parent) {
-                    parent = map[v.parentId] = {};
+                    parent = map[v.parentId] = {id : v.parentId};
                     parent[pageName]=[];
                 }
-                parent.type = 'toggle';
                 parent[pageName].push(map[id]);
+                parent.type = 'toggle';
             });
             if (load) {
                 this.loadMenu(map[0][pageName]);

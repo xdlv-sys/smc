@@ -70,4 +70,31 @@ public class Mod {
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Mod mod = (Mod) o;
+
+        if (id != null ? !id.equals(mod.id) : mod.id != null) return false;
+        if (name != null ? !name.equals(mod.name) : mod.name != null) return false;
+        if (url != null ? !url.equals(mod.url) : mod.url != null) return false;
+        if (routerId != null ? !routerId.equals(mod.routerId) : mod.routerId != null) return false;
+        if (addition != null ? !addition.equals(mod.addition) : mod.addition != null) return false;
+        return parentId != null ? parentId.equals(mod.parentId) : mod.parentId == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (url != null ? url.hashCode() : 0);
+        result = 31 * result + (routerId != null ? routerId.hashCode() : 0);
+        result = 31 * result + (addition != null ? addition.hashCode() : 0);
+        result = 31 * result + (parentId != null ? parentId.hashCode() : 0);
+        return result;
+    }
 }

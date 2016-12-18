@@ -1,45 +1,68 @@
-html, body {
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px;
-  height: 100%;
-  margin: 0px;
-  padding: 0px;
+html,
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
 }
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
 .company-logo {
     height: 65px;
 }
 
 #content {
-  overflow: auto;
+    overflow: auto;
 }
 
 #content {
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-top: 5px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 5px;
 }
-.login_bg{
-  background: url(../img/bg2.png);
-  background-position: center;
-  background-repeat: no-repeat
+
+.login_bg {
+    background: url(../img/bg2.png);
+    background-position: center;
+    background-repeat: no-repeat
 }
-.tool_button{
-  padding-left: 5px;
-  font-size: 18px;
-  text-transform: none;
+
+.tool_button {
+    padding-left: 5px;
+    font-size: 18px;
+    text-transform: none;
 }
 
 .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
     overflow: auto !important;
     /* or use: overflow-x: hide!important; */
 }
-.ui-grid-pager-control button{
-  height: 40px;
+
+.ui-grid-pager-control button {
+    height: 40px;
 }
-.tool_bar_divider{
-  margin-top: 5px;
-  margin-bottom: 5px;
+
+.tool_bar_divider {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
-.max_height{
-  height: 100%;
+
+.max_height {
+    height: 100%;
 }

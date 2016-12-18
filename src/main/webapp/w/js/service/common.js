@@ -17,7 +17,7 @@ services.config(['$httpProvider', function($httpProvider) {
     });*/
 }]);
 
-services.service('common', ['$http', function($http) {
+services.service('common', ['$http','modal', function($http, modal) {
     this.loadAllPage = function(url, call) {
         this.loadPage(url, { page: 1, limit: 999999 }, call);
     };
@@ -33,7 +33,7 @@ services.service('common', ['$http', function($http) {
         //remove all undefined value
         params = params || {};
         for (var k in params) {
-            if (!params[k]) {
+            if (angular.isBlank(params[k])) {
                 delete params[k];
             }
         }
@@ -41,6 +41,8 @@ services.service('common', ['$http', function($http) {
             if (data && data.errorMsg) {
                 if (call.fail) {
                     call.fail(data);
+                } else {
+                    modal.alert('操作失败，请重试或联系管理员。');
                 }
             } else {
                 if (call.success) {
@@ -50,13 +52,14 @@ services.service('common', ['$http', function($http) {
         });
     };
 
-    this.createGridOption = function(columnDefs, scope, loadData) {
+    this.createGridOption = function(columnDefs, scope, loadData,configuration) {
         return {
             paginationPageSizes: [25, 50, 75],
             paginationPageSize: 25,
             useExternalPagination: true,
             useExternalSorting: true,
             columnDefs: columnDefs,
+            configuration: configuration,
             refresh: function() {
                 loadData(this.paginationCurrentPage, this.paginationPageSize);
             },
@@ -76,35 +79,33 @@ if (!angular.isFunction){
         return object && getClass.call(object) == '[object Function]';
     };
 }
+if (!angular.isBlank){
+    angular.isBlank = function(v){
+        return (v === null) || (v === undefined) || (v === '') || (Array.isArray(v) && v.length === 0);
+    };
+}
 
 Array.prototype.contains = function(compare) {
-    for (var i in this) {
+    var doCompare = function(m){
         if (angular.isFunction(compare)){
-            if (compare(this[i])){
-                return true;
-            }
-        } else {
-            if (this[i] === compare){
-                return true;
-            }
+            return compare(m);
         }
-        return false;
+        return compare === m;
     }
-};
-Array.prototype.containsOf = function(compare) {
-    for (var i in this) {
-        if (angular.isFunction(compare)){
-            if (compare(this[i])){
-                return this[i];
-            }
-        } else {
-            if (this[i] === compare){
-                return this[i];
-            }
+    var find = false;
+    angular.forEach(this,function(v){
+        if (doCompare(v)){
+            find = true;
         }
-        return null;
-    }
+    });
+    return find;
 };
+Array.prototype.containsId = function(o) {
+    return this.contains(function(v){
+        return v.id === o.id;
+    });
+};
+
 Array.prototype.each = function(f) {
     angular.forEach(this, f);
 };

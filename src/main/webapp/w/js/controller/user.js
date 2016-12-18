@@ -57,9 +57,6 @@ controllers.controller('UserCtrl', ['$scope', 'common', 'modal', 'module', '$fil
                         delete user.dept;
 
                         common.post('/user/saveUser.cmd', user, {
-                            fail: function() {
-                                modal.alert('新增用户失败');
-                            },
                             success: function() {
                                 $scope.userGrid.refresh();
                             }
@@ -99,7 +96,7 @@ controllers.controller('UserCtrl', ['$scope', 'common', 'modal', 'module', '$fil
             user.entryTime = new Date(user.entryTime);
         }
         $scope.openUserInfo({
-            title: '新增用户',
+            title: '修改用户',
             data: user
         }, $scope);
     };

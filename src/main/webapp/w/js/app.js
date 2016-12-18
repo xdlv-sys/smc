@@ -1,5 +1,5 @@
 controllers.controller('taxController', 
-    ['$scope', 'common', 'modal','menu', '$state', function($scope, common,modal, menu, $state) {
+    ['$scope', '$rootScope','common', 'modal','menu', '$state', function($scope, $rootScope,common,modal, menu, $state) {
 
     //functions for menu-link and menu-toggle
     this.isOpen = $scope.isOpen = function(section) {
@@ -14,10 +14,20 @@ controllers.controller('taxController',
 
     $scope.loginSuccess = false;
 
-    $scope.$on('loginSuccess', function(event, user) {
+    $scope.$on('loginSuccess', function(event, user, state, mods) {
         $scope.loginSuccess = true;
-        $scope.user = user;
-        $state.go('user');
+        $rootScope.user = $scope.user = user;
+        $rootScope.mods = mods;
+        $rootScope.allow = function(modId){
+            var allow = false;
+            $rootScope.mods.each(function(v){
+                if (!allow && v.id === modId){
+                    allow = true;
+                }
+            });
+            return allow;
+        };
+        $state.go(state);
     });
 
     $scope.logout = function() {

@@ -1,5 +1,8 @@
 package xd.fw.bean;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -7,7 +10,10 @@ import java.util.List;
 @Table(name = "t_dept")
 public class Dept {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "pk_dept_id")
+    @TableGenerator(name = "pk_dept_id", table = "t_primary_key",
+            pkColumnName = "table_name", valueColumnName = "current_id",
+            initialValue = 100, allocationSize = 100)
     private Integer id;
 
     private String name;
@@ -16,6 +22,7 @@ public class Dept {
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="t_dept_role" ,joinColumns={@JoinColumn(name="dept_id")}
             ,inverseJoinColumns={@JoinColumn(name="role_id")})
+    @Fetch(FetchMode.SELECT)
     List<Role> roles;
 
     public Integer getId() {

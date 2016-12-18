@@ -1,6 +1,11 @@
 controllers.controller('taxController', ['$scope', '$mdSidenav', 'modal', 'ngPopoverFactory',
     function($scope, $mdSidenav, modal, ngPopoverFactory) {
 
+var a = [];
+    a[1] = 2;
+    a[3] = 4;
+    console.log(a);
+
         $scope.data = [{
             'id': 1,
             'title': 'node1',
@@ -81,7 +86,8 @@ controllers.controller('taxController', ['$scope', '$mdSidenav', 'modal', 'ngPop
             children: [{
                 name: 'department',
                 children: [{
-                    name: 'market'
+                    name: 'market',
+                    selected: true
                 }, {
                     name: 'rdc'
                 }]
@@ -89,7 +95,7 @@ controllers.controller('taxController', ['$scope', '$mdSidenav', 'modal', 'ngPop
         }];
 
         $scope.treeCallback = function(item, selectedItems) {
-            console.log(item);
+            //console.log(item);
             return true;
         };
 

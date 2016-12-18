@@ -1,6 +1,5 @@
 package xd.fw.controller;
 
-import com.fasterxml.jackson.databind.deser.Deserializers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,7 @@ import xd.fw.dao.ConfRepository;
  * Created by xd on 2016/12/7.
  */
 @Controller
-@RequestMapping("config")
+@RequestMapping("conf")
 public class ConfigController extends BaseController{
     @Autowired
     ConfRepository confRepository;
@@ -24,5 +23,21 @@ public class ConfigController extends BaseController{
     public PageContent obtainConfigs(int page, int limit){
         Page<DynamicConf> list = confRepository.findAll(pageRequest(page, limit));
         return page(list);
+    }
+
+    @RequestMapping("deleteConfig")
+    @ResponseBody
+    public String deleteUser(int[] confIds) {
+        for (int id : confIds){
+            confRepository.delete(id);
+        }
+        return DONE;
+    }
+
+    @RequestMapping("saveConfig")
+    @ResponseBody
+    public String saveConfig(DynamicConf conf) throws Exception {
+        confRepository.save(conf);
+        return DONE;
     }
 }

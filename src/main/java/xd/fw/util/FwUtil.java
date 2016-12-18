@@ -105,6 +105,23 @@ public class FwUtil {
         }
         list.forEach(p::process);
     }
+    public interface CompareItem<T> {
+        boolean compare(T t, T o);
+    }
+
+    public static <T> void replaceOrAddListItem(List<T> list, T t, CompareItem<T> compare){
+        if (list == null){
+            list = new ArrayList<>();
+        }
+
+        for (int i =0 ;i < list.size(); i++){
+            if (compare.compare(list.get(i), t)){
+                list.set(i, t);
+                return;
+            }
+        }
+        list.add(t);
+    }
 
     public static boolean verify(Map<String, Object> params, String key) {
         List<String> list = new ArrayList<String>();

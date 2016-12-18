@@ -1,4 +1,4 @@
-controllers.controller('RoleCtrl', ['$scope', 'common', 'modal', 'module', '$filter','menu', function($scope, common, modal, module, $filter,menu) {
+controllers.controller('RoleCtrl', ['$scope', 'common', 'modal', 'module', '$filter', 'menu', function($scope, common, modal, module, $filter, menu) {
 
     $scope.loadRoles = function(page, limit) {
         common.loadPage('/role/obtainRoles.cmd', {
@@ -16,6 +16,7 @@ controllers.controller('RoleCtrl', ['$scope', 'common', 'modal', 'module', '$fil
     $scope.loadRoles(1, $scope.roleGrid.paginationPageSize);
 
     $scope.openRoleInfo = function(conf) {
+        var roleForUpdate = conf.data;
         //obtain all dept in advance
         common.loadAllPage('/dept/obtainDepts.cmd', {
             success: function(data) {
@@ -23,17 +24,23 @@ controllers.controller('RoleCtrl', ['$scope', 'common', 'modal', 'module', '$fil
                 var mods = [];
                 angular.forEach(depts, function(dept) {
                     angular.forEach(dept.roles, function(role) {
+                        if (roleForUpdate && roleForUpdate.id === role.id){
+                            roleForUpdate.dept = dept;
+                        }
                         angular.forEach(role.mods, function(mod) {
                             if (!mods.contains(function(m) {
                                     return m.id === mod.id;
                                 })) {
                                 mods.push(mod);
+                                //selected the mod for update
+                                mod.selected = roleForUpdate && roleForUpdate.mods.containsId(mod);
                             }
                         });
                     });
                 });
-                mods = menu.parseMenu(mods, false,'children');
+                mods = menu.parseMenu(mods, false, 'children');
 
+                var selectedMods;
                 modal.open(angular.extend({
                     url: 'js/tpl/role-info.html',
                     width: 500,
@@ -42,26 +49,19 @@ controllers.controller('RoleCtrl', ['$scope', 'common', 'modal', 'module', '$fil
                     canGo: function(data) {
                         return data.name && data.dept;
                     },
-                    treeCallback: function(item, selectedItems){
-                        console.log(selectedItems);
+                    treeCallback: function(item, selectedItems) {
+                        selectedMods = selectedItems;
                         return true;
                     },
                     ok: function(role) {
-                        role.entryTime = $filter('date')(role.entryTime, 'yyyy-MM-dd');
-                        role.birthday = $filter('date')(role.birthday, 'yyyy-MM-dd');
-                        //TODO simply process
-                        var roles = role.roles.length > 0 ? role.dept.roles : [];
-                        delete role.roles;
-                        angular.forEach(roles, function(v, i) {
-                            role['roles[' + i + '].id'] = v.id;
-                        });
-                        role['dept.id'] = role.dept.id;
+                        role.deptId = role.dept.id;
                         delete role.dept;
+                        delete role.mods;
+                        angular.forEach(selectedMods, function(v, i) {
+                            role['mods[' + i + '].id'] = v.id;
+                        });
 
                         common.post('/role/saveRole.cmd', role, {
-                            fail: function() {
-                                modal.alert('新增用户失败');
-                            },
                             success: function() {
                                 $scope.roleGrid.refresh();
                             }
@@ -74,7 +74,7 @@ controllers.controller('RoleCtrl', ['$scope', 'common', 'modal', 'module', '$fil
 
     $scope.addRole = function() {
         $scope.openRoleInfo({
-            title: '新增用户'
+            title: '新增角色'
         }, $scope);
     };
 
@@ -94,14 +94,9 @@ controllers.controller('RoleCtrl', ['$scope', 'common', 'modal', 'module', '$fil
     $scope.modRole = function() {
         var role = $scope.roleGrid.selection.getSelectedRows()[0];
         role = angular.copy(role);
-        if (role.birthday) {
-            role.birthday = new Date(role.birthday);
-        }
-        if (role.entryTime) {
-            role.entryTime = new Date(role.entryTime);
-        }
+
         $scope.openRoleInfo({
-            title: '新增用户',
+            title: '修改角色',
             data: role
         }, $scope);
     };

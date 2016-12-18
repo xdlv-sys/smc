@@ -19,6 +19,7 @@
                     <div ng-class="grid.isRTL() ? 'first-bar-rtl' : 'last-bar'"></div>
                 </div>
             </button>
+            <button type="button" role="menuitem" ng-click="grid.options.refresh()" class="fa fa-refresh" style="color:#888;"></mk-button>
         </div> 
         <div class="ui-grid-pager-count-container">
             <div class="ui-grid-pager-count"><span ng-show="grid.options.totalItems > 0">显示{{ 1 + paginationApi.getFirstRowIndex() }} <abbr ui-grid-one-bind-title="paginationThrough">-</abbr> {{paginationApi.getLastRowIndex() }} 条，共{{grid.options.totalItems}}条</span></div>

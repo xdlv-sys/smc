@@ -39,6 +39,15 @@ angular.module('xdApp', [
             url: '/conf',
             templateUrl : 'conf.html',
             controller: 'ConfCtrl'
+        }).state('product', {
+            url: '/product',
+            templateUrl : 'product.html',
+            controller: 'ProductCtrl'
+        }).state('product-item', {
+            url: '/product-item',
+            params: {product: null},
+            templateUrl : 'product-item.html',
+            controller: 'ProductItemCtrl'
         });
     }
 ]);

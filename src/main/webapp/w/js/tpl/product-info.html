@@ -1,0 +1,87 @@
+<div layout="row">
+    <md-input-container flex>
+        <label>商品名称</label>
+        <input ng-model="modal.data.name" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+    <md-input-container flex>
+        <label>规格型号</label>
+        <input ng-model="modal.data.model" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label> 商品性质</label>
+        <md-select flex ng-model="modal.data.nature" ng-disabled="!modal.add" required>
+            <md-option ng-repeat="n in modal.natures" ng-value="n.index">{{n.value}}</md-option>
+        </md-select required>
+    </md-input-container>
+    <md-input-container flex>
+        <label> 所属类型</label>
+        <md-select flex ng-model="modal.data.genre" ng-disabled="!modal.add" required>
+            <md-option ng-repeat="n in modal.genres" ng-value="n.index">{{n.value}}</md-option>
+        </md-select required>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>批次管理</label>
+        <input ng-model="modal.data.batch" type="text" ng-readonly="!modal.add">
+    </md-input-container>
+    <md-input-container flex>
+        <label>库存量</label>
+        <input ng-model="modal.data.storage" type="text" ng-readonly="!modal.add">
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>计量单位</label>
+        <md-select flex ng-model="modal.data.countUnit" ng-disabled="!modal.add" required>
+            <md-option ng-repeat="n in modal.countUnits" ng-value="n.index">{{n.value}}</md-option>
+        </md-select required>
+    </md-input-container>
+    <md-input-container flex>
+        <label>重量单位</label>
+        <md-select flex ng-model="modal.data.weightUnit" ng-disabled="!modal.add" required>
+            <md-option ng-repeat="n in modal.weightUnits" ng-value="n.index">{{n.value}}</md-option>
+        </md-select required>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>体积单位</label>
+        <md-select flex ng-model="modal.data.bulkUnit" ng-disabled="!modal.add" required>
+            <md-option ng-repeat="n in modal.bulkUnits" ng-value="n.index">{{n.value}}</md-option>
+        </md-select required>
+    </md-input-container>
+    <md-input-container flex>
+        <label>注册商标</label>
+        <input ng-model="modal.data.trademark" type="text" ng-readonly="!modal.add">
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>批准文号</label>
+        <input ng-model="modal.data.approveCode" type="text" ng-readonly="!modal.add">
+    </md-input-container>
+    <md-input-container flex>
+        <label>条码</label>
+        <input ng-model="modal.data.lineCode" type="text" ng-readonly="!modal.add">
+    </md-input-container>
+</div>
+
+<div layout="row">
+    <md-input-container flex>
+        <label>包装规格</label>
+        <input ng-model="modal.data.packageType" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+    <md-input-container flex>
+        <label>税率</label>
+        <input ng-model="modal.data.rate" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>发票品名</label>
+        <input ng-model="modal.data.billName" type="text" ng-readonly="!modal.add">
+    </md-input-container>
+</div>
