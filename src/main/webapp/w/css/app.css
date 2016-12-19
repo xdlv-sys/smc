@@ -66,3 +66,23 @@ a:active {
 .max_height {
     height: 100%;
 }
+
+/************************************************************/
+.lf-ng-md-file-input .lf-ng-md-file-input-container {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 1px;
+  border-radius: 0px;
+  -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06);
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06);
+   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06);
+}
+/*
+.lf-ng-md-file-input .lf-browse{
+}
+
+.lf-ng-md-file-input .lf-browse:before {
+  content: "\f115";
+}*/
+.our-lf-browse {
+  content: "\f115";
+}

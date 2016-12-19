@@ -1,5 +1,5 @@
 controllers.controller('ProductImportCtrl', ['$scope', 'common', 'modal', 'module', '$filter', function($scope, common, modal, module, $filter) {
-    
+
     $scope.loadProductImports = function(page, limit) {
         common.loadPage('/product/obtainProductImports.cmd', {
             page: page,
@@ -15,4 +15,7 @@ controllers.controller('ProductImportCtrl', ['$scope', 'common', 'modal', 'modul
     $scope.productImportGrid = module.createProductImportGrid($scope, $scope.loadProductImports);
     $scope.loadProductImports(1, $scope.productImportGrid.paginationPageSize);
 
+    $scope.uploadFile = function() {
+        common.uploadFile('/product/importProduct.cmd', $scope.importFile[0].lfFile);
+    };
 }]);

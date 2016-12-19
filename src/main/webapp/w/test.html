@@ -23,6 +23,9 @@
     <script src="js/comp/kjvelarde-multiselect-searchtree-0.9.5.tpl.js"></script>
     <script src="js/comp/ngPopover.js"></script>
     <link href="js/comp/ngpopover.css" rel="stylesheet">
+        <script src="js/comp/lf-ng-md-file-input.js"></script>
+    <link href="js/comp/lf-ng-md-file-input.css" rel="stylesheet">
+
     <!-- my stuff-->
     <link rel="stylesheet" href="css/app.css" />
     <link rel="stylesheet" href="css/menu.css" />
@@ -59,7 +62,12 @@
 </head>
 
 <body ng-app="xdApp" layout="column" ng-controller="taxController">
-    <multiselect-searchtree data-input-model="departments" multi-select="true" data-output-model="selectedItem2" data-callback="treeCallback(item, selectedItems)" data-select-only-leafs="false" extra-buttons="true"></multiselect-searchtree>
+     <!-- <lf-ng-md-file-input flex aria-label="fileupload2" lf-files='importFile' lf-placeholder="my placeholder" lf-browse-label="选择文件"> </lf-ng-md-file-input> -->
+
+     <label for="pictures"> </label>
+     <input id="pictures" label="Upload Images" name="pictures" ngf-select="upload($file)" ng-model="pictures" accept="image/*" class="ng-pristine ng-valid md-input ng-touched" aria-invalid="false" style="">
+
+    <!-- <multiselect-searchtree data-input-model="departments" multi-select="true" data-output-model="selectedItem2" data-callback="treeCallback(item, selectedItems)" data-select-only-leafs="false" extra-buttons="true"></multiselect-searchtree> -->
 
     <!--<ng-popover trigger="popover-trigger">
         <multiselect-searchtree data-input-model="departments" multi-select="false" data-output-model="selectedItem2" data-callback="treeCallback(item, selectedItems)" data-select-only-leafs="false" extra-buttons="true"></multiselect-searchtree>
@@ -67,7 +75,7 @@
     
     <md-button id="popover-trigger" class="ng-popover-trigger">Open</md-button>
     -->
-    <md-button ng-click="show()">OPEN</md-button>
+    <!-- <md-button ng-click="show()">OPEN</md-button>
     <div class="row">
         <div class="col-sm-6">
             <div ui-tree id="tree-root">
@@ -82,7 +90,7 @@
             </div>
             <pre class="code">{{ data | json }}</pre>
         </div>
-    </div>
+    </div> -->
 </body>
 
 </html>

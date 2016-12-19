@@ -6,7 +6,7 @@ angular.module('xdApp', [
     'ngAria',
     'ui.grid', 'ui.grid.pagination','ui.grid.selection','ui.grid.autoResize',
     'multiselect-searchtree','ngPopover',
-    'ui.tree'
+    'ui.tree','lfNgMdFileInput'
 ]).config(['$mdIconProvider', '$mdThemingProvider', function($mdIconProvider, $mdThemingProvider) {
     /*$mdThemingProvider.theme('default')
         .primaryPalette('light-blue', {

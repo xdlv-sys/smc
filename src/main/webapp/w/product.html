@@ -4,18 +4,19 @@
             <div layout="row">
                 <md-button class="md-primary md-raised" ng-click="addProduct()" ng-if="allow(16)">新增商品</md-button>
                 <md-button class="md-primary md-raised" ng-click="delProduct()" ng-disabled="productGrid.selection.getSelectedRows().length<1" ng-if="allow(18)">删除商品</md-button>
-
                 <md-button class="md-primary md-raised" ng-click="approvalProduct()" ng-disabled="!canApprove()" ng-if="allow(19)">审核通过</md-button>
-
             </div>
             <div flex ui-grid="productGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
         </md-content>
     </md-tab>
-    <md-tab label="导入记录">
+    <md-tab label="导入">
         <md-content class="max_height" layout="column" ng-controller="ProductImportCtrl">
             <div layout="row">
                 <md-button class="md-primary md-raised" ng-click="approveImport()" ng-disabled="productImportGrid.selection.getSelectedRows().length!==1">审核通过</md-button>
                 <md-button class="md-primary md-raised" ng-click="delRole()" ng-disabled="productImportGrid.selection.getSelectedRows().length<1">删除</md-button>
+
+               <lf-ng-md-file-input flex="33" aria-label="fileupload" lf-files='importFile' lf-placeholder="选择Excel文件上传" lf-browse-label="选择文件"> </lf-ng-md-file-input>
+               <md-button class="md-primary md-raised" ng-click="uploadFile()" ng-disabled="importFile.length < 1">上传</md-button>
             </div>
             <div flex ui-grid="productImportGrid" ui-grid-pagination ui-grid-selection class="max_height"></div>
         </md-content>

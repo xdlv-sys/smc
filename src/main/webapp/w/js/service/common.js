@@ -52,6 +52,19 @@ services.service('common', ['$http','modal', function($http, modal) {
         });
     };
 
+    this.uploadFile = function(url, file){
+        var formData = new FormData();
+        formData.append('file', file);
+        $http.post(url, formData, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).then(function(result) {
+            console.log(result);        
+        }, function(err) {
+            console.log(error);
+        });
+    };
+
     this.createGridOption = function(columnDefs, scope, loadData,configuration) {
         return {
             paginationPageSizes: [25, 50, 75],

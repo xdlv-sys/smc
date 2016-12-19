@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xd.fw.bean.DynamicConf;
+import org.springframework.web.multipart.MultipartFile;
 import xd.fw.bean.Product;
 import xd.fw.bean.ProductImport;
-import xd.fw.dao.ConfRepository;
 import xd.fw.dao.ProductImportRepository;
 import xd.fw.dao.ProductRepository;
 import xd.fw.service.IConst;
@@ -67,6 +67,14 @@ public class ProductController extends BaseController{
         }
         return DONE;
     }
+
+    @RequestMapping("importProduct")
+    @ResponseBody
+    public String importProduct(@RequestParam("file")MultipartFile file) throws Exception {
+        return DONE;
+    }
+
+
 
 
 }

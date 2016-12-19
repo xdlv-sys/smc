@@ -98,8 +98,8 @@ services.service('module', ['common','configuration', function(common,configurat
 
     this.createProductImportGrid = function(scope, loadData) {
         return common.createGridOption([{
-            name: '导入员',
-            field: ''
+            name: '导入',
+            field: 'operator'
         }, {
             name: '状态',
             field: 'status'
