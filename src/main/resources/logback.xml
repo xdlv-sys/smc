@@ -2,19 +2,19 @@
 <configuration scan="true" scanPeriod="5 seconds">
 
     <property name="DEV_HOME" value="../logs" />
-    <property name="FORMAT" value="%d{yyyy-MM-dd HH:mm:ss} [%logger] %-5level %msg%n"/>
-    <property name="MAX_HISTROY" value="5"/>
+    <property name="FORMAT" value="%d{yyyy-MM-dd HH:mm:ss} [%logger{0}] %-5level %msg%n"/>
+    <property name="MAX_HISTORY" value="5"/>
     <property name="MAX_SIZE" value="1MB"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>debug</level>
         </filter>
-        <encoder>
+        <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
                 ${FORMAT}
             </Pattern>
-        </encoder>
+        </layout>
     </appender>
 
     <appender name="FILE-AUDIT"
@@ -29,7 +29,7 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
             <fileNamePattern>${DEV_HOME}/archived/log.%d{yyyy-MM-dd}.%i.zip</fileNamePattern>
-            <maxHistory>${MAX_HISTROY}</maxHistory>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>${MAX_SIZE}</maxFileSize>
@@ -38,32 +38,32 @@
 
     </appender>
 
-    <appender name="file-error"
+    <appender name="FILE-ERROR"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>warn</level>
+            <level>WARN</level>
         </filter>
-        <file>${dev_home}/error.log</file>
+        <file>${DEV_HOME}/error.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>
-                ${format}
-            </pattern>
+            <Pattern>
+                ${FORMAT}
+            </Pattern>
         </encoder>
 
-        <rollingpolicy class="ch.qos.logback.core.rolling.TimeBasedFileNamingAndTriggeringPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <filenamepattern>${dev_home}/archived/error.%d{yyyy-mm-dd}.%i.log.zip</filenamepattern>
-            <maxhistory>${max_histroy}</maxhistory>
-            <timebasedfilenamingandtriggeringpolicy
+            <fileNamePattern>${DEV_HOME}/archived/error.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxfilesize>${max_size}</maxfilesize>
-            </timebasedfilenamingandtriggeringpolicy>
-        </rollingpolicy>
+                <maxFileSize>${MAX_SIZE}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
 
     </appender>
 
     <logger name="org.mybatis" level="error"/>
-    <logger name="org.hibernate.orm.deprecation" level="error"/>
+    <logger name="SQL" level="debug" additivity="false"/>
 
     <root level="info">
         <appender-ref ref="STDOUT" />

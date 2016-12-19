@@ -52,7 +52,9 @@ dependencies {
             [group:'org.hibernate', name :'hibernate-core', version: '5.2.4.Final'],
             [group: 'org.aspectj', name: 'aspectjrt', version: '1.8.9'],
             'org.apache.commons:commons-lang3:3.5',
-            [group: 'org.apache.poi', name: 'openxml4j', version: '1.0-beta'],
+            // https://mvnrepository.com/artifact/org.apache.poi/poi
+            [group: 'org.apache.poi', name: 'poi', version: '3.16-beta1'],
+
             [group: 'org.aspectj', name: 'aspectjtools', version: '1.8.9']
     )
 

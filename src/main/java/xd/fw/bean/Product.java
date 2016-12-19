@@ -17,6 +17,7 @@ public class Product {
             pkColumnName = "table_name", valueColumnName = "current_id",
             initialValue = 100, allocationSize = 100)
     private int id;
+    private String code;
     private String name;
     private String model;
     private byte nature;
@@ -178,6 +179,14 @@ public class Product {
 
     public void setLineCode(String lineCode) {
         this.lineCode = lineCode;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     @Override

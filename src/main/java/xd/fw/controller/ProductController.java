@@ -71,10 +71,22 @@ public class ProductController extends BaseController{
     @RequestMapping("importProduct")
     @ResponseBody
     public String importProduct(@RequestParam("file")MultipartFile file) throws Exception {
+
         return DONE;
     }
-
-
-
-
+    /*private static Workbook parseFile(File excelFile) throws Exception {
+        Workbook book = null;
+        FileInputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(excelFile);
+            book = new HSSFWorkbook(inputStream);
+        } catch (Exception ex) {
+            book = new XSSFWorkbook(excelFile);
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+        return book;
+    }*/
 }

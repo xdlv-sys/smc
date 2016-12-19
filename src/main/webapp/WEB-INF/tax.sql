@@ -131,12 +131,12 @@ create table t_dynamic_conf(
   conf_value varchar(128),
   conf_desc varchar(128)
 )ENGINE = INNODB;
-insert into t_dynamic_conf values(-2, 0, 'test','100','测试');
 
 -- product name manager
 drop table IF EXISTS t_product;
 create table t_product(
   id int primary key,
+  code VARCHAR(32) not null,
   name varchar(32) not null,
   model varchar(64) not null,
   nature TINYINT not null,
@@ -156,7 +156,7 @@ create table t_product(
   import_id int,
   create_time DATETIME
 )ENGINE = INNODB;
-insert into t_product values(-1,'a','m',1,1,'b',0.2,1,1,1,'t','a','l','p','b',1,0,-1,now());
+insert into t_product values(-1,'code','a','m',1,1,'b',0.2,1,1,1,'t','a','l','p','b',1,0,-1,now());
 
 drop table IF EXISTS t_product_import;
 create table t_product_import(
