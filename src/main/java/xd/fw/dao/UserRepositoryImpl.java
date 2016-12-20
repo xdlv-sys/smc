@@ -1,13 +1,12 @@
 package xd.fw.dao;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.ListUtils;
-import xd.fw.bean.Dept;
-import xd.fw.bean.Mod;
-import xd.fw.bean.Role;
-import xd.fw.bean.User;
+import xd.fw.bean.*;
 import xd.fw.util.FwUtil;
 
 import java.util.ArrayList;
@@ -19,6 +18,7 @@ import java.util.stream.Collectors;
  * Created by xd on 2016/12/6.
  */
 @Service
+@Transactional(readOnly = true)
 public class UserRepositoryImpl implements UserRepositoryCustom{
 
     @Autowired
@@ -29,6 +29,10 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
     RoleRepository roleRepository;
     @Autowired
     ModRepository modRepository;
+    @Autowired
+    ProductRepository productRepository;
+
+    Logger logger = LoggerFactory.getLogger(UserRepositoryImpl.class);
 
     @Override
     @Transactional
@@ -70,5 +74,21 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
         Dept dept = deptRepository.findOne(deptId);
         FwUtil.replaceOrAddListItem(dept.getRoles(), record, (t,o)->t.getId().equals(o.getId()));
         deptRepository.save(dept);
+    }
+
+    @Override
+    @Transactional
+    public int[] batchSaveProduct(List<Product> productList) {
+        int [] result = {0, 0};
+        FwUtil.safeEach(productList,p->{
+            try{
+                productRepository.save(p);
+                result[0] ++;
+            } catch (Throwable e) {
+                result[1]++;
+                logger.error("",e);
+            }
+        });
+        return result;
     }
 }

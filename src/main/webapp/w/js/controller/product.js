@@ -42,17 +42,10 @@ controllers.controller('ProductCtrl', ['$scope','$rootScope', 'configuration', '
             title: '新增商品'
         }, $scope);
     };
-    $scope.constructSelectedId = function(){
-        var products = $scope.productGrid.selection.getSelectedRows();
-        var params = { productIds: [] };
-        angular.forEach(products, function(v) {
-            params.productIds.push(v.id);
-        });
-        return params;
-    };
 
     $scope.delProduct = function() {
-        common.post('/product/deleteProduct.cmd', $scope.constructSelectedId(), {
+        common.post('/product/deleteProduct.cmd'
+            , $scope.constructSelectedId($scope.productGrid,'productIds'), {
             success: function() {
                 $scope.productGrid.refresh();
             }

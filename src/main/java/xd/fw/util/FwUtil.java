@@ -5,7 +5,6 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import org.apache.commons.lang3.StringUtils;
-import org.openxml4j.opc.internal.ZipHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.task.AsyncTaskExecutor;
@@ -186,7 +185,7 @@ public class FwUtil {
     }
 
     public static void unzip(File zipFile, File destDir) throws IOException {
-        try (ZipFile zip = ZipHelper.openZipFile(zipFile.getAbsolutePath())) {
+        try (ZipFile zip = new ZipFile(zipFile)) {
             Enumeration<? extends ZipEntry> entries = zip.entries();
             ZipEntry zipEntry;
             byte[] buffer = new byte[1024];

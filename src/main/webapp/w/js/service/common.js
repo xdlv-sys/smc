@@ -37,6 +37,7 @@ services.service('common', ['$http','modal', function($http, modal) {
                 delete params[k];
             }
         }
+        
         $http.post(url, params).success(function(data) {
             if (data && data.errorMsg) {
                 if (call.fail) {
@@ -52,16 +53,26 @@ services.service('common', ['$http','modal', function($http, modal) {
         });
     };
 
-    this.uploadFile = function(url, file){
+    this.uploadFile = function(url, params,conf){
         var formData = new FormData();
-        formData.append('file', file);
+        for (var key in params){
+            formData.append(key, params[key]);
+        }
+
+        modal.wait();
         $http.post(url, formData, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).then(function(result) {
-            console.log(result);        
+            if (conf && conf.success){
+                conf.success(result);
+            }
+            modal.hide();    
         }, function(err) {
-            console.log(error);
+            if (conf && conf.fail){
+                conf.fail(err);
+            } 
+            modal.hide();
         });
     };
 

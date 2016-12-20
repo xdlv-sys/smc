@@ -16,6 +16,23 @@ controllers.controller('ProductImportCtrl', ['$scope', 'common', 'modal', 'modul
     $scope.loadProductImports(1, $scope.productImportGrid.paginationPageSize);
 
     $scope.uploadFile = function() {
-        common.uploadFile('/product/importProduct.cmd', $scope.importFile[0].lfFile);
+        common.uploadFile('/product/importProduct.cmd', {
+            file: $scope.importFile[0].lfFile,
+            userName: $scope.user.name
+        },{
+            success: function(result) {
+                $scope.productImportGrid.refresh();
+                modal.alert('成功导入:' + result.data.right + '条，失败:' + result.data.wrong + '条');
+            }
+        });
+    };
+
+    $scope.delImport = function(){
+        common.post('/product-import/deleteProductImport.cmd'
+            , $scope.constructSelectedId($scope.productImportGrid,'productImportIds'), {
+            success: function() {
+                $scope.productImportGrid.refresh();
+            }
+        });
     };
 }]);

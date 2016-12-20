@@ -105,7 +105,8 @@ services.service('module', ['common','configuration', function(common,configurat
             field: 'operator'
         }, {
             name: '状态',
-            field: 'status'
+            field: 'status',
+            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{row.entity.status === 0 ? "待审核": "己审核"}}' + '</div>'
         }, {
             name: '导入时间',
             field: 'createTime'

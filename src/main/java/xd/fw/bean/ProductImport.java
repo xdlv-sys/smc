@@ -1,5 +1,8 @@
 package xd.fw.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import xd.fw.service.IConst;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -15,8 +18,14 @@ public class ProductImport {
             pkColumnName = "table_name", valueColumnName = "current_id")
     private int id;
     private String operator;
-    private Byte status;
+    private Byte status = IConst.STATUS_INI;
     private Timestamp createTime;
+    public ProductImport(){}
+    public ProductImport(String operator){
+        this();
+        this.operator = operator;
+        createTime = new Timestamp(System.currentTimeMillis());
+    }
 
     public int getId() {
         return id;
@@ -64,6 +73,7 @@ public class ProductImport {
         return result;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Timestamp getCreateTime() {
         return createTime;
     }

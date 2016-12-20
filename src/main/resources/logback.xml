@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="5 seconds">
 
-    <property name="DEV_HOME" value="../logs" />
+    <property name="DEV_HOME" value="../logs"/>
     <property name="FORMAT" value="%d{yyyy-MM-dd HH:mm:ss} [%logger{0}] %-5level %msg%n"/>
     <property name="MAX_HISTORY" value="5"/>
     <property name="MAX_SIZE" value="1MB"/>
@@ -10,20 +10,20 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>debug</level>
         </filter>
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>
+        <encoder>
+            <pattern>
                 ${FORMAT}
-            </Pattern>
-        </layout>
+            </pattern>
+        </encoder>
     </appender>
 
     <appender name="FILE-AUDIT"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${DEV_HOME}/log.log</file>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>
+        <encoder>
+            <pattern>
                 ${FORMAT}
-            </Pattern>
+            </pattern>
         </encoder>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -44,10 +44,10 @@
             <level>WARN</level>
         </filter>
         <file>${DEV_HOME}/error.log</file>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>
+        <encoder>
+            <pattern>
                 ${FORMAT}
-            </Pattern>
+            </pattern>
         </encoder>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -65,10 +65,10 @@
     <logger name="org.mybatis" level="error"/>
     <logger name="SQL" level="debug" additivity="false"/>
 
-    <root level="info">
-        <appender-ref ref="STDOUT" />
-        <appender-ref ref="FILE-AUDIT" />
-        <appender-ref ref="FILE-ERROR" />
+    <root level="debug">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE-AUDIT"/>
+        <appender-ref ref="FILE-ERROR"/>
     </root>
 
 </configuration>

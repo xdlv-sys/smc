@@ -1,5 +1,7 @@
 controllers.controller('taxController', ['$scope', '$mdSidenav', 'modal', 'ngPopoverFactory',
     function($scope, $mdSidenav, modal, ngPopoverFactory) {
+
+        modal.wait();
 $scope.browser = 'TT';
 var a = [];
     a[1] = 2;

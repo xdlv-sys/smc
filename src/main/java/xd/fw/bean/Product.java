@@ -32,7 +32,7 @@ public class Product {
     private String lineCode;
     private String packageType;
     private String billName;
-    private byte rate;
+    private double rate;
     private Byte status = IConst.STATUS_INI;
     private Integer importId;
     private Timestamp createTime;
@@ -149,11 +149,11 @@ public class Product {
         this.billName = billName;
     }
 
-    public byte getRate() {
+    public double getRate() {
         return rate;
     }
 
-    public void setRate(byte rate) {
+    public void setRate(double rate) {
         this.rate = rate;
     }
 

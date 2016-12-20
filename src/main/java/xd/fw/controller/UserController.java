@@ -16,6 +16,8 @@ import xd.fw.service.FwService;
 import xd.fw.util.FwException;
 import xd.fw.util.FwUtil;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("user")
 public class UserController extends BaseController{
@@ -41,7 +43,7 @@ public class UserController extends BaseController{
     @ResponseBody
     public ModelRequest userLogin()throws Exception {
         UserDetail userDetail = (UserDetail)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return modelRequest(userDetail.getUser());
+        return modelRequest(userDetail.getUser());
 
 	}
     @RequestMapping("userLogout")

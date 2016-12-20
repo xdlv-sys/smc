@@ -138,7 +138,7 @@ create table t_product(
   id int primary key,
   code VARCHAR(32) not null,
   name varchar(32) not null,
-  model varchar(64) not null,
+  model varchar(64),
   nature TINYINT not null,
   genre TINYINT not null,
   batch varchar(64),
@@ -151,7 +151,7 @@ create table t_product(
   line_code varchar(64),
   package_type VARCHAR(64) not null,
   bill_name VARCHAR(64),
-  rate TINYINT not null,
+  rate double not null,
   status TINYINT,
   import_id int,
   create_time DATETIME
@@ -182,4 +182,3 @@ insert into t_role_mod values(-85,-2,16);
 insert into t_role_mod values(-84,-2,17);
 insert into t_role_mod values(-83,-2,18);
 insert into t_role_mod values(-82,-2,19);
-
