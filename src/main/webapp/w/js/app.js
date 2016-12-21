@@ -29,7 +29,8 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
 
         $rootScope.constructSelectedId = function(grid, key) {
             var products = grid.selection.getSelectedRows();
-            var params = { key: [] };
+            var params = {};
+            params[key] = [];
             angular.forEach(products, function(v) {
                 params[key].push(v.id);
             });

@@ -123,15 +123,6 @@ insert into t_role_mod values(-91,-2,10);
 insert into t_role_mod values(-90,-2,11);
 insert into t_role_mod values(-89,-2,12);
 
-drop table IF EXISTS t_dynamic_conf;
-create table t_dynamic_conf(
-  id int primary key,
-  group_no int,
-  conf_name varchar(60) ,
-  conf_value varchar(128),
-  conf_desc varchar(128)
-)ENGINE = INNODB;
-
 -- product name manager
 drop table IF EXISTS t_product;
 create table t_product(
@@ -167,18 +158,19 @@ create table t_product_import(
 )ENGINE = INNODB;
 
 insert into t_mod values(13,'商品管理',null,null,'fa fa-truck',0);
-insert into t_mod values(14,'商品导入',null,'product','fa fa-truck',13);
-insert into t_mod values(15,'商品审核',null,'product-approval','fa fa-check-circle',13);
+insert into t_mod values(14,'商品导入及审核',null,'product','fa fa-truck',13);
+-- insert into t_mod values(15,'商品审核',null,'product-approval','fa fa-check-circle',13);
 
 insert into t_mod values(16,'新增商品','/product/saveProduct',null,null,14);
 insert into t_mod values(17,'查看商品','/product/obtainProducts',null,null,14);
 insert into t_mod values(18,'删除商品','/product/deleteProduct',null,null,14);
-insert into t_mod values(19,'审批商品','/product/approveProduct',null,null,15);
+insert into t_mod values(19,'审批商品','/product/approveProduct',null,null,14);
+insert into t_mod values(20,'审批导入','/product-import/approveProductImport',null,null,14);
 
 insert into t_role_mod values(-88,-2,13);
 insert into t_role_mod values(-87,-2,14);
-insert into t_role_mod values(-86,-2,15);
 insert into t_role_mod values(-85,-2,16);
 insert into t_role_mod values(-84,-2,17);
 insert into t_role_mod values(-83,-2,18);
 insert into t_role_mod values(-82,-2,19);
+insert into t_role_mod values(-81,-2,20);

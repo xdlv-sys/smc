@@ -21,7 +21,7 @@ public class Conf {
 
     static Logger logger = LoggerFactory.getLogger(Conf.class);
 
-    static List<PropertyChangeListener> propertyChangeListeners = new ArrayList<>();
+    final static List<PropertyChangeListener> propertyChangeListeners = new ArrayList<>();
     public static void addPropertyChangeListener(PropertyChangeListener l){
         synchronized (propertyChangeListeners){
             propertyChangeListeners.add(l);

@@ -1,13 +1,14 @@
-controllers.controller('ProductCtrl', ['$scope','$rootScope', 'configuration', 'common', 'modal', 'module', '$filter', '$state', function($scope, $rootScope,configuration, common, modal, module, $filter, $state) {
+controllers.controller('ProductCtrl', ['$scope', '$rootScope', 'configuration', 'common', 'modal', 'module', '$filter', '$state', function($scope, $rootScope, configuration, common, modal, module, $filter, $state) {
 
     $scope.showDetail = function(row) {
         $state.go('product-item', { product: row.entity });
     };
+    $scope.query = {};
     $scope.loadProducts = function(page, limit) {
-        common.loadPage('/product/obtainProducts.cmd', {
+        common.loadPage('/product/obtainProducts.cmd', angular.extend({
             page: page,
             limit: limit
-        }, {
+        }, $scope.query), {
             success: function(data) {
                 $scope.productGrid.data = data.data;
                 $scope.productGrid.totalItems = data.total;
@@ -44,25 +45,39 @@ controllers.controller('ProductCtrl', ['$scope','$rootScope', 'configuration', '
     };
 
     $scope.delProduct = function() {
-        common.post('/product/deleteProduct.cmd'
-            , $scope.constructSelectedId($scope.productGrid,'productIds'), {
+        common.post('/product/deleteProduct.cmd', $scope.constructSelectedId($scope.productGrid, 'productIds'), {
             success: function() {
                 $scope.productGrid.refresh();
             }
         });
     };
 
-    $scope.canApprove = function(){
+    $scope.canApprove = function() {
         var products = $scope.productGrid.selection.getSelectedRows();
-        return products.length > 0 && !products.contains(function(p){
+        return products.length > 0 && !products.contains(function(p) {
             return p.status !== 0;
         });
     };
-    $scope.approvalProduct = function(){
-        common.post('/product/approvalProduct.cmd', $scope.constructSelectedId(), {
+    $scope.approvalProduct = function() {
+        common.post('/product/approvalProduct.cmd', $scope.constructSelectedId($scope.productGrid, 'productIds'), {
             success: function() {
                 $scope.productGrid.refresh();
             }
         });
     };
+
+    $scope.loadImports = function() {
+        common.loadAllPage('/product/obtainProductImports.cmd', {
+            success: function(data) {
+                $scope.imports = data.data;
+            }
+        });
+    };
+    $scope.queryProduct = function(){
+        $scope.productGrid.refresh(true);
+    };
+
+    $scope.exportProduct = function(){
+
+    }
 }]);

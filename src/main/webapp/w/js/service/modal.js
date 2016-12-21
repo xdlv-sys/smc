@@ -1,5 +1,22 @@
 services.service('modal', ['$mdDialog', function($mdDialog) {
-    this.wait = function(msg) {
+    this.confirm = function(msg, conf) {
+        var confirm = $mdDialog.confirm()
+            .title('提示信息')
+            .textContent(msg)
+            .ok('继续')
+            .cancel('取消');
+        $mdDialog.show(confirm).then(function() {
+            if (conf && conf.postive){
+                conf.postive();
+            }
+        }, function() {
+            if (conf && conf.negative){
+                conf.negative();
+            }
+        });
+    };
+
+    this.wait = function() {
         $mdDialog.show({
             templateUrl: 'js/tpl/wait.html',
             parent: angular.element(document.body)

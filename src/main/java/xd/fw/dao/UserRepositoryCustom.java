@@ -13,4 +13,8 @@ public interface UserRepositoryCustom {
     void saveRole(Role role, int deptId) throws Exception ;
 
     int[] batchSaveProduct(List<Product> productList);
+
+    void approveImport(int[] productImportIds);
+
+    void deleteImport(int[] productImportIds);
 }

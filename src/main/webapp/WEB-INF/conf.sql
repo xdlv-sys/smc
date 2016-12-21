@@ -1,4 +1,13 @@
 -- group 1 : product
+drop table IF EXISTS t_dynamic_conf;
+create table t_dynamic_conf(
+  id int primary key,
+  group_no int,
+  conf_name varchar(60) ,
+  conf_value varchar(128),
+  conf_desc varchar(128)
+)ENGINE = INNODB;
+
 delete from t_dynamic_conf;
 insert into t_dynamic_conf values(1,'1','nature.1','库存材料','商品性质1');
 insert into t_dynamic_conf values(2,'1','genre.1','水泥','所属类型1');

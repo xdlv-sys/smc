@@ -1,26 +1,34 @@
 package xd.fw.controller;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.document.AbstractXlsxStreamingView;
 import xd.fw.bean.Product;
 import xd.fw.bean.ProductImport;
 import xd.fw.dao.ProductImportRepository;
 import xd.fw.dao.ProductRepository;
 import xd.fw.dao.UserRepositoryCustom;
-import xd.fw.service.FwService;
 import xd.fw.service.IConst;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xd on 2016/12/7.
@@ -33,14 +41,17 @@ public class ProductController extends BaseController {
     @Autowired
     ProductImportRepository productImportRepository;
     @Autowired
-    FwService fwService;
+    DynamicConfig dynamicConfig;
     @Autowired
     UserRepositoryCustom userRepositoryCustom;
+    @Value("${product_heads}")
+    String productHeads;
 
     @RequestMapping("obtainProducts")
     @ResponseBody
-    public PageContent obtainProducts(int page, int limit) {
-        Page<Product> list = productRepository.findAll(pageRequest(page, limit));
+    public PageContent obtainProducts(int page, int limit, Product query) {
+        ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+        Page<Product> list = productRepository.findAll(Example.of(query, matcher), pageRequest(page, limit));
         return page(list);
     }
 
@@ -82,7 +93,7 @@ public class ProductController extends BaseController {
 
     @RequestMapping("importProduct")
     @ResponseBody
-    public String importProduct(@RequestParam("file") MultipartFile file, @RequestParam("userName")String userName) throws Exception {
+    public String importProduct(@RequestParam("file") MultipartFile file, @RequestParam("userName") String userName) throws Exception {
         Workbook wb = parseFile(file.getInputStream());
         List<Product> productList = new ArrayList<>();
         Sheet sheet = wb.getSheetAt(0);
@@ -98,28 +109,29 @@ public class ProductController extends BaseController {
             }
             Product product = new Product();
             product.setImportId(importId);
+            product.setStatus(IConst.STATUS_INI);
             productList.add(product);
             for (int j = 1; j < 17; j++) {
-                cell = row.getCell(j -1 );
+                cell = row.getCell(j - 1);
                 value = getCellValue(cell);
                 if (StringUtils.isEmpty(value)) {
                     continue;
                 }
                 switch (j) {
-                    case 1 :
+                    case 1:
                         product.setCode(value);
                         break;
-                    case 2 :
+                    case 2:
                         product.setName(value);
                         break;
                     case 3:
                         product.setModel(value);
                         break;
                     case 4:
-                        product.setNature(fwService.value2Id(1, value));
+                        product.setNature(dynamicConfig.value2Id(1, value));
                         break;
                     case 5:
-                        product.setGenre(fwService.value2Id(1, value.substring(2).trim()));
+                        product.setGenre(dynamicConfig.value2Id(1, value.substring(2).trim()));
                         break;
                     case 6:
                         product.setBatch(value);
@@ -128,13 +140,13 @@ public class ProductController extends BaseController {
                         product.setStorage(Double.parseDouble(value));
                         break;
                     case 8:
-                        product.setCountUnit(fwService.value2Id(1,value));
+                        product.setCountUnit(dynamicConfig.value2Id(1, value));
                         break;
                     case 9:
-                        product.setWeightUnit(fwService.value2Id(1,value));
+                        product.setWeightUnit(dynamicConfig.value2Id(1, value));
                         break;
                     case 10:
-                        product.setBulkUnit(fwService.value2Id(1,value));
+                        product.setBulkUnit(dynamicConfig.value2Id(1, value));
                         break;
                     case 11:
                         product.setTrademark(value);
@@ -158,8 +170,57 @@ public class ProductController extends BaseController {
             }
         }
         int[] result = userRepositoryCustom.batchSaveProduct(productList);
+        return String.format("{\"success\":true,\"right\":%d,\"wrong\":%d}", result[0], result[1]);
+    }
 
-        return String.format("{\"success\":true,\"right\":%d,\"wrong\":%d}",result[0],result[1]);
+    @RequestMapping("exportProduct")
+    @ResponseBody
+    public ModelAndView exportProduct(Product query) {
+        ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+        List<Product> all = productRepository.findAll(Example.of(query, matcher));
+        AbstractXlsxStreamingView view = new AbstractXlsxStreamingView(){
+            @Override
+            protected void buildExcelDocument(Map<String, Object> model, Workbook workbook
+                    , HttpServletRequest request, HttpServletResponse response) throws Exception {
+                Sheet sheet = createSheet(workbook,"sheet1");
+                Row row;
+                Product product;
+                for (int rowCount = 0; rowCount < all.size();rowCount ++){
+                    product = all.get(rowCount);
+                    row = sheet.createRow(rowCount + 1);
+                    row.createCell(0).setCellValue(product.getCode());
+                    row.createCell(1).setCellValue(product.getName());
+                    row.createCell(2).setCellValue(product.getModel());
+                    row.createCell(3).setCellValue(dynamicConfig.id2Value(1,"nature",product.getNature()));
+                    row.createCell(4).setCellValue(product.getBatch());
+                    row.createCell(5).setCellValue(product.getStorage());
+                    row.createCell(6).setCellValue(product.getName());
+                    row.createCell(7).setCellValue(product.getName());
+                    row.createCell(8).setCellValue(product.getName());
+                    row.createCell(9).setCellValue(product.getName());
+                    row.createCell(10).setCellValue(product.getName());
+                    row.createCell(11).setCellValue(product.getName());
+                    row.createCell(12).setCellValue(product.getName());
+                }
+            }
+        };
+        return new ModelAndView(view);
+    }
+
+    private Sheet createSheet(Workbook wb, String name){
+        CellStyle style = wb.createCellStyle();
+        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+
+        Sheet sheet = wb.createSheet(name);
+        Row row = sheet.createRow(0);
+        row.setRowStyle(style);
+        Cell cell;
+        String[] titles = productHeads.split(" ");
+        for (int i=0;i<titles.length;i++){
+            cell = row.createCell(i);
+            cell.setCellValue(titles[i]);
+        }
+        return sheet;
     }
 
     private static Workbook parseFile(InputStream inputStream) throws Exception {
@@ -178,7 +239,7 @@ public class ProductController extends BaseController {
         if (cell == null) {
             return null;
         }
-        String value = null;
+        String value;
         try {
             value = String.valueOf(cell.getStringCellValue());
         } catch (IllegalStateException e) {

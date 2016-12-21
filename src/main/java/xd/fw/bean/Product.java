@@ -16,12 +16,12 @@ public class Product {
     @TableGenerator(name = "pk_product_id", table = "t_primary_key",
             pkColumnName = "table_name", valueColumnName = "current_id",
             initialValue = 100, allocationSize = 100)
-    private int id;
+    private Integer id;
     private String code;
     private String name;
     private String model;
-    private byte nature;
-    private byte genre;
+    private Byte nature;
+    private Byte genre;
     private String batch;
     private Double storage;
     private Byte countUnit;
@@ -32,16 +32,16 @@ public class Product {
     private String lineCode;
     private String packageType;
     private String billName;
-    private double rate;
-    private Byte status = IConst.STATUS_INI;
+    private Double rate;
+    private Byte status;
     private Integer importId;
     private Timestamp createTime;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -61,19 +61,19 @@ public class Product {
         this.model = model;
     }
 
-    public byte getNature() {
+    public Byte getNature() {
         return nature;
     }
 
-    public void setNature(byte nature) {
+    public void setNature(Byte nature) {
         this.nature = nature;
     }
 
-    public byte getGenre() {
+    public Byte getGenre() {
         return genre;
     }
 
-    public void setGenre(byte genre) {
+    public void setGenre(Byte genre) {
         this.genre = genre;
     }
 
@@ -149,11 +149,11 @@ public class Product {
         this.billName = billName;
     }
 
-    public double getRate() {
+    public Double getRate() {
         return rate;
     }
 
-    public void setRate(double rate) {
+    public void setRate(Double rate) {
         this.rate = rate;
     }
 
@@ -233,7 +233,6 @@ public class Product {
         result = 31 * result + (approveCode != null ? approveCode.hashCode() : 0);
         result = 31 * result + (packageType != null ? packageType.hashCode() : 0);
         result = 31 * result + (billName != null ? billName.hashCode() : 0);
-        result = 31 * result + (int) rate;
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (importId != null ? importId.hashCode() : 0);
         return result;

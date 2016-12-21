@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.ListUtils;
 import xd.fw.bean.*;
+import xd.fw.service.IConst;
 import xd.fw.util.FwUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +33,8 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
     ModRepository modRepository;
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    ProductImportRepository productImportRepository;
 
     Logger logger = LoggerFactory.getLogger(UserRepositoryImpl.class);
 
@@ -90,5 +94,19 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
             }
         });
         return result;
+    }
+
+    @Override
+    @Transactional
+    public void approveImport(int[] productImportIds) {
+        productImportRepository.updateStatusByIds(IConst.STATUS_DONE,productImportIds);
+        productRepository.updateStatusByIds(IConst.STATUS_DONE, productImportIds);
+    }
+
+    @Override
+    @Transactional
+    public void deleteImport(int[] productImportIds) {
+        productImportRepository.deleteImportsByIds(productImportIds);
+        productRepository.deleteProducts(productImportIds);
     }
 }

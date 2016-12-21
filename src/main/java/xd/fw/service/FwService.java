@@ -5,5 +5,4 @@ package xd.fw.service;
  */
 public interface FwService {
 
-    byte value2Id(int groupNo, String value);
 }

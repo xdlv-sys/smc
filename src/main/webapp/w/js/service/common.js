@@ -84,7 +84,10 @@ services.service('common', ['$http','modal', function($http, modal) {
             useExternalSorting: true,
             columnDefs: columnDefs,
             configuration: configuration,
-            refresh: function() {
+            refresh: function(start) {
+                if (start){
+                    this.paginationCurrentPage = 1;
+                }
                 loadData(this.paginationCurrentPage, this.paginationPageSize);
             },
             paginationTemplate: 'js/tpl/pagination.html',

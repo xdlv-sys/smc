@@ -26,8 +26,9 @@
             </list>
         </property>
     </bean>
-    <context:component-scan base-package="xd" />
-    <mvc:annotation-driven />
+    <context:component-scan base-package="xd">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <bean id="httpClientConnectionManager" class="org.apache.http.impl.conn.PoolingHttpClientConnectionManager">
         <property name="maxTotal" value="${http_client_max_connection_total}"/>
