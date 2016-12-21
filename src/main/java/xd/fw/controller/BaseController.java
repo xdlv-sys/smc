@@ -1,5 +1,7 @@
 package xd.fw.controller;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpRequest;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,6 +10,9 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import xd.fw.bean.User;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -19,22 +24,26 @@ public class BaseController {
 
     protected final String DONE = "{\"success\":true}";
 
-    protected PageContent page(Page<?> data){
+    protected PageContent page(Page<?> data) {
         return new PageContent(data);
-    }
-    protected PageContent page(List<?> data){
-        return new PageContent(data);
-    }
-    protected PageRequest pageRequest(int page, int limit){
-        return new PageRequest(page -1, limit);
     }
 
-    protected ModelRequest modelRequest(Object obj){
+    protected PageContent page(List<?> data) {
+        return new PageContent(data);
+    }
+
+    protected PageRequest pageRequest(int page, int limit) {
+        return new PageRequest(page - 1, limit);
+    }
+
+    protected ModelRequest modelRequest(Object obj) {
         return new ModelRequest(obj);
     }
-    static class ModelRequest{
+
+    static class ModelRequest {
         Object data;
-        ModelRequest(Object data){
+
+        ModelRequest(Object data) {
             this.data = data;
         }
 
@@ -43,14 +52,15 @@ public class BaseController {
         }
     }
 
-    static class PageContent extends ModelRequest{
+    static class PageContent extends ModelRequest {
         long total;
 
-        PageContent(Page<?> data){
+        PageContent(Page<?> data) {
             super(data.getContent());
             this.total = data.getTotalElements();
         }
-        PageContent(List<?> data){
+
+        PageContent(List<?> data) {
             super(data);
             this.total = data == null ? 0 : data.size();
         }
@@ -65,5 +75,31 @@ public class BaseController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
+    enum BROWSER {IE, FIREFOX, CHROME}
+
+    protected BROWSER getBrowser(HttpServletRequest request) {
+        String userAgent = request.getHeader("USER-AGENT");
+        if (StringUtils.isBlank(userAgent)) {
+            return BROWSER.IE;
+        }
+        if (userAgent.contains("Chrome")) {
+            return BROWSER.CHROME;
+        }
+        if (userAgent.contains("Firefox")) {
+            return BROWSER.FIREFOX;
+        }
+        return BROWSER.IE;
+    }
+
+    protected String writeDownloadFile(HttpServletRequest request, String fileName) throws UnsupportedEncodingException {
+        if (getBrowser(request) == BROWSER.IE) {
+            fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
+            fileName = StringUtils.replace(fileName, "+", "%20");
+        } else {
+            fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+        }
+        return fileName;
     }
 }

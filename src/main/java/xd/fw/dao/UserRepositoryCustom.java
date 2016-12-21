@@ -12,7 +12,7 @@ public interface UserRepositoryCustom {
 
     void saveRole(Role role, int deptId) throws Exception ;
 
-    int[] batchSaveProduct(List<Product> productList);
+    int[] batchSaveProduct(List<Product> productList, String userName);
 
     void approveImport(int[] productImportIds);
 

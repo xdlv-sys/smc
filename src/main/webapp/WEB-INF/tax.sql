@@ -174,3 +174,43 @@ insert into t_role_mod values(-84,-2,17);
 insert into t_role_mod values(-83,-2,18);
 insert into t_role_mod values(-82,-2,19);
 insert into t_role_mod values(-81,-2,20);
+
+-- project
+drop table if exists t_project;
+create table t_project(
+  id int primary key,
+  name varchar(64),
+  employer varchar(64),
+  project_mode TINYINT,
+  project_type TINYINT,
+  manager varchar(16),
+  contract_number VARCHAR(32),
+  contract_sign_date date,
+  constrat_start_date date,
+  constract_end_time date,
+  license_number varchar(32),
+  license_date date,
+  project_location varchar(64),
+  supply_mode TINYINT,
+  total_count float,
+  rate TINYINT,
+  untaxed_count float,
+  out_source TINYINT,
+  attach TINYINT,
+  status TINYINT,
+  create_time DATETIME
+)ENGINE = INNODB;
+
+drop table if exists t_project_out_source;
+create table t_project_out_source (
+  id INT PRIMARY KEY,
+  contract_name varchar(64),
+  unit_name varchar(64),
+  address varchar(128),
+  sign_date date,
+  start_date date,
+  location varchar(128),
+  supply TINYINT,
+  count float,
+  project_id int
+)ENGINE = INNODB;

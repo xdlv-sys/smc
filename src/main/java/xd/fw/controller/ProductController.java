@@ -46,12 +46,13 @@ public class ProductController extends BaseController {
     UserRepositoryCustom userRepositoryCustom;
     @Value("${product_heads}")
     String productHeads;
+    @Value("${product_export_file_name}")
+    String productExportFileName;
 
     @RequestMapping("obtainProducts")
     @ResponseBody
     public PageContent obtainProducts(int page, int limit, Product query) {
-        ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
-        Page<Product> list = productRepository.findAll(Example.of(query, matcher), pageRequest(page, limit));
+        Page<Product> list = productRepository.findAll(Example.of(query, queryMatcher()), pageRequest(page, limit));
         return page(list);
     }
 
@@ -100,7 +101,6 @@ public class ProductController extends BaseController {
         Cell cell;
         Row row;
         String value;
-        int importId = productImportRepository.save(new ProductImport(userName)).getId();
 
         for (int i = 1; ; i++) {
             row = sheet.getRow(i);
@@ -108,7 +108,6 @@ public class ProductController extends BaseController {
                 break;
             }
             Product product = new Product();
-            product.setImportId(importId);
             product.setStatus(IConst.STATUS_INI);
             productList.add(product);
             for (int j = 1; j < 17; j++) {
@@ -169,19 +168,19 @@ public class ProductController extends BaseController {
                 }
             }
         }
-        int[] result = userRepositoryCustom.batchSaveProduct(productList);
+        int[] result = userRepositoryCustom.batchSaveProduct(productList, userName);
         return String.format("{\"success\":true,\"right\":%d,\"wrong\":%d}", result[0], result[1]);
     }
 
     @RequestMapping("exportProduct")
     @ResponseBody
     public ModelAndView exportProduct(Product query) {
-        ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
-        List<Product> all = productRepository.findAll(Example.of(query, matcher));
+        List<Product> all = productRepository.findAll(Example.of(query, queryMatcher()));
         AbstractXlsxStreamingView view = new AbstractXlsxStreamingView(){
             @Override
             protected void buildExcelDocument(Map<String, Object> model, Workbook workbook
                     , HttpServletRequest request, HttpServletResponse response) throws Exception {
+                response.setHeader("Content-Disposition","attachment; filename=" + writeDownloadFile(request,productExportFileName));
                 Sheet sheet = createSheet(workbook,"sheet1");
                 Row row;
                 Product product;
@@ -192,19 +191,31 @@ public class ProductController extends BaseController {
                     row.createCell(1).setCellValue(product.getName());
                     row.createCell(2).setCellValue(product.getModel());
                     row.createCell(3).setCellValue(dynamicConfig.id2Value(1,"nature",product.getNature()));
-                    row.createCell(4).setCellValue(product.getBatch());
-                    row.createCell(5).setCellValue(product.getStorage());
-                    row.createCell(6).setCellValue(product.getName());
-                    row.createCell(7).setCellValue(product.getName());
-                    row.createCell(8).setCellValue(product.getName());
-                    row.createCell(9).setCellValue(product.getName());
-                    row.createCell(10).setCellValue(product.getName());
-                    row.createCell(11).setCellValue(product.getName());
-                    row.createCell(12).setCellValue(product.getName());
+                    row.createCell(4).setCellValue(
+                            String.format("%02d %s",product.getGenre(),dynamicConfig.id2Value(1,"genre",product.getGenre())));
+                    row.createCell(5).setCellValue(product.getBatch());
+                    if (product.getStorage() != null){
+                        row.createCell(6).setCellValue(product.getStorage());
+                    }
+                    row.createCell(7).setCellValue(dynamicConfig.id2Value(1,"countUnit",product.getCountUnit()));
+                    row.createCell(8).setCellValue(dynamicConfig.id2Value(1,"weightUnit",product.getWeightUnit()));
+                    row.createCell(9).setCellValue(dynamicConfig.id2Value(1,"bulkUnit",product.getBulkUnit()));
+                    row.createCell(10).setCellValue(product.getTrademark());
+                    row.createCell(11).setCellValue(product.getApproveCode());
+                    row.createCell(12).setCellValue(product.getLineCode());
+                    row.createCell(13).setCellValue(product.getPackageType());
+                    row.createCell(14).setCellValue(product.getBillName());
+                    if (product.getRate() != null){
+                        row.createCell(15).setCellValue(product.getRate());
+                    }
                 }
             }
         };
         return new ModelAndView(view);
+    }
+
+    private ExampleMatcher queryMatcher(){
+        return ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
     }
 
     private Sheet createSheet(Workbook wb, String name){

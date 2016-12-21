@@ -5,14 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.thymeleaf.util.ListUtils;
 import xd.fw.bean.*;
 import xd.fw.service.IConst;
 import xd.fw.util.FwUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -82,10 +79,13 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
 
     @Override
     @Transactional
-    public int[] batchSaveProduct(List<Product> productList) {
+    public int[] batchSaveProduct(List<Product> productList, String userName) {
         int [] result = {0, 0};
+        int importId = productImportRepository.save(new ProductImport(userName)).getId();
+
         FwUtil.safeEach(productList,p->{
             try{
+                p.setImportId(importId);
                 productRepository.save(p);
                 result[0] ++;
             } catch (Throwable e) {

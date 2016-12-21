@@ -78,6 +78,11 @@ controllers.controller('ProductCtrl', ['$scope', '$rootScope', 'configuration', 
     };
 
     $scope.exportProduct = function(){
-
+        var url = '/product/exportProduct.cmd?';
+        for (var v in $scope.query){
+            url+= v + '=' + $scope.query[v];
+            url += '&';
+        }
+        window.open(url,'_self');
     }
 }]);
