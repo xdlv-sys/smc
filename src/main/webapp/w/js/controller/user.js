@@ -42,7 +42,7 @@ controllers.controller('UserCtrl', ['$scope', 'common', 'modal', 'module', '$fil
                     width: 500,
                     depts: depts,
                     canGo: function(data) {
-                        return (data.id && data.password && data.password2 && data.password === data.password2) || data.name && data.sex >= 0 && data.mobile && data.dept;
+                        return data.password === data.password2;
                     },
                     ok: function(user) {
                         user.entryTime = $filter('date')(user.entryTime, 'yyyy-MM-dd');

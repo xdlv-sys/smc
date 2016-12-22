@@ -23,7 +23,10 @@ public class ProjectOutSource {
     private String location;
     private Byte supply;
     private Double count;
-    private Integer projectId;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "project_id")
+    public Project project;
 
     public Integer getId() {
         return id;
@@ -97,12 +100,12 @@ public class ProjectOutSource {
         this.count = count;
     }
 
-    public Integer getProjectId() {
-        return projectId;
+    public Project getProject() {
+        return project;
     }
 
-    public void setProjectId(Integer projectId) {
-        this.projectId = projectId;
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     @Override
@@ -121,8 +124,6 @@ public class ProjectOutSource {
         if (location != null ? !location.equals(that.location) : that.location != null) return false;
         if (supply != null ? !supply.equals(that.supply) : that.supply != null) return false;
         if (count != null ? !count.equals(that.count) : that.count != null) return false;
-        if (projectId != null ? !projectId.equals(that.projectId) : that.projectId != null) return false;
-
         return true;
     }
 
@@ -137,7 +138,6 @@ public class ProjectOutSource {
         result = 31 * result + (location != null ? location.hashCode() : 0);
         result = 31 * result + (supply != null ? supply.hashCode() : 0);
         result = 31 * result + (count != null ? count.hashCode() : 0);
-        result = 31 * result + (projectId != null ? projectId.hashCode() : 0);
         return result;
     }
 }

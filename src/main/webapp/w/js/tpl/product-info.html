@@ -1,11 +1,11 @@
 <div layout="row">
     <md-input-container flex>
         <label>商品编码</label>
-        <input ng-model="modal.data.code" type="text" ng-readonly="!modal.add">
+        <input ng-model="modal.data.code" type="text" required ng-readonly="!modal.add">
     </md-input-container>
     <md-input-container flex>
         <label>发票品名</label>
-        <input ng-model="modal.data.billName" type="text" ng-readonly="!modal.add">
+        <input ng-model="modal.data.billName" type="text" ng-readonly="!modal.add" required>
     </md-input-container>
 </div>
 <div layout="row">

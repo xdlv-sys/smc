@@ -24,9 +24,6 @@ controllers.controller('ProductCtrl', ['$scope', '$rootScope', 'configuration', 
             url: 'js/tpl/product-info.html',
             width: 500,
             add: true,
-            canGo: function(data) {
-                return data.name && data.model && data.nature > 0 && data.genre > 0 && data.countUnit > 0 && data.weightUnit > 0 && data.bulkUnit > 0 && data.packageType && data.rate;
-            },
             ok: function(product) {
                 common.post('/product/saveProduct.cmd', product, {
                     success: function() {

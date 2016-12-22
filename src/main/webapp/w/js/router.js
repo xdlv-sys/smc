@@ -54,6 +54,14 @@ angular.module('xdApp', [
             params: {product: null},
             templateUrl : 'product-item.html',
             controller: 'ProductItemCtrl'
+        }).state('project', {
+            url: '/project',
+            templateUrl : 'project.html',
+            controller: 'ProjectCtrl'
+        }).state('project-item', {
+            url: '/project-item',
+            params: {project: null},
+            templateUrl : 'project-item.html'
         });
     }
 ]);

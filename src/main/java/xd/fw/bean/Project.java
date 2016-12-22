@@ -3,6 +3,7 @@ package xd.fw.bean;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by xd on 2016/12/21.
@@ -23,8 +24,8 @@ public class Project {
     private String manager;
     private String contractNumber;
     private Date contractSignDate;
-    private Date constratStartDate;
-    private Date constractEndTime;
+    private Date contractStartDate;
+    private Date contractEndTime;
     private String licenseNumber;
     private Date licenseDate;
     private String projectLocation;
@@ -36,6 +37,9 @@ public class Project {
     private Byte attach;
     private Byte status;
     private Timestamp createTime;
+
+    @OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,mappedBy = "project")
+    List<ProjectOutSource> outSources;
 
     public Integer getId() {
         return id;
@@ -101,20 +105,20 @@ public class Project {
         this.contractSignDate = contractSignDate;
     }
 
-    public Date getConstratStartDate() {
-        return constratStartDate;
+    public Date getContractStartDate() {
+        return contractStartDate;
     }
 
-    public void setConstratStartDate(Date constratStartDate) {
-        this.constratStartDate = constratStartDate;
+    public void setContractStartDate(Date contractStartDate) {
+        this.contractStartDate = contractStartDate;
     }
 
-    public Date getConstractEndTime() {
-        return constractEndTime;
+    public Date getContractEndTime() {
+        return contractEndTime;
     }
 
-    public void setConstractEndTime(Date constractEndTime) {
-        this.constractEndTime = constractEndTime;
+    public void setContractEndTime(Date contractEndTime) {
+        this.contractEndTime = contractEndTime;
     }
 
     public String getLicenseNumber() {
@@ -205,6 +209,14 @@ public class Project {
         this.createTime = createTime;
     }
 
+    public List<ProjectOutSource> getOutSources() {
+        return outSources;
+    }
+
+    public void setOutSources(List<ProjectOutSource> outSources) {
+        this.outSources = outSources;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -222,9 +234,9 @@ public class Project {
             return false;
         if (contractSignDate != null ? !contractSignDate.equals(project.contractSignDate) : project.contractSignDate != null)
             return false;
-        if (constratStartDate != null ? !constratStartDate.equals(project.constratStartDate) : project.constratStartDate != null)
+        if (contractStartDate != null ? !contractStartDate.equals(project.contractStartDate) : project.contractStartDate != null)
             return false;
-        if (constractEndTime != null ? !constractEndTime.equals(project.constractEndTime) : project.constractEndTime != null)
+        if (contractEndTime != null ? !contractEndTime.equals(project.contractEndTime) : project.contractEndTime != null)
             return false;
         if (licenseNumber != null ? !licenseNumber.equals(project.licenseNumber) : project.licenseNumber != null)
             return false;
@@ -254,8 +266,8 @@ public class Project {
         result = 31 * result + (manager != null ? manager.hashCode() : 0);
         result = 31 * result + (contractNumber != null ? contractNumber.hashCode() : 0);
         result = 31 * result + (contractSignDate != null ? contractSignDate.hashCode() : 0);
-        result = 31 * result + (constratStartDate != null ? constratStartDate.hashCode() : 0);
-        result = 31 * result + (constractEndTime != null ? constractEndTime.hashCode() : 0);
+        result = 31 * result + (contractStartDate != null ? contractStartDate.hashCode() : 0);
+        result = 31 * result + (contractEndTime != null ? contractEndTime.hashCode() : 0);
         result = 31 * result + (licenseNumber != null ? licenseNumber.hashCode() : 0);
         result = 31 * result + (licenseDate != null ? licenseDate.hashCode() : 0);
         result = 31 * result + (projectLocation != null ? projectLocation.hashCode() : 0);

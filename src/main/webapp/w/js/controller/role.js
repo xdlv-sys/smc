@@ -46,9 +46,6 @@ controllers.controller('RoleCtrl', ['$scope', 'common', 'modal', 'module', '$fil
                     width: 500,
                     depts: depts,
                     mods: mods,
-                    canGo: function(data) {
-                        return data.name && data.dept;
-                    },
                     treeCallback: function(item, selectedItems) {
                         selectedMods = selectedItems;
                         return true;

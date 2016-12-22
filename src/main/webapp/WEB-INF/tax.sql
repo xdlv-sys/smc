@@ -186,8 +186,8 @@ create table t_project(
   manager varchar(16),
   contract_number VARCHAR(32),
   contract_sign_date date,
-  constrat_start_date date,
-  constract_end_time date,
+  contract_start_date date,
+  contract_end_time date,
   license_number varchar(32),
   license_date date,
   project_location varchar(64),
@@ -214,3 +214,11 @@ create table t_project_out_source (
   count float,
   project_id int
 )ENGINE = INNODB;
+
+insert into t_mod values(21,'项目管理',null,null,'fa fa-calendar-check-o',0);
+insert into t_mod values(22,'项目新建与查询',null,'project','fa fa-calendar-minus-o',21);
+insert into t_mod values(23,'项目预算管理',null,'budget','fa fa-calendar-times-o',21);
+
+insert into t_role_mod values(-80,-2,21);
+insert into t_role_mod values(-79,-2,22);
+insert into t_role_mod values(-78,-2,23);

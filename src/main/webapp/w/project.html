@@ -1,0 +1,22 @@
+<md-content flex layout="column" class="max_height">
+    <div layout="row">
+        <md-button class="md-primary md-raised" ng-click="addProject()">新增项目</md-button>
+        <md-button class="md-primary md-raised" ng-click="modProject()" ng-disabled="projectGrid.selection.getSelectedRows().length!==1">编辑项目</md-button>
+        <md-button class="md-primary md-raised" ng-click="exportProject()" ng-disabled="projectGrid.selection.getSelectedRows().length!==1">导出</md-button>
+        <md-input-container flex class="query-text">
+            <label>项目名称</label>
+            <input ng-model="query.name" type="text">
+        </md-input-container>
+        <md-input-container flex class="query-text">
+            <md-select placeholder="项目类型" ng-model="query.projectType">
+                <md-option ng-repeat="n in modal.projectTypes" ng-value="n.index">{{n.value}}</md-option>
+            </md-select>
+        </md-input-container>
+         <md-input-container flex class="query-text">
+            <label>项目合同号</label>
+            <input ng-model="contractNumber" type="text">
+        </md-input-container>
+        <md-button class="md-primary md-raised" ng-click="queryProject()">查询</md-button>
+    </div>
+    <div flex ui-grid="projectGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
+</md-content>

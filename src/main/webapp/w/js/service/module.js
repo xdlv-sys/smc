@@ -121,5 +121,43 @@ services.service('module', ['common','configuration', function(common,configurat
         m.weightUnits = configuration.group(1, 'weightUnit');
         m.bulkUnits = configuration.group(1, 'bulkUnit');
         return m;
-    }
+    };
+
+    this.createProjectGrid = function(scope, loadData, configuration) {
+        return common.createGridOption([{
+            name: '项目名称',
+            field: 'name',
+            cellTemplate: '<div class="ui-grid-cell-contents" ng-click="grid.appScope.showDetail(row)"><a ng-href="javascript:void(0)">{{grid.getCellValue(row, col)}}</a></div>'
+        },{
+            name: '发包方',
+            field: 'employer'
+        }, {
+            name: '项目承接方式',
+            field: 'projectMode',
+            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{row.entity.projectMode === 0 ? "总包": "分包"}}' + '</div>'
+        }, {
+            name: '项目类型',
+            field: 'projectType',
+            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{grid.options.configuration.i18n(2,"projectType",row.entity.projectType)}}' + '</div>'
+        }, {
+            name: '项目经理',
+            field: 'manager'
+        }, {
+            name: '施工合同号',
+            field: 'contract_number'
+        }, {
+            name: '施工合同签署日期',
+            field: 'contractSignDate'
+        }, {
+            name: '合同金额',
+            field: 'totalCount'
+        }], scope, loadData, configuration);
+    };
+    this.getProjectTypes = function(m) {
+        m = m || {};
+        m.projectTypes = configuration.group(2, 'projectType');
+        m.rates = configuration.group(2, 'rate');
+        return m;
+    };
+    
 }]);
