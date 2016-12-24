@@ -144,7 +144,7 @@ services.service('module', ['common','configuration', function(common,configurat
             field: 'manager'
         }, {
             name: '施工合同号',
-            field: 'contract_number'
+            field: 'contractNumber'
         }, {
             name: '施工合同签署日期',
             field: 'contractSignDate'
@@ -158,6 +158,22 @@ services.service('module', ['common','configuration', function(common,configurat
         m.projectTypes = configuration.group(2, 'projectType');
         m.rates = configuration.group(2, 'rate');
         return m;
+    };
+
+    this.createBudgetGrid = function(scope, loadData, configuration) {
+        return common.createGridOption([{
+            name: '所属项目',
+            field: 'project.name'
+        },{
+            name: '工程名',
+            field: 'importName'
+        }, {
+            name: '导入者',
+            field: 'importUser'
+        }, {
+            name: '导入时间',
+            field: 'importDate'
+        }], scope, loadData, configuration);
     };
     
 }]);

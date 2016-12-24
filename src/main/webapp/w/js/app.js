@@ -1,4 +1,4 @@
-controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'modal', 'menu', '$state', function($scope, $rootScope, common, modal, menu, $state) {
+controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'modal', 'menu', '$state', '$filter', function($scope, $rootScope, common, modal, menu, $state, $filter) {
 
     //functions for menu-link and menu-toggle
     this.isOpen = $scope.isOpen = function(section) {
@@ -17,6 +17,9 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
         $scope.loginSuccess = true;
         $rootScope.user = $scope.user = user;
         $rootScope.mods = mods;
+        $rootScope.back = function() {
+            history.back();
+        };
         $rootScope.allow = function(modId) {
             var allow = false;
             $rootScope.mods.each(function(v) {
@@ -35,6 +38,37 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
                 params[key].push(v.id);
             });
             return params;
+        };
+        $rootScope.convertDate = function(d) {
+            if (!angular.isDate(d)) {
+                return d;
+            }
+            return $filter('date')(d, 'yyyy-MM-dd');
+        };
+        //used to convert all data and nested objectes to display, now unused since we have a directive for this
+        $rootScope.convertDates = function(obj) {
+            //convert all date time
+            angular.forEach(obj, function(v){
+                obj[i] = $rootScope.convertDates(v);
+            });
+        };
+        //used to convert all date and list parameters to the right style
+        $rootScope.convertParams = function(param, key) {
+            //convert all date time
+            for (var p in param) {
+                param[p] = $rootScope.convertDate(param[p]);
+            }
+            //convert the nested parameters
+            var array = param[key];
+            angular.forEach(array, function(v, i) {
+                for (var k in v) {
+                    if (k === '$$hashKey') {
+                        continue;
+                    }
+                    param[key + '[' + i + '].' + k] = $rootScope.convertDate(v[k]);
+                }
+            });
+            delete param[key];
         };
 
         $state.go(state);

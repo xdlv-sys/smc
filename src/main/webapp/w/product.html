@@ -23,7 +23,7 @@
     <md-tab label="导入">
         <md-content class="max_height" layout="column" ng-controller="ProductImportCtrl">
             <div layout="row">
-                <md-button class="md-primary md-raised" ng-click="approveImport()" ng-disabled="productImportGrid.selection.getSelectedRows().length!==1" ng-if="allow(20)">审核通过</md-button>
+                <md-button class="md-primary md-raised" ng-click="approveImport()" ng-disabled="!canApprove()" ng-if="allow(20)">审核通过</md-button>
                 <md-button class="md-primary md-raised" ng-click="delImport()" ng-disabled="productImportGrid.selection.getSelectedRows().length<1" style="padding-right:10px;">删除</md-button>
                 <lf-ng-md-file-input flex="33" aria-label="fileupload" lf-files='importFile' lf-placeholder="选择Excel文件上传" lf-browse-label="选择文件" lf-mimetype="application/msexcel" lf-totalsize="5MB" progress> </lf-ng-md-file-input>
                 <md-button class="md-primary md-raised" ng-click="uploadFile()" ng-disabled="importFile.length < 1">上传</md-button>

@@ -9,6 +9,9 @@ create table t_dynamic_conf(
 )ENGINE = INNODB;
 
 delete from t_dynamic_conf;
+insert into t_dynamic_conf values(-10,'0','confirm.1','是','通用确认');
+insert into t_dynamic_conf values(-9,'0','confirm.2','否','通用确认');
+
 insert into t_dynamic_conf values(1,'1','nature.1','库存材料','商品性质1');
 insert into t_dynamic_conf values(2,'1','genre.1','水泥','所属类型1');
 insert into t_dynamic_conf values(3,'1','genre.2','商品砼','所属类型2');
@@ -64,3 +67,17 @@ insert into t_dynamic_conf values(49,'2','projectType.8','其它','项目类型'
 
 insert into t_dynamic_conf values(50,'2','rate.1','11%','项目类型');
 insert into t_dynamic_conf values(51,'2','rate.2','3%','项目类型');
+insert into t_dynamic_conf values(52,'2','projectMode.1','总包','项目承接方式');
+insert into t_dynamic_conf values(53,'2','projectMode.2','分包','项目承接方式');
+insert into t_dynamic_conf values(54,'2','supplyMode.1','部分甲供材','项目承接方式');
+insert into t_dynamic_conf values(55,'2','supplyMode.2','清包工','项目承接方式');
+insert into t_dynamic_conf values(56,'2','outSource.1','是','项目是否对外外包');
+insert into t_dynamic_conf values(57,'2','outSource.2','否','项目是否对外外包');
+
+insert into t_dynamic_conf values(60,'2','status.1','正常','项目状态');
+insert into t_dynamic_conf values(61,'2','status.2','结束','是否为挂靠工程');
+insert into t_dynamic_conf values(62,'2','status.3','暂停','是否为挂靠工程');
+insert into t_dynamic_conf values(63,'2','supply.1','自行采购','分包项目施工用材料');
+insert into t_dynamic_conf values(64,'2','supply.2','总包方采购','分包项目施工用材料');
+
+

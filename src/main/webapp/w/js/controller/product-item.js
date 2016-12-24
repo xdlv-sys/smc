@@ -4,9 +4,7 @@ controllers.controller('ProductItemCtrl', ['$scope', 'common', 'modal', 'module'
         add: false,
         data: $stateParams.product
     });
-    $scope.back = function() {
-        history.back();
-    };
+   
     $scope.approvalProduct = function() {
         common.post('/product/approvalProduct.cmd', {
             productIds: [$scope.modal.data.id]

@@ -2,13 +2,16 @@ package xd.fw.controller;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import xd.fw.bean.User;
+import xd.fw.dao.UserRepositoryCustom;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +23,12 @@ import java.util.List;
 /**
  * Created by xd on 2016/11/30.
  */
-public class BaseController {
+public abstract class BaseController {
 
-    protected final String DONE = "{\"success\":true}";
+    @Autowired
+    UserRepositoryCustom userRepositoryCustom;
+
+    protected final ModelRequest DONE = modelRequest("{\"success\":true}");
 
     protected PageContent page(Page<?> data) {
         return new PageContent(data);
@@ -75,6 +81,10 @@ public class BaseController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
+    protected ExampleMatcher queryMatcher(){
+        return ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
     }
 
     enum BROWSER {IE, FIREFOX, CHROME}

@@ -4,7 +4,7 @@
         <input ng-model="modal.data.name" type="text" required>
     </md-input-container>
     <md-input-container flex>
-        <md-datepicker ng-model="modal.data.birthday" md-placeholder="出身日期" required maxDate="new Date()"></md-datepicker>
+        <md-datepicker ng-model="modal.data.birthday" md-placeholder="出身日期" required xd-date></md-datepicker>
     </md-input-container>
 </div>
 <div layout="row">
@@ -17,7 +17,7 @@
     </md-input-container>
     <md-input-container flex>
         <label>入职时间</label>
-        <md-datepicker ng-model="modal.data.entryTime" required maxDate="new Date()"></md-datepicker>
+        <md-datepicker ng-model="modal.data.entryTime" required xd-date></md-datepicker>
     </md-input-container>
 </div>
 <div layout="row">

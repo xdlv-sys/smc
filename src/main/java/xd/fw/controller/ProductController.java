@@ -1,12 +1,11 @@
 package xd.fw.controller;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +18,8 @@ import xd.fw.bean.Product;
 import xd.fw.bean.ProductImport;
 import xd.fw.dao.ProductImportRepository;
 import xd.fw.dao.ProductRepository;
-import xd.fw.dao.UserRepositoryCustom;
 import xd.fw.service.IConst;
+import xd.fw.util.FwUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,8 +41,6 @@ public class ProductController extends BaseController {
     ProductImportRepository productImportRepository;
     @Autowired
     DynamicConfig dynamicConfig;
-    @Autowired
-    UserRepositoryCustom userRepositoryCustom;
     @Value("${product_heads}")
     String productHeads;
     @Value("${product_export_file_name}")
@@ -65,16 +62,16 @@ public class ProductController extends BaseController {
 
     @RequestMapping("deleteProduct")
     @ResponseBody
-    public String deleteProduct(int[] productIds) {
+    public ModelRequest deleteProduct(int[] productIds) {
         for (int id : productIds) {
             productRepository.delete(id);
         }
-        return DONE;
+        return modelRequest(DONE);
     }
 
     @RequestMapping("saveProduct")
     @ResponseBody
-    public String saveProduct(Product product) throws Exception {
+    public ModelRequest saveProduct(Product product) throws Exception {
         product.setCreateTime(new Timestamp(System.currentTimeMillis()));
         productRepository.save(product);
         return DONE;
@@ -82,7 +79,7 @@ public class ProductController extends BaseController {
 
     @RequestMapping("approvalProduct")
     @ResponseBody
-    public String approvalProduct(int[] productIds) throws Exception {
+    public ModelRequest approvalProduct(int[] productIds) throws Exception {
         Product product;
         for (int id : productIds) {
             product = productRepository.findOne(id);
@@ -94,8 +91,8 @@ public class ProductController extends BaseController {
 
     @RequestMapping("importProduct")
     @ResponseBody
-    public String importProduct(@RequestParam("file") MultipartFile file, @RequestParam("userName") String userName) throws Exception {
-        Workbook wb = parseFile(file.getInputStream());
+    public ModelRequest importProduct(@RequestParam("file") MultipartFile file, @RequestParam("userName") String userName) throws Exception {
+        Workbook wb = FwUtil.parseFile(file.getInputStream());
         List<Product> productList = new ArrayList<>();
         Sheet sheet = wb.getSheetAt(0);
         Cell cell;
@@ -104,7 +101,7 @@ public class ProductController extends BaseController {
 
         for (int i = 1; ; i++) {
             row = sheet.getRow(i);
-            if (row == null || StringUtils.isBlank(getCellValue(row.getCell(0)))) {
+            if (row == null || StringUtils.isBlank(FwUtil.getCellValue(row.getCell(0)))) {
                 break;
             }
             Product product = new Product();
@@ -112,7 +109,7 @@ public class ProductController extends BaseController {
             productList.add(product);
             for (int j = 1; j < 17; j++) {
                 cell = row.getCell(j - 1);
-                value = getCellValue(cell);
+                value = FwUtil.getCellValue(cell);
                 if (StringUtils.isEmpty(value)) {
                     continue;
                 }
@@ -169,7 +166,7 @@ public class ProductController extends BaseController {
             }
         }
         int[] result = userRepositoryCustom.batchSaveProduct(productList, userName);
-        return String.format("{\"success\":true,\"right\":%d,\"wrong\":%d}", result[0], result[1]);
+        return modelRequest(String.format("{\"success\":true,\"right\":%d,\"wrong\":%d}", result[0], result[1]));
     }
 
     @RequestMapping("exportProduct")
@@ -214,10 +211,6 @@ public class ProductController extends BaseController {
         return new ModelAndView(view);
     }
 
-    private ExampleMatcher queryMatcher(){
-        return ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
-    }
-
     private Sheet createSheet(Workbook wb, String name){
         CellStyle style = wb.createCellStyle();
         style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
@@ -232,38 +225,5 @@ public class ProductController extends BaseController {
             cell.setCellValue(titles[i]);
         }
         return sheet;
-    }
-
-    private static Workbook parseFile(InputStream inputStream) throws Exception {
-        Workbook book = null;
-        try {
-            book = WorkbookFactory.create(inputStream);
-        } finally {
-            if (inputStream != null) {
-                inputStream.close();
-            }
-        }
-        return book;
-    }
-
-    private String getCellValue(Cell cell) {
-        if (cell == null) {
-            return null;
-        }
-        String value;
-        try {
-            value = String.valueOf(cell.getStringCellValue());
-        } catch (IllegalStateException e) {
-            try {
-                value = String.valueOf(cell.getNumericCellValue());
-            } catch (IllegalStateException e1) {
-                try {
-                    value = String.valueOf(cell.getBooleanCellValue());
-                } catch (IllegalStateException e2) {
-                    value = null;
-                }
-            }
-        }
-        return StringUtils.isBlank(value) || "无".equals(value) ? null : value.trim();
     }
 }

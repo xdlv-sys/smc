@@ -81,5 +81,5 @@ controllers.controller('ProductCtrl', ['$scope', '$rootScope', 'configuration', 
             url += '&';
         }
         window.open(url,'_self');
-    }
+    };
 }]);

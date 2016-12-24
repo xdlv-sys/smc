@@ -27,7 +27,7 @@ public class ConfigController extends BaseController{
 
     @RequestMapping("deleteConfig")
     @ResponseBody
-    public String deleteUser(int[] confIds) {
+    public ModelRequest deleteUser(int[] confIds) {
         for (int id : confIds){
             confRepository.delete(id);
         }
@@ -36,7 +36,7 @@ public class ConfigController extends BaseController{
 
     @RequestMapping("saveConfig")
     @ResponseBody
-    public String saveConfig(DynamicConf conf) throws Exception {
+    public ModelRequest saveConfig(DynamicConf conf) throws Exception {
         confRepository.save(conf);
         return DONE;
     }

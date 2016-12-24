@@ -49,6 +49,16 @@ controllers.controller('ProductImportCtrl', ['$scope', 'common', 'modal', 'modul
                 });
             }
         });
+    };
 
+    $scope.canApprove = function(){
+        // just a workround to protect undefined selection
+        if (!$scope.productImportGrid.selection){
+            return false;
+        }
+        var products = $scope.productImportGrid.selection.getSelectedRows();
+        return products.length > 0 && !products.contains(function(p) {
+            return p.status !== 0;
+        });
     };
 }]);

@@ -45,8 +45,6 @@ controllers.controller('UserCtrl', ['$scope', 'common', 'modal', 'module', '$fil
                         return data.password === data.password2;
                     },
                     ok: function(user) {
-                        user.entryTime = $filter('date')(user.entryTime, 'yyyy-MM-dd');
-                        user.birthday = $filter('date')(user.birthday, 'yyyy-MM-dd');
                         //TODO simply process
                         var roles = user.roles.length > 0 ? user.dept.roles : [];
                         delete user.roles;

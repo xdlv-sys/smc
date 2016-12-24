@@ -38,4 +38,8 @@ public class DynamicConfig{
     String id2Value(int groupNo, String name, byte value){
         return id2Value.get(groupNo + "-" + name + "." + value);
     }
+
+    String confirm(byte value){
+        return id2Value(0, "confirm", value);
+    }
 }

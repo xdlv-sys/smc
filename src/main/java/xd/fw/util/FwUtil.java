@@ -5,6 +5,9 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.task.AsyncTaskExecutor;
@@ -261,6 +264,51 @@ public class FwUtil {
             ImageIO.write(image,"png", os);
             return os.toByteArray();
         }
+    }
+
+    public static Workbook parseFile(InputStream inputStream) throws Exception {
+        Workbook book = null;
+        try {
+            book = WorkbookFactory.create(inputStream);
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+        return book;
+    }
+
+    public static String getCellValue(Cell cell) {
+        if (cell == null) {
+            return null;
+        }
+        String value;
+        try {
+            value = String.valueOf(cell.getStringCellValue());
+        } catch (IllegalStateException e) {
+            try {
+                value = String.valueOf(cell.getNumericCellValue());
+            } catch (IllegalStateException e1) {
+                try {
+                    value = String.valueOf(cell.getBooleanCellValue());
+                } catch (IllegalStateException e2) {
+                    value = null;
+                }
+            }
+        }
+        return StringUtils.isBlank(value) || "无".equals(value) ? null : value.trim();
+    }
+
+    public static int search(Object[] objects, Object obj){
+        if (obj == null){
+            return -1;
+        }
+        for (int index = 0; index < objects.length; index ++){
+            if (obj.equals(objects[index])){
+                return index;
+            }
+        }
+        return -1;
     }
 
     final static SimpleDateFormat orderSdf = new SimpleDateFormat("HHmmssyyyyMMddSSS");

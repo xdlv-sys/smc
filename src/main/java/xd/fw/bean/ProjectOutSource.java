@@ -1,7 +1,9 @@
 package xd.fw.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by xd on 2016/12/21.
@@ -26,7 +28,8 @@ public class ProjectOutSource {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "project_id")
-    public Project project;
+    @JsonIgnore
+    private Project project;
 
     public Integer getId() {
         return id;

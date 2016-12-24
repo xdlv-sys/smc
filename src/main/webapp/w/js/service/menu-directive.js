@@ -30,19 +30,37 @@
              };
          }
      };
- }).filter('nospace', function () {
-      return function (value) {
-        return (!value) ? '' : value.replace(/ /g, '');
-      };
-    }).filter('humanizeDoc', function () {
-      return function (doc) {
-        if (!doc) return;
-        if (doc.type === 'directive') {
-          return doc.name.replace(/([A-Z])/g, function ($1) {
-            return '-' + $1.toLowerCase();
-          });
-        }
-        
-        return doc.label || doc.name;
-      };
-  });
+ }).filter('nospace', function() {
+     return function(value) {
+         return (!value) ? '' : value.replace(/ /g, '');
+     };
+ }).filter('humanizeDoc', function() {
+     return function(doc) {
+         if (!doc) return;
+         if (doc.type === 'directive') {
+             return doc.name.replace(/([A-Z])/g, function($1) {
+                 return '-' + $1.toLowerCase();
+             });
+         }
+
+         return doc.label || doc.name;
+     };
+ }).directive('xdDate', ['$filter',function($filter) {
+     //special for md-datepicker
+     return {
+         restrict: 'A',
+         require: 'ngModel',
+         priority: 1,
+         link: function(scope, element, attr, ngModel) {
+             ngModel.$parsers.push(function(d){
+                return $filter('date')(d, 'yyyy-MM-dd');
+             });
+             ngModel.$formatters.push(function(text){
+                if (angular.isBlank(text)){
+                    return text;
+                }
+                return new Date(text);
+             });
+         }
+     };
+ }]);

@@ -1,8 +1,8 @@
 package xd.fw.bean;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,6 +27,7 @@ public class Project {
     private Date contractStartDate;
     private Date contractEndTime;
     private String licenseNumber;
+    //@JsonFormat(pattern= IConst.DEFAULT_DATE_PATTERN)
     private Date licenseDate;
     private String projectLocation;
     private Byte supplyMode;

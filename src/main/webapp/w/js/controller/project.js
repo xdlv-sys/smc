@@ -27,7 +27,14 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
             url: 'js/tpl/project-info.html',
             width: 750,
             add: true,
+            addOutSource: function(){
+                if (!this.data.outSources){
+                    this.data.outSources = [];
+                }
+                this.data.outSources[this.data.outSources.length]={};
+            },
             ok: function(project) {
+                $scope.convertParams(project, 'outSources');
                 common.post('/project/saveProject.cmd', project, {
                     success: function() {
                         $scope.projectGrid.refresh();
@@ -40,11 +47,7 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
 
     $scope.addProject = function() {
         $scope.openProjectInfo({
-            title: '新增项目',
-            outSources: [],
-            addOutSource: function(){
-                this.outSources[this.outSources.length]={};
-            }
+            title: '新增项目'
         }, $scope);
     };
 
@@ -61,6 +64,30 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
     };
 
     $scope.exportProject = function(){
+        var url = '/project/exportProject.cmd?projectId=';
+        url += $scope.projectGrid.selection.getSelectedRows()[0].id;
+        window.open(url,'_self');
+    };
 
-    }
+    $scope.modProject = function() {
+        var project = $scope.projectGrid.selection.getSelectedRows()[0];
+        $scope.openProjectInfo({
+            title: '修改项目',
+            data: angular.copy(project)
+        }, $scope);
+    };
+
+    // upload budget for projects
+    $scope.uploadFile = function() {
+        common.uploadFile('/budget/importBudget.cmd', {
+            file: $scope.importFile[0].lfFile,
+            userName: $scope.user.name,
+            projectId: $scope.projectGrid.selection.getSelectedRows()[0].id
+        }, {
+            success: function(result) {
+                $scope.budgetGrid.refresh();
+                modal.alert('成功导入:' + result.data.right + '条');
+            }
+        });
+    };
 }]);

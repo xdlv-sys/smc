@@ -32,6 +32,12 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
     ProductRepository productRepository;
     @Autowired
     ProductImportRepository productImportRepository;
+    @Autowired
+    ProjectRepository projectRepository;
+    @Autowired
+    ProjectOutSourceRepository projectOutSourceRepository;
+    @Autowired
+    BudgetRepository budgetRepository;
 
     Logger logger = LoggerFactory.getLogger(UserRepositoryImpl.class);
 
@@ -108,5 +114,32 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
     public void deleteImport(int[] productImportIds) {
         productImportRepository.deleteImportsByIds(productImportIds);
         productRepository.deleteProducts(productImportIds);
+    }
+
+    @Override
+    @Transactional
+    public void saveProject(Project project) {
+
+        if (project.getId() != null){
+            Project projectToSave = projectRepository.findOne(project.getId());
+            //remove all related outsource in advanced
+            projectOutSourceRepository.delete(projectToSave.getOutSources());
+        }
+
+        Project savedProject = projectRepository.save(project);
+        FwUtil.safeEach(project.getOutSources(), o->{
+            o.setProject(savedProject);
+            projectOutSourceRepository.save(o);
+        });
+    }
+
+    @Override
+    @Transactional
+    public void saveBudget(Budget budget) {
+        // remove the previous records before save new data
+        if (budgetRepository.exists(budget.getProjectId())){
+            budgetRepository.delete(budget.getProjectId());
+        }
+        budgetRepository.save(budget);
     }
 }

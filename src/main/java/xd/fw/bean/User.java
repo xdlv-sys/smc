@@ -1,9 +1,7 @@
 package xd.fw.bean;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import xd.fw.service.IConst;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -75,7 +73,6 @@ public class User {
         this.mail = mail;
     }
 
-    @JsonFormat(pattern= IConst.DEFAULT_DATE_PATTERN)
     public Date getBirthday() {
         return birthday;
     }
@@ -92,7 +89,6 @@ public class User {
         this.sex = sex;
     }
 
-    @JsonFormat(pattern= IConst.DEFAULT_DATE_PATTERN)
     public Date getEntryTime() {
         return entryTime;
     }

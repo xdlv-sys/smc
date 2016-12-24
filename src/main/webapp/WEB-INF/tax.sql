@@ -219,6 +219,46 @@ insert into t_mod values(21,'项目管理',null,null,'fa fa-calendar-check-o',0)
 insert into t_mod values(22,'项目新建与查询',null,'project','fa fa-calendar-minus-o',21);
 insert into t_mod values(23,'项目预算管理',null,'budget','fa fa-calendar-times-o',21);
 
+insert into t_mod values(24,'新建项目','/project/saveProject',null,null,22);
+insert into t_mod values(25,'修改项目','/project/saveProject',null,null,22);
+insert into t_mod values(26,'导出项目','/project/exportProject',null,null,22);
+insert into t_mod values(27,'查询项目','/project/obtainProject',null,null,22);
+
 insert into t_role_mod values(-80,-2,21);
 insert into t_role_mod values(-79,-2,22);
 insert into t_role_mod values(-78,-2,23);
+insert into t_role_mod values(-77,-2,24);
+insert into t_role_mod values(-76,-2,25);
+insert into t_role_mod values(-75,-2,26);
+insert into t_role_mod values(-74,-2,27);
+
+drop table if exists t_budget;
+create table t_budget (
+  project_id INT PRIMARY KEY,
+  import_name varchar(128),
+  report_date date,
+  import_user varchar(64),
+  import_date TIMESTAMP DEFAULT now()
+)ENGINE = INNODB;
+
+drop table if exists t_budget_group;
+create table t_budget_group (
+  id INT PRIMARY KEY,
+  project_id int,
+  group_index TINYINT,
+  name varchar(128),
+  total double
+)ENGINE = INNODB;
+
+drop table if exists t_group_item;
+create table t_group_item (
+  id INT PRIMARY KEY,
+  group_id int,
+  item_index int,
+  material_name varchar(64),
+  model varchar(32),
+  unit varchar(16),
+  count double,
+  price double,
+  total double
+)ENGINE = INNODB;

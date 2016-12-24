@@ -4,15 +4,22 @@ angular.module('xdApp', [
     'ui.router',
     'ngMaterial',
     'ngAria',
-    'ui.grid', 'ui.grid.pagination','ui.grid.selection','ui.grid.autoResize',
-    'multiselect-searchtree','ngPopover',
-    'ui.tree','lfNgMdFileInput'
-]).config(['$mdDateLocaleProvider', function($mdDateLocaleProvider){
-    $mdDateLocaleProvider.months=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
-    $mdDateLocaleProvider.shortMonths = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
-    $mdDateLocaleProvider.days = ['周一', '周二', '周三','周四', '周五','周六','周日'];
-    $mdDateLocaleProvider.shortDays = ['一', '二', '三','四', '五','六','日'];
+    'ui.grid', 'ui.grid.pagination', 'ui.grid.selection', 'ui.grid.autoResize',
+    'multiselect-searchtree', 'ngPopover',
+    'ui.tree', 'lfNgMdFileInput'
+]).config(['$mdDateLocaleProvider', function($mdDateLocaleProvider) {
+    $mdDateLocaleProvider.months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+    $mdDateLocaleProvider.shortMonths = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+    $mdDateLocaleProvider.days = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+    $mdDateLocaleProvider.shortDays = ['一', '二', '三', '四', '五', '六', '日'];
 
+    $mdDateLocaleProvider.formatDate = function(date) {
+        //manually formate the date style
+        if (angular.isDate(date)) {
+            return date.Format("yyyy-MM-dd");
+        }
+        return date;
+    };
 }]).config(['$mdIconProvider', '$mdThemingProvider', function($mdIconProvider, $mdThemingProvider) {
     /*$mdThemingProvider.theme('default')
         .primaryPalette('light-blue', {
@@ -39,29 +46,34 @@ angular.module('xdApp', [
             controller: 'UserCtrl'
         }).state('login', {
             url: '/login',
-            templateUrl : 'login.html',
+            templateUrl: 'login.html',
             controller: 'LoginCtrl'
         }).state('conf', {
             url: '/conf',
-            templateUrl : 'conf.html',
+            templateUrl: 'conf.html',
             controller: 'ConfCtrl'
         }).state('product', {
             url: '/product',
-            templateUrl : 'product.html',
+            templateUrl: 'product.html',
             controller: 'ProductCtrl'
         }).state('product-item', {
             url: '/product-item',
-            params: {product: null},
-            templateUrl : 'product-item.html',
+            params: { product: null },
+            templateUrl: 'product-item.html',
             controller: 'ProductItemCtrl'
         }).state('project', {
             url: '/project',
-            templateUrl : 'project.html',
+            templateUrl: 'project.html',
             controller: 'ProjectCtrl'
         }).state('project-item', {
             url: '/project-item',
-            params: {project: null},
-            templateUrl : 'project-item.html'
+            params: { project: null },
+            templateUrl: 'project-item.html',
+            controller: 'ProjectItemCtrl'
+        }).state('budget', {
+            url: '/budget',
+            templateUrl: 'budget.html',
+            controller: 'BudgetCtrl'
         });
     }
 ]);

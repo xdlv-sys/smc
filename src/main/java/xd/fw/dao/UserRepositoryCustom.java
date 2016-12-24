@@ -1,8 +1,6 @@
 package xd.fw.dao;
 
-import xd.fw.bean.Product;
-import xd.fw.bean.Role;
-import xd.fw.bean.User;
+import xd.fw.bean.*;
 
 import java.util.List;
 
@@ -17,4 +15,8 @@ public interface UserRepositoryCustom {
     void approveImport(int[] productImportIds);
 
     void deleteImport(int[] productImportIds);
+
+    void saveProject(Project project);
+
+    void saveBudget(Budget budget);
 }

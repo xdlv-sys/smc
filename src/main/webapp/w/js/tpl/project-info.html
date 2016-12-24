@@ -12,8 +12,8 @@
     <md-input-container flex>
         <label>项目承接方式</label>
         <md-select flex ng-model="modal.data.projectMode" ng-disabled="!modal.add" required>
-            <md-option ng-value="0">总包</md-option>
-            <md-option ng-value="1">分包</md-option>
+            <md-option ng-value="1">总包</md-option>
+            <md-option ng-value="2">分包</md-option>
         </md-select>
     </md-input-container>
     <md-input-container flex>
@@ -30,7 +30,7 @@
     </md-input-container>
     <md-input-container flex>
         <label>合同签署日期</label>
-        <md-datepicker ng-model="modal.data.contractSignDate" required maxDate="new Date()"></md-datepicker>
+        <md-datepicker ng-model="modal.data.contractSignDate" required xd-date ng-readonly="!modal.add"></md-datepicker>
     </md-input-container>
 </div>
 <div layout="row">
@@ -40,7 +40,7 @@
     </md-input-container>
     <md-input-container flex>
         <label>施工开工日期</label>
-        <md-datepicker ng-model="modal.data.contractStartDate" required maxDate="new Date()"></md-datepicker>
+        <md-datepicker ng-model="modal.data.contractStartDate" required xd-date ng-readonly="!modal.add"></md-datepicker>
     </md-input-container>
 </div>
 <div layout="row">
@@ -50,7 +50,7 @@
     </md-input-container>
     <md-input-container flex>
         <label>预计峻工日期</label>
-        <md-datepicker ng-model="modal.data.contractEndTime" required maxDate="new Date()"></md-datepicker>
+        <md-datepicker ng-model="modal.data.contractEndTime" required xd-date ng-readonly="!modal.add"></md-datepicker>
     </md-input-container>
 </div>
 <div layout="row">
@@ -60,15 +60,15 @@
     </md-input-container>
     <md-input-container flex>
         <label>施工许可证日期</label>
-        <md-datepicker ng-model="modal.data.licenseDate" required maxDate="new Date()"></md-datepicker>
+        <md-datepicker ng-model="modal.data.licenseDate" required xd-date ng-readonly="!modal.add"></md-datepicker>
     </md-input-container>
 </div>
 <div layout="row">
     <md-input-container flex>
         <label>项目材料供应方式</label>
         <md-select flex ng-model="modal.data.supplyMode" ng-disabled="!modal.add" required>
-            <md-option ng-value="0">部分甲供材</md-option>
-            <md-option ng-value="1">清包工</md-option>
+            <md-option ng-value="1">部分甲供材</md-option>
+            <md-option ng-value="2">清包工</md-option>
         </md-select>
     </md-input-container>
     <md-input-container flex>
@@ -93,14 +93,14 @@
         <label>项目是否对外外包</label>
         <md-select flex ng-model="modal.data.outSource" ng-disabled="!modal.add" required>
             <md-option ng-value="1">是</md-option>
-            <md-option ng-value="0">否</md-option>
+            <md-option ng-value="2">否</md-option>
         </md-select required>
     </md-input-container>
     <md-input-container flex>
         <label>是否为挂靠工程</label>
         <md-select flex ng-model="modal.data.attach" ng-disabled="!modal.add" required>
             <md-option ng-value="1">是</md-option>
-            <md-option ng-value="0">否</md-option>
+            <md-option ng-value="2">否</md-option>
         </md-select required>
     </md-input-container>
 </div>
@@ -108,9 +108,9 @@
     <md-input-container flex>
         <label>项目状态</label>
         <md-select flex ng-model="modal.data.status" ng-disabled="!modal.add" required>
-            <md-option ng-value="0">正常</md-option>
-            <md-option ng-value="1">结束</md-option>
-            <md-option ng-value="2">暂停</md-option>
+            <md-option ng-value="1">正常</md-option>
+            <md-option ng-value="2">结束</md-option>
+            <md-option ng-value="3">暂停</md-option>
         </md-select>
     </md-input-container>
 </div>
@@ -119,55 +119,55 @@
     <md-toolbar>
         <div layout="row" class="md-toolbar-tools">
             <span flex class="md-center">外包记录</span>
-            <md-button class="fa fa-plus" ng-click="modal.addOutSource()"></md-button>
+            <md-button class="fa fa-plus" ng-click="modal.addOutSource()" ng-if="modal.add"></md-button>
         </div>
     </md-toolbar>
-    <div ng-repeat="o in modal.outSources">
+    <div ng-repeat="o in modal.data.outSources">
         <div layout="row">
             <h1 flex>分包信息 {{$index + 1}}</h1>
-            <md-button class="fa fa-minus" style="color:#3f51b5;font-size:16px;" ng-click="modal.outSources.splice($index,1)"></md-button>
+            <md-button class="fa fa-minus" style="color:#3f51b5;font-size:16px;" ng-click="modal.data.outSources.splice($index,1)" ng-if="modal.add"></md-button>
         </div>
         <div layout="row">
             <md-input-container flex>
                 <label>分包合同名称</label>
-                <input ng-model="modal.outSources[$index].contractName" type="text" ng-readonly="!modal.add" required>
+                <input ng-model="modal.data.outSources[$index].contractName" type="text" ng-readonly="!modal.add" required>
             </md-input-container>
             <md-input-container flex>
                 <label>分包单位名称</label>
-                <input ng-model="modal.outSources[$index].unitName" type="text" ng-readonly="!modal.add" required>
+                <input ng-model="modal.data.outSources[$index].unitName" type="text" ng-diabled="!modal.add" required>
             </md-input-container>
         </div>
         <div layout="row">
             <md-input-container flex>
                 <label>分包方机构所在地</label>
-                <input ng-model="modal.outSources[$index].address" type="text" ng-readonly="!modal.add" required>
+                <input ng-model="modal.data.outSources[$index].address" type="text" ng-readonly="!modal.add" required>
             </md-input-container>
             <md-input-container flex>
                 <label>合同签订日期</label>
-                <md-datepicker ng-model="modal.outSources[$index].signDate" required maxDate="new Date()"></md-datepicker>
+                <md-datepicker ng-model="modal.data.outSources[$index].signDate" required xd-date ng-readonly="!modal.add"></md-datepicker>
             </md-input-container>
         </div>
         <div layout="row">
             <md-input-container flex>
                 <label>分包项目座落地</label>
-                <input ng-model="modal.outSources[$index].location" type="text" ng-readonly="!modal.add" required>
+                <input ng-model="modal.data.outSources[$index].location" type="text" ng-readonly="!modal.add" required>
             </md-input-container>
             <md-input-container flex>
                 <label>开工日期</label>
-                <md-datepicker ng-model="modal.outSources[$index].startDate" required maxDate="new Date()"></md-datepicker>
+                <md-datepicker ng-model="modal.data.outSources[$index].startDate" required xd-date ng-readonly="!modal.add"></md-datepicker>
             </md-input-container>
         </div>
         <div layout="row">
             <md-input-container flex>
                 <label>分包项目施工用材料</label>
-                <md-select flex ng-model="modal.data.supply" ng-disabled="!modal.add" required>
-                    <md-option ng-value="0">自行采购</md-option>
-                    <md-option ng-value="1">总包方采购</md-option>
+                <md-select flex ng-model="modal.data.outSources[$index].supply" ng-disabled="!modal.add" required>
+                    <md-option ng-value="1">自行采购</md-option>
+                    <md-option ng-value="2">总包方采购</md-option>
                 </md-select required>
             </md-input-container>
             <md-input-container flex>
                 <label>分包合同总金额</label>
-                <input ng-model="modal.outSources[$index].count" type="text" ng-readonly="!modal.add" required>
+                <input ng-model="modal.data.outSources[$index].count" type="text" ng-readonly="!modal.add" required>
             </md-input-container>
         </div>
     </div>

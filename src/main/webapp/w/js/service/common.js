@@ -17,7 +17,7 @@ services.config(['$httpProvider', function($httpProvider) {
     });*/
 }]);
 
-services.service('common', ['$http','modal', function($http, modal) {
+services.service('common', ['$http', 'modal', function($http, modal) {
     this.loadAllPage = function(url, call) {
         this.loadPage(url, { page: 1, limit: 999999 }, call);
     };
@@ -37,7 +37,7 @@ services.service('common', ['$http','modal', function($http, modal) {
                 delete params[k];
             }
         }
-        
+
         $http.post(url, params).success(function(data) {
             if (data && data.errorMsg) {
                 if (call.fail) {
@@ -53,9 +53,9 @@ services.service('common', ['$http','modal', function($http, modal) {
         });
     };
 
-    this.uploadFile = function(url, params,conf){
+    this.uploadFile = function(url, params, conf) {
         var formData = new FormData();
-        for (var key in params){
+        for (var key in params) {
             formData.append(key, params[key]);
         }
 
@@ -64,19 +64,19 @@ services.service('common', ['$http','modal', function($http, modal) {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).then(function(result) {
-            if (conf && conf.success){
+            if (conf && conf.success) {
                 conf.success(result);
             }
-            modal.hide();    
+            modal.hide();
         }, function(err) {
-            if (conf && conf.fail){
+            if (conf && conf.fail) {
                 conf.fail(err);
-            } 
+            }
             modal.hide();
         });
     };
 
-    this.createGridOption = function(columnDefs, scope, loadData,configuration) {
+    this.createGridOption = function(columnDefs, scope, loadData, configuration) {
         return {
             paginationPageSizes: [25, 50, 75],
             paginationPageSize: 25,
@@ -85,7 +85,7 @@ services.service('common', ['$http','modal', function($http, modal) {
             columnDefs: columnDefs,
             configuration: configuration,
             refresh: function(start) {
-                if (start){
+                if (start) {
                     this.paginationCurrentPage = 1;
                 }
                 loadData(this.paginationCurrentPage, this.paginationPageSize);
@@ -101,34 +101,49 @@ services.service('common', ['$http','modal', function($http, modal) {
         };
     }
 }]);
-if (!angular.isFunction){
-    angular.isFunction = function(object){
+if (!angular.isFunction) {
+    angular.isFunction = function(object) {
         return object && getClass.call(object) == '[object Function]';
     };
 }
-if (!angular.isBlank){
-    angular.isBlank = function(v){
+if (!angular.isBlank) {
+    angular.isBlank = function(v) {
         return (v === null) || (v === undefined) || (v === '') || (Array.isArray(v) && v.length === 0);
     };
 }
+Date.prototype.Format = function(fmt) {
+    var o = {
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
+        "s+": this.getSeconds(),
+        "q+": Math.floor((this.getMonth() + 3) / 3),
+        "S": this.getMilliseconds()
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
 
 Array.prototype.contains = function(compare) {
-    var doCompare = function(m){
-        if (angular.isFunction(compare)){
+    var doCompare = function(m) {
+        if (angular.isFunction(compare)) {
             return compare(m);
         }
         return compare === m;
     }
     var find = false;
-    angular.forEach(this,function(v){
-        if (doCompare(v)){
+    angular.forEach(this, function(v) {
+        if (doCompare(v)) {
             find = true;
         }
     });
     return find;
 };
 Array.prototype.containsId = function(o) {
-    return this.contains(function(v){
+    return this.contains(function(v) {
         return v.id === o.id;
     });
 };

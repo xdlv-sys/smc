@@ -10,13 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xd.fw.bean.User;
 import xd.fw.dao.UserRepository;
-import xd.fw.dao.UserRepositoryCustom;
 import xd.fw.mk.UserDetail;
 import xd.fw.service.FwService;
 import xd.fw.util.FwException;
 import xd.fw.util.FwUtil;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("user")
@@ -29,9 +26,6 @@ public class UserController extends BaseController{
     FwService fwService;
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-    UserRepositoryCustom userRepositoryCustom;
 
     @Value("${version}")
     String version;
@@ -47,13 +41,13 @@ public class UserController extends BaseController{
 
 	}
     @RequestMapping("userLogout")
-	public String userLogout(){
+	public ModelRequest userLogout(){
         //session.removeAttribute(USER_KEY);
         return DONE;
     }
     @RequestMapping("changePassword")
     @ResponseBody
-    public String changePassword(User user, String newPassword) throws Exception {
+    public ModelRequest changePassword(User user, String newPassword) throws Exception {
         User dbUser = userRepository.findByName(user.getName());
         //check user password first
         if (!dbUser.getPassword().equals(FwUtil.md5(user.getPassword()))){
@@ -74,7 +68,7 @@ public class UserController extends BaseController{
 
     @RequestMapping("deleteUser")
     @ResponseBody
-    public String deleteUser(int[] userIds) {
+    public ModelRequest deleteUser(int[] userIds) {
         for (int id : userIds){
             userRepository.delete(id);
         }
@@ -83,7 +77,7 @@ public class UserController extends BaseController{
 
     @RequestMapping("saveUser")
     @ResponseBody
-    public String saveUser(User user) throws Exception {
+    public ModelRequest saveUser(User user) throws Exception {
         userRepositoryCustom.saveUser(user);
         return DONE;
     }

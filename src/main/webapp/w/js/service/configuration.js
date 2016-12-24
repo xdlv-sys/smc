@@ -10,13 +10,13 @@ services.service('configuration', ['common', function(common) {
         all.each(function(v) {
             index = v.confName.indexOf('.');
             name = v.confName.substring(0, index);
-            index = v.confName.substring(index + 1);
+            index = parseInt(v.confName.substring(index + 1));
 
             key = me.makeKey(v.groupNo, name);
             if (!configurations[key]) {
                 configurations[key] = [];
             }
-            configurations[key][parseInt(index)] = {
+            configurations[key][index] = {
                 index: index, 
                 value: v.confValue
             };
