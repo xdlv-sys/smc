@@ -74,6 +74,11 @@ angular.module('xdApp', [
             url: '/budget',
             templateUrl: 'budget.html',
             controller: 'BudgetCtrl'
+        }).state('budget-item', {
+            url: '/budget-item',
+            params: { budget: null },
+            templateUrl: 'budget-item.html',
+            controller: 'BudgetItemCtrl'
         });
     }
 ]);

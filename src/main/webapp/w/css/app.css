@@ -66,6 +66,9 @@ a:active {
 .max_height {
     height: 100%;
 }
+.pull_center{
+  text-align: center;
+}
 
 /************************************************************/
 .lf-ng-md-file-input .lf-ng-md-file-input-container {
@@ -76,13 +79,6 @@ a:active {
   -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06);
    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06);
 }
-/*
-.lf-ng-md-file-input .lf-browse{
-}
-
-.lf-ng-md-file-input .lf-browse:before {
-  content: "\f115";
-}*/
 .our-lf-browse {
   content: "\f115";
 }
@@ -92,5 +88,24 @@ a:active {
   margin-bottom: 0;
 }
 
+.table{ 
+border:1px solid #cad9ea; 
+color:#666; 
+table-layout:fixed; 
+empty-cells:show; 
+border-collapse: collapse; 
+margin:0 auto; 
+} 
+.table th { 
+background-repeat:repeat-x; 
+height:30px; 
+} 
+.table td,.table th{ 
+border:1px solid #cad9ea; 
+padding:0 1em 0; 
+} 
+.table tr.alter{ 
+background-color:#f5fafe; 
+}
 
 

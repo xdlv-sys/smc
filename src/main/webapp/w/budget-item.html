@@ -1,0 +1,39 @@
+<div layout="column" flex>
+    <div layout="row" style="margin-bottom:60px;">
+        <md-button class="md-primary md-raised fa fa-backward" ng-click="back()">&nbsp;返回</md-button>
+    </div>
+    <h1 class="pull_center">单位工程人材机汇总表</h1>
+    <div ng-repeat="g in budget.groups" class="pull_center">
+        <b>工程名称:{{budget.importName}}</b>
+        <table border="1" width="80%" class="table"style="margin:0 auto">
+            <tr>
+                <td>序号</td>
+                <td>材料名称</td>
+                <td>型号规格</td>
+                <td>单位</td>
+                <td>数量</td>
+                <td>预算价</td>
+                <td>合计</td>
+            </tr>
+            <tr>
+                <td>{{indexes[g.groupIndex]}}</td>
+                <td>{{g.name}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{g.total}}</td>
+            </tr>
+            <tr ng-repeat="i in g.items">
+            	<td>{{i.itemIndex}}</td>
+                <td>{{i.materialName}}</td>
+                <td>{{i.model}}</td>
+                <td>{{i.unit}}</td>
+                <td>{{i.count}}</td>
+                <td>{{i.price}}</td>
+                <td>{{i.total}}</td>
+            </tr>
+        </table>
+        <br>
+    </div>
+</div>

@@ -55,7 +55,7 @@ public class BudgetController extends BaseController {
 
     @RequestMapping("importBudget")
     @ResponseBody
-    public ModelRequest importBudget(@RequestParam("file") MultipartFile file, @RequestParam("userName") String userName, @RequestParam("projectId") int projectId) throws Exception {
+    public String importBudget(@RequestParam("file") MultipartFile file, @RequestParam("userName") String userName, @RequestParam("projectId") int projectId) throws Exception {
         Workbook wb = parseFile(file.getInputStream());
         Budget budget = new Budget();
         budget.setProjectId(projectId);
@@ -142,7 +142,7 @@ public class BudgetController extends BaseController {
             }
         }
         userRepositoryCustom.saveBudget(budget);
-        return modelRequest(String.format("{\"success\":true,\"right\":%d}", allCount));
+        return String.format("{\"success\":true,\"right\":%d}", allCount);
     }
 
     private Integer parseInt(String value) {
