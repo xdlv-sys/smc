@@ -41,13 +41,13 @@ public class UserController extends BaseController{
 
 	}
     @RequestMapping("userLogout")
-	public ModelRequest userLogout(){
+	public String userLogout(){
         //session.removeAttribute(USER_KEY);
         return DONE;
     }
     @RequestMapping("changePassword")
     @ResponseBody
-    public ModelRequest changePassword(User user, String newPassword) throws Exception {
+    public String changePassword(User user, String newPassword) throws Exception {
         User dbUser = userRepository.findByName(user.getName());
         //check user password first
         if (!dbUser.getPassword().equals(FwUtil.md5(user.getPassword()))){
@@ -68,7 +68,7 @@ public class UserController extends BaseController{
 
     @RequestMapping("deleteUser")
     @ResponseBody
-    public ModelRequest deleteUser(int[] userIds) {
+    public String deleteUser(int[] userIds) {
         for (int id : userIds){
             userRepository.delete(id);
         }
@@ -77,7 +77,7 @@ public class UserController extends BaseController{
 
     @RequestMapping("saveUser")
     @ResponseBody
-    public ModelRequest saveUser(User user) throws Exception {
+    public String saveUser(User user) throws Exception {
         userRepositoryCustom.saveUser(user);
         return DONE;
     }

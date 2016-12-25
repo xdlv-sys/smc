@@ -28,7 +28,7 @@ public abstract class BaseController {
     @Autowired
     UserRepositoryCustom userRepositoryCustom;
 
-    protected final ModelRequest DONE = modelRequest("{\"success\":true}");
+    protected final String DONE = "{\"success\":true}";
 
     protected PageContent page(Page<?> data) {
         return new PageContent(data);

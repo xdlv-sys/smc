@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xd.fw.bean.DynamicConf;
-import xd.fw.bean.User;
 import xd.fw.dao.ConfRepository;
 
 /**
@@ -27,7 +26,7 @@ public class ConfigController extends BaseController{
 
     @RequestMapping("deleteConfig")
     @ResponseBody
-    public ModelRequest deleteUser(int[] confIds) {
+    public String deleteUser(int[] confIds) {
         for (int id : confIds){
             confRepository.delete(id);
         }
@@ -36,7 +35,7 @@ public class ConfigController extends BaseController{
 
     @RequestMapping("saveConfig")
     @ResponseBody
-    public ModelRequest saveConfig(DynamicConf conf) throws Exception {
+    public String saveConfig(DynamicConf conf) throws Exception {
         confRepository.save(conf);
         return DONE;
     }

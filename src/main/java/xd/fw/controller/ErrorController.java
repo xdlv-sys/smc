@@ -12,8 +12,8 @@ public class ErrorController extends BaseController {
 
     @RequestMapping("error")
     @ResponseBody
-    public ModelRequest error(){
-        return modelRequest(String.format("{\"errorMsg\":\"%s\",\"errorCode\":%d}","Server error:",0));
+    public String error(){
+        return String.format("{\"errorMsg\":\"%s\",\"errorCode\":%d}","Server error:",0);
     }
 
 }

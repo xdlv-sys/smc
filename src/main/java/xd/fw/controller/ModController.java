@@ -42,7 +42,7 @@ public class ModController extends BaseController{
 
     @RequestMapping("deleteMod")
     @ResponseBody
-    public ModelRequest deleteMod(int[] modIds) {
+    public String deleteMod(int[] modIds) {
         for (int id : modIds){
             modRepository.delete(id);
         }
@@ -51,7 +51,7 @@ public class ModController extends BaseController{
 
     @RequestMapping("saveMod")
     @ResponseBody
-    public ModelRequest saveMod(Mod mod) throws Exception {
+    public String saveMod(Mod mod) throws Exception {
         modRepository.save(mod);
         return DONE;
     }

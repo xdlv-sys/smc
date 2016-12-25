@@ -23,7 +23,6 @@ import xd.fw.util.FwUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,16 +61,16 @@ public class ProductController extends BaseController {
 
     @RequestMapping("deleteProduct")
     @ResponseBody
-    public ModelRequest deleteProduct(int[] productIds) {
+    public String deleteProduct(int[] productIds) {
         for (int id : productIds) {
             productRepository.delete(id);
         }
-        return modelRequest(DONE);
+        return DONE;
     }
 
     @RequestMapping("saveProduct")
     @ResponseBody
-    public ModelRequest saveProduct(Product product) throws Exception {
+    public String saveProduct(Product product) throws Exception {
         product.setCreateTime(new Timestamp(System.currentTimeMillis()));
         productRepository.save(product);
         return DONE;
@@ -79,7 +78,7 @@ public class ProductController extends BaseController {
 
     @RequestMapping("approvalProduct")
     @ResponseBody
-    public ModelRequest approvalProduct(int[] productIds) throws Exception {
+    public String approvalProduct(int[] productIds) throws Exception {
         Product product;
         for (int id : productIds) {
             product = productRepository.findOne(id);
@@ -91,7 +90,7 @@ public class ProductController extends BaseController {
 
     @RequestMapping("importProduct")
     @ResponseBody
-    public ModelRequest importProduct(@RequestParam("file") MultipartFile file, @RequestParam("userName") String userName) throws Exception {
+    public String importProduct(@RequestParam("file") MultipartFile file, @RequestParam("userName") String userName) throws Exception {
         Workbook wb = FwUtil.parseFile(file.getInputStream());
         List<Product> productList = new ArrayList<>();
         Sheet sheet = wb.getSheetAt(0);
@@ -166,7 +165,7 @@ public class ProductController extends BaseController {
             }
         }
         int[] result = userRepositoryCustom.batchSaveProduct(productList, userName);
-        return modelRequest(String.format("{\"success\":true,\"right\":%d,\"wrong\":%d}", result[0], result[1]));
+        return String.format("{\"success\":true,\"right\":%d,\"wrong\":%d}", result[0], result[1]);
     }
 
     @RequestMapping("exportProduct")

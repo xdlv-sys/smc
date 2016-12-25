@@ -50,7 +50,7 @@ public class ProjectController extends BaseController {
 
     @RequestMapping("saveProject")
     @ResponseBody
-    public ModelRequest saveProject(Project project) throws Exception {
+    public String saveProject(Project project) throws Exception {
         userRepositoryCustom.saveProject(project);
         return DONE;
     }

@@ -14,14 +14,14 @@ public class ProductImportController extends BaseController{
 
     @RequestMapping("deleteProductImport")
     @ResponseBody
-    public ModelRequest deleteProduct(int[] productImportIds) {
+    public String deleteProduct(int[] productImportIds) {
         userRepositoryCustom.deleteImport(productImportIds);
         return DONE;
     }
 
     @RequestMapping("approveProductImport")
     @ResponseBody
-    public ModelRequest approveImport(int[] productImportIds) {
+    public String approveImport(int[] productImportIds) {
         userRepositoryCustom.approveImport(productImportIds);
         return DONE;
     }

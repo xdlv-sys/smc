@@ -6,7 +6,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +16,12 @@ import xd.fw.bean.Budget;
 import xd.fw.bean.BudgetGroup;
 import xd.fw.bean.GroupItem;
 import xd.fw.dao.BudgetRepository;
-
-import static xd.fw.util.FwUtil.*;
+import xd.fw.util.FwException;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
+
+import static xd.fw.util.FwUtil.*;
 
 /**
  * Created by xd on 2016/12/7.
@@ -47,7 +46,7 @@ public class BudgetController extends BaseController {
 
     @RequestMapping("deleteBudget")
     @ResponseBody
-    public ModelRequest deleteBudget(int[] budgetIds) {
+    public String deleteBudget(int[] budgetIds) {
         for (int id : budgetIds) {
             budgetRepository.delete(id);
         }
@@ -127,7 +126,11 @@ public class BudgetController extends BaseController {
                         groupItem.setPrice(Double.parseDouble(getCellValue(row.getCell(7))));
                         groupItem.setTotal(Double.parseDouble(getCellValue(row.getCell(8))));
                         groupItem.setGroup(budgetGroup);
-                        budgetGroup.getItems().add(groupItem);
+                        if (budgetGroup != null){
+                            budgetGroup.getItems().add(groupItem);
+                        } else {
+                            throw new FwException("line:" + i);
+                        }
                         allCount++;
                     } else {
                         // met blank or another group flag retry to parse in group status 1

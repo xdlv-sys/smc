@@ -36,7 +36,7 @@ public class RoleController extends BaseController {
 
     @RequestMapping("deleteRole")
     @ResponseBody
-    public ModelRequest deleteRole(int[] roleIds) {
+    public String deleteRole(int[] roleIds) {
         for (int id : roleIds) {
             roleRepository.delete(id);
         }
@@ -45,7 +45,7 @@ public class RoleController extends BaseController {
 
     @RequestMapping("saveRole")
     @ResponseBody
-    public ModelRequest saveRole(Role role, int deptId) throws Exception {
+    public String saveRole(Role role, int deptId) throws Exception {
         userRepositoryCustom.saveRole(role, deptId);
         return DONE;
     }
