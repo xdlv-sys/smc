@@ -1,0 +1,19 @@
+<md-tabs style="min-height:107px;">
+    <md-tab label="工程进度">
+        <md-content layout="column" ng-controller="ConstructionProgressCtrl">
+            <div layout="row" class="xd_tool_bar">
+                <md-button class="md-primary md-raised" ng-click="addProgress()" ng-if="allow(34)" ng-disabled="projectGrid.selection.getSelectedRows().length!==1">&nbsp;新增工程进度&nbsp;</md-button>
+                <md-button class="md-primary md-raised" ng-click="showProgress('construction')" ng-disabled="projectGrid.selection.getSelectedRows().length!==1" ng-if="allow(33)">&nbsp;查看工程进度&nbsp;</md-button>
+            </div>
+        </md-content>
+    </md-tab>
+    <md-tab label="合同进度">
+        <md-content layout="column" ng-controller="ContractProgressCtrl">
+            <div layout="row" class="xd_tool_bar">
+                <md-button class="md-primary md-raised" ng-click="addProgress()" ng-if="allow(36)" ng-disabled="projectGrid.selection.getSelectedRows().length!==1">&nbsp;新增合同进度&nbsp;</md-button>
+                <md-button class="md-primary md-raised" ng-click="showProgress('contract')" ng-disabled="projectGrid.selection.getSelectedRows().length!==1" ng-if="allow(35)">&nbsp;查看合同进度&nbsp;</md-button>
+            </div>
+        </md-content>
+    </md-tab>
+</md-tabs>
+<div flex ui-grid="projectGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>

@@ -6,11 +6,11 @@ services.service('modal', ['$mdDialog', function($mdDialog) {
             .ok('继续')
             .cancel('取消');
         $mdDialog.show(confirm).then(function() {
-            if (conf && conf.postive){
+            if (conf && conf.postive) {
                 conf.postive();
             }
         }, function() {
-            if (conf && conf.negative){
+            if (conf && conf.negative) {
                 conf.negative();
             }
         });
@@ -39,6 +39,9 @@ services.service('modal', ['$mdDialog', function($mdDialog) {
     this.open = function(conf, scope) {
         $mdDialog.show({
                 controller: function() {
+                    this.onlyTheFirstDayPredicate = function(date) {
+                        return date.getDate() === 1;
+                    };
                     this.data = {};
                     this.width = 300;
                     this.cancel = function() {

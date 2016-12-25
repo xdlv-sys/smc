@@ -48,7 +48,7 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
         //used to convert all data and nested objectes to display, now unused since we have a directive for this
         $rootScope.convertDates = function(obj) {
             //convert all date time
-            angular.forEach(obj, function(v){
+            angular.forEach(obj, function(v) {
                 obj[i] = $rootScope.convertDates(v);
             });
         };

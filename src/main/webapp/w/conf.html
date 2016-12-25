@@ -1,5 +1,5 @@
 <md-content flex layout="column" class="max_height">
-    <div layout="row">
+    <div layout="row" class="xd_tool_bar">
         <md-button class="md-primary md-raised" ng-click="addConf()">新增配置</md-button>
         <md-button class="md-primary md-raised" ng-click="modConf()" ng-disabled="confGrid.selection.getSelectedRows().length!==1">修改配置</md-button>
         <md-button class="md-primary md-raised" ng-click="delConf()" ng-disabled="confGrid.selection.getSelectedRows().length<1">删除配置</md-button>

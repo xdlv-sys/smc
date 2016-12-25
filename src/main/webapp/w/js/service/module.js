@@ -177,4 +177,47 @@ services.service('module', ['common', 'configuration', function(common, configur
         }], scope, loadData, configuration);
     };
 
+    this.createConstructionItemGrid = function(scope, loadData, configuration) {
+        return common.createGridOption([{
+            name: '所属月份',
+            field: 'belong'
+        }, {
+            name: '上期累加',
+            field: 'lastAllCount'
+        }, {
+            name: '本月完工',
+            field: 'finished'
+        }, {
+            name: '施工面积',
+            field: 'area'
+        },{
+            name: '进度累计',
+            field: 'allProgress',
+            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{row.entity.lastAllCount + row.entity.finished}}' + '</div>'
+        }], scope, loadData, configuration);
+    };
+
+    this.createContractGrid = function(scope, loadData, configuration) {
+        return common.createGridOption([{
+            name: '所属月份',
+            field: 'belong'
+        }, {
+            name: '合同金额',
+            field: 'project.totalCount'
+        }, {
+            name: '上期完成合同金额',
+            field: 'lastAllCount'
+        }, {
+            name: '已完成合同金额',
+            field: 'finished'
+        }, {
+            name: '剩余合同金额',
+            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{row.entity.project.totalCount - row.entity.lastAllCount - row.entity.finished}}' + '</div>'
+        },{
+            name: '合同完成率（%）',
+            field: 'progressRate',
+            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{(row.entity.lastAllCount + row.entity.finished) * 100 / row.entity.project.totalCount}}' + '</div>'
+        }], scope, loadData, configuration);
+    };
+
 }]);

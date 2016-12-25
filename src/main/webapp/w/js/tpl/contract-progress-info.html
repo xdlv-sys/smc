@@ -1,0 +1,16 @@
+<div layout="row">
+    <md-input-container flex>
+        <label>项目名称</label>
+        <input ng-model="modal.projectName" type="text" required readonly>
+    </md-input-container>
+</div>
+<div layout="row">
+   <md-input-container flex>
+        <label>本月完成合同额</label>
+        <input ng-model="modal.data.finished" type="text" required>
+    </md-input-container>
+    <md-input-container>
+        <label>所属年月</label>
+        <md-datepicker ng-model="modal.data.belong" required xd-date ng-readonly="!modal.add" md-date-filter="modal.onlyTheFirstDayPredicate"></md-datepicker>
+    </md-input-container>
+</div>

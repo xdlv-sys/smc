@@ -224,6 +224,10 @@ insert into t_mod values(25,'修改项目','/project/saveProject',null,null,22);
 insert into t_mod values(26,'导出项目','/project/exportProject',null,null,22);
 insert into t_mod values(27,'查询项目','/project/obtainProject',null,null,22);
 
+insert into t_mod values(28,'删除预算','/budget/deleteBudget',null,null,23);
+insert into t_mod values(29,'导入预算','/budget/deleteBudget',null,null,23);
+insert into t_mod values(30,'查看预算','/budget/obtainBudgets',null,null,23);
+
 insert into t_role_mod values(-80,-2,21);
 insert into t_role_mod values(-79,-2,22);
 insert into t_role_mod values(-78,-2,23);
@@ -231,6 +235,10 @@ insert into t_role_mod values(-77,-2,24);
 insert into t_role_mod values(-76,-2,25);
 insert into t_role_mod values(-75,-2,26);
 insert into t_role_mod values(-74,-2,27);
+
+insert into t_role_mod values(-73,-2,28);
+insert into t_role_mod values(-72,-2,29);
+insert into t_role_mod values(-71,-2,30);
 
 drop table if exists t_budget;
 create table t_budget (
@@ -262,3 +270,39 @@ create table t_group_item (
   price double,
   total double
 )ENGINE = INNODB;
+
+drop table if exists t_construction_progress;
+create table t_construction_progress (
+  id INT PRIMARY KEY,
+  project_id int,
+  belong date,
+  finished double,
+  area double,
+  import_user varchar(64),
+  update_date TIMESTAMP DEFAULT now()
+)ENGINE = INNODB;
+
+drop table if exists t_contract_progress;
+create table t_contract_progress (
+  id INT PRIMARY KEY,
+  project_id int,
+  belong date,
+  finished double,
+  import_user varchar(64),
+  update_date TIMESTAMP DEFAULT now()
+)ENGINE = INNODB;
+
+insert into t_mod values(31,'项目进度管理',null,'progress','fa fa-list-ol',21);
+-- insert into t_mod values(32,'项目合同进度管理',null,'contract-progress','fa fa-outdent',21);
+
+insert into t_mod values(33,'查看工程进度','/construction-progress/obtainProgresses',null,null,31);
+insert into t_mod values(34,'新建工程进度','/construction-progress/saveProgress',null,null,31);
+
+insert into t_mod values(35,'查看合同进度','/contract-progress/obtainProgresses',null,null,31);
+insert into t_mod values(36,'新建合同进度','/contract-progress/saveProgress',null,null,31);
+
+insert into t_role_mod values(-70,-2,31);
+insert into t_role_mod values(-68,-2,33);
+insert into t_role_mod values(-67,-2,34);
+insert into t_role_mod values(-66,-2,35);
+insert into t_role_mod values(-65,-2,36);

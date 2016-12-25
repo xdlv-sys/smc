@@ -1,17 +1,17 @@
 <md-tabs flex>
     <md-tab label="项目预算">
         <md-content layout="column" class="max_height">
-            <div layout="row">
-                <md-button class="md-primary md-raised" ng-click="delBudget()" ng-disabled="budgetGrid.selection.getSelectedRows().length<1" ng-if="allow(18)">删除预算</md-button>
+            <div layout="row" class="xd_tool_bar">
+                <md-button class="md-primary md-raised" ng-click="delBudget()" ng-disabled="budgetGrid.selection.getSelectedRows().length<1" ng-if="allow(28)">删除预算</md-button>
             </div>
             <div flex ui-grid="budgetGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
         </md-content>
     </md-tab>
     <md-tab label="预算导入">
         <md-content class="max_height" layout="column" ng-controller="ProjectCtrl">
-            <div layout="row">
+            <div layout="row" class="xd_tool_bar">
                 <lf-ng-md-file-input flex="33" aria-label="fileupload" lf-files='importFile' lf-placeholder="选择Excel文件上传" lf-browse-label="选择文件" lf-mimetype="application/msexcel" lf-totalsize="5MB" progress> </lf-ng-md-file-input>
-                <md-button class="md-primary md-raised" ng-click="uploadFile()" ng-disabled="importFile.length < 1 || projectGrid.selection.getSelectedRows().length !== 1">导入</md-button>
+                <md-button class="md-primary md-raised" ng-click="uploadFile()" ng-disabled="importFile.length < 1 || projectGrid.selection.getSelectedRows().length !== 1" ng-if="allow(29)">导入</md-button>
             </div>
             <div flex ui-grid="projectGrid" ui-grid-pagination ui-grid-selection class="max_height"></div>
         </md-content>

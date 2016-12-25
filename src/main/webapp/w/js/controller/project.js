@@ -27,11 +27,11 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
             url: 'js/tpl/project-info.html',
             width: 750,
             add: true,
-            addOutSource: function(){
-                if (!this.data.outSources){
+            addOutSource: function() {
+                if (!this.data.outSources) {
                     this.data.outSources = [];
                 }
-                this.data.outSources[this.data.outSources.length]={};
+                this.data.outSources[this.data.outSources.length] = {};
             },
             ok: function(project) {
                 $scope.convertParams(project, 'outSources');
@@ -59,14 +59,14 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
         });
     };
 
-    $scope.queryProject = function(){
+    $scope.queryProject = function() {
         $scope.projectGrid.refresh(true);
     };
 
-    $scope.exportProject = function(){
+    $scope.exportProject = function() {
         var url = '/project/exportProject.cmd?projectId=';
         url += $scope.projectGrid.selection.getSelectedRows()[0].id;
-        window.open(url,'_self');
+        window.open(url, '_self');
     };
 
     $scope.modProject = function() {
@@ -89,5 +89,15 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
                 modal.alert('成功导入:' + result.data.right + '条');
             }
         });
+    };
+
+    $scope.getSelectedProjects = function() {
+        return $scope.projectGrid.selection.getSelectedRows();
+    };
+
+    $scope.showProgress = function(itemType) {
+        var project = angular.copy($scope.getSelectedProjects()[0]);
+        project.itemType = itemType;
+        $state.go('progress-item', { project: project });
     };
 }]);

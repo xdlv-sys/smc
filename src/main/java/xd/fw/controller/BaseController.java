@@ -7,6 +7,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -40,6 +41,9 @@ public abstract class BaseController {
 
     protected PageRequest pageRequest(int page, int limit) {
         return new PageRequest(page - 1, limit);
+    }
+    protected PageRequest pageRequest(int page, int limit, Sort sort) {
+        return new PageRequest(page - 1, limit, sort);
     }
 
     protected ModelRequest modelRequest(Object obj) {

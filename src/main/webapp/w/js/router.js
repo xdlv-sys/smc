@@ -79,6 +79,15 @@ angular.module('xdApp', [
             params: { budget: null },
             templateUrl: 'budget-item.html',
             controller: 'BudgetItemCtrl'
+        }).state('progress', {
+            url: '/progress',
+            templateUrl: 'progress.html',
+            controller: 'ProjectCtrl'
+        }).state('progress-item', {
+            url: '/progress-item',
+            params: { project: null },
+            templateUrl: 'progress-item.html',
+            controller: 'ProgressItemCtrl'
         });
     }
 ]);

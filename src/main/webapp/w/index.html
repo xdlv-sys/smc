@@ -53,6 +53,9 @@
     <script type="text/javascript" src="js/controller/project-item.js"></script>
     <script type="text/javascript" src="js/controller/budget.js"></script>
     <script type="text/javascript" src="js/controller/budget-item.js"></script>
+    <script type="text/javascript" src="js/controller/contract-progress.js"></script>
+    <script type="text/javascript" src="js/controller/construction-progress.js"></script>
+    <script type="text/javascript" src="js/controller/progress-item.js"></script>
 </head>
 
 <body ng-app="xdApp" layout="column" ng-controller="taxController">
@@ -82,7 +85,7 @@
                 </ul>
             </md-content>
         </md-sidenav>
-        <md-content flex ui-view id="content" layout="row" style="padding:10px;">
+        <md-content flex ui-view id="content" layout="column" style="padding:10px;">
         </md-content>
     </div>
 </body>
