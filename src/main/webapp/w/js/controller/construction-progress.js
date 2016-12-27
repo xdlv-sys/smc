@@ -8,6 +8,11 @@ controllers.controller('ConstructionProgressCtrl', ['$scope', '$rootScope', 'con
                 common.post('/construction-progress/saveProgress.cmd', progress, {
                     success: function() {
                         modal.alert('工程进度录入成功。');
+                    },
+                    fail: function(data){
+                        if (data.errorCode === 1){
+                            modal.alert('工程进度录入失败：己存在对应月份的记录。');
+                        }
                     }
                 });
             }
