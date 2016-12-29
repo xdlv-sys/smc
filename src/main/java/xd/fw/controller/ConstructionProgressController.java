@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xd.fw.bean.ConstructionProgress;
 import xd.fw.dao.ConstructionProgressRepository;
+import xd.fw.util.FwException;
 
 /**
  * Created by xd on 2016/12/7.
@@ -28,6 +29,12 @@ public class ConstructionProgressController extends BaseController{
     @RequestMapping("saveProgress")
     @ResponseBody
     public String saveProgress(ConstructionProgress progress) throws Exception {
+        if (progress.getId() == null
+                && constructionProgressRepository.findByBelongAndProjectId(
+                progress.getBelong(), progress.getProject().getId()) != null){
+            throw new FwException(1,"special period construction progress exists "
+                    + progress.getBelong());
+        }
         constructionProgressRepository.save(progress);
         return DONE;
     }

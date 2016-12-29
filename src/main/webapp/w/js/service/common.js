@@ -43,8 +43,8 @@ services.service('common', ['$http', 'modal', function($http, modal) {
 
         $http.post(this.relativeUrl(url), params).success(function(data) {
             if (data && data.errorMsg) {
-                if (call.fail) {
-                    call.fail(data);
+                if (call.fail && !call.fail(data)) {
+                    return;
                 } else {
                     modal.alert('操作失败，请重试或联系管理员。');
                 }
