@@ -18,6 +18,9 @@ services.config(['$httpProvider', function($httpProvider) {
 }]);
 
 services.service('common', ['$http', 'modal', function($http, modal) {
+    this.relativeUrl = function(url){
+        return '../' + url;
+    };
     this.loadAllPage = function(url, call) {
         this.loadPage(url, { page: 1, limit: 999999 }, call);
     };
@@ -38,7 +41,7 @@ services.service('common', ['$http', 'modal', function($http, modal) {
             }
         }
 
-        $http.post(url, params).success(function(data) {
+        $http.post(this.relativeUrl(url), params).success(function(data) {
             if (data && data.errorMsg) {
                 if (call.fail) {
                     call.fail(data);
@@ -60,7 +63,7 @@ services.service('common', ['$http', 'modal', function($http, modal) {
         }
 
         modal.wait();
-        $http.post(url, formData, {
+        $http.post(this.relativeUrl(url), formData, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).then(function(result) {

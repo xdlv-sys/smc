@@ -64,7 +64,7 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
     };
 
     $scope.exportProject = function() {
-        var url = '/project/exportProject.cmd?projectId=';
+        var url = '../project/exportProject.cmd?projectId=';
         url += $scope.projectGrid.selection.getSelectedRows()[0].id;
         window.open(url, '_self');
     };
