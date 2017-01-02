@@ -1,5 +1,4 @@
-html,
-body {
+html,body {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     height: 100%;
@@ -45,7 +44,7 @@ a:active {
 
 .tool_button {
     padding-left: 5px;
-    font-size: 18px;
+    font-size: 16px;
     text-transform: none;
 }
 
