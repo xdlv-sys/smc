@@ -88,6 +88,10 @@ angular.module('xdApp', [
             params: { project: null },
             templateUrl: 'progress-item.html',
             controller: 'ProgressItemCtrl'
+        }).state('calculate', {
+            url: '/calculate',
+            templateUrl: 'calculate.html',
+            controller: 'BudgetCtrl'
         });
     }
 ]);

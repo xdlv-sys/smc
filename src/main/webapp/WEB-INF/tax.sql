@@ -306,3 +306,6 @@ insert into t_role_mod values(-68,-2,33);
 insert into t_role_mod values(-67,-2,34);
 insert into t_role_mod values(-66,-2,35);
 insert into t_role_mod values(-65,-2,36);
+
+insert into t_mod values(37,'项目预算测算管理',null,'calculate','fa fa-calculator',21);
+insert into t_role_mod values(-64,-2,37);

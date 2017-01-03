@@ -42,7 +42,6 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
 
-
     compile ([group: 'org.apache.mina', name: 'mina-core', version: '2.0.13'],
             [group: 'org.apache.derby', name: 'derbytools', version: '10.13.1.1'],
             [group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'],
@@ -54,7 +53,8 @@ dependencies {
             'org.apache.commons:commons-lang3:3.5',
             [group: 'org.apache.poi', name: 'poi-ooxml', version: '3.16-beta1'],
 
-            [group: 'org.aspectj', name: 'aspectjtools', version: '1.8.9']
+            [group: 'org.aspectj', name: 'aspectjtools', version: '1.8.9'],
+            [group: 'com.oracle', name: 'ojdbc6', version: '12.1.0.1-atlassian-hosted']
     )
 
     testCompile("junit:junit")
