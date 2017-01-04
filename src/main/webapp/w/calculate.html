@@ -1,6 +1,6 @@
 <md-content layout="column" class="max_height">
-    <div layout="row" class="xd_tool_bar">
-        <md-button class="md-primary md-raised" ng-click="delBudget()" ng-disabled="budgetGrid.selection.getSelectedRows().length<1" ng-if="allow(28)">删除预算</md-button>
+    <div layout="row" class="xd_tool_bar" ng-controller="CalculateCtrl">
+        <md-button class="md-primary md-raised" ng-click="calculateBudget()" ng-disabled="budgetGrid.selection.getSelectedRows().length!==1" ng-if="allow(38)">预算进项税计算</md-button>
     </div>
     <div flex ui-grid="budgetGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
 </md-content>

@@ -1,0 +1,24 @@
+<md-content flex layout="column" class="max_height">
+    <div layout="row">
+        <md-button class="md-primary md-raised fa fa-backward" ng-click="back()">&nbsp;返回</md-button>
+    </div>
+    <h1 class="pull_center">{{budget.importName}}</h1>
+    <md-tabs flex >
+        <md-tab label="人工">
+            <md-content layout="column" class="max_height md-padding">
+                <div flex ui-grid-auto-resize ui-grid="manBudgetGrid"></div>
+            </md-content>
+            
+        </md-tab>
+        <md-tab label="材料">
+            <md-content layout="column" class="max_height md-padding">
+                <div flex ui-grid-auto-resize ui-grid="materialBudgetGrid"></div>
+            </md-content>
+        </md-tab>
+        <md-tab label="机械">
+            <md-content layout="column" class="max_height md-padding">
+                <div flex ui-grid-auto-resize ui-grid="machineBudgetGrid"></div>
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</md-content>

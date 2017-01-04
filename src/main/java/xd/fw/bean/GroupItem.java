@@ -23,6 +23,7 @@ public class GroupItem {
     private Double count;
     private Double price;
     private Double total;
+    private Float taxRatio;
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "group_id")
@@ -99,6 +100,14 @@ public class GroupItem {
 
     public void setTotal(Double total) {
         this.total = total;
+    }
+
+    public Float getTaxRatio() {
+        return taxRatio;
+    }
+
+    public void setTaxRatio(Float taxRatio) {
+        this.taxRatio = taxRatio;
     }
 
     @Override

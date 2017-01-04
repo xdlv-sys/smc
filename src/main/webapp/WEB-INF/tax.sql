@@ -309,3 +309,7 @@ insert into t_role_mod values(-65,-2,36);
 
 insert into t_mod values(37,'项目预算测算管理',null,'calculate','fa fa-calculator',21);
 insert into t_role_mod values(-64,-2,37);
+
+insert into t_mod values(38,'预算进项税计算','/calculate/obtainCalculate',null,null,37);
+insert into t_role_mod values(-63,-2,38);
+alter table t_group_item add column `tax_ratio` number(3,1) after column `total`;
