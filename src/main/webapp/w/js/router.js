@@ -4,7 +4,7 @@ angular.module('xdApp', [
     'ui.router',
     'ngMaterial',
     'ngAria',
-    'ui.grid', 'ui.grid.pagination', 'ui.grid.selection', 'ui.grid.autoResize',
+    'ui.grid', 'ui.grid.pagination', 'ui.grid.selection', 'ui.grid.autoResize','ui.grid.edit',
     'multiselect-searchtree', 'ngPopover',
     'ui.tree', 'lfNgMdFileInput'
 ]).config(['$mdDateLocaleProvider', function($mdDateLocaleProvider) {
@@ -97,6 +97,11 @@ angular.module('xdApp', [
             params: { budget: null },
             templateUrl: 'calculate-item.html',
             controller: 'CalculateItemCtrl'
-        })
+        }).state('tax-calculate-item', {
+            url: '/tax-calculate-item',
+            params: { budgets: null },
+            templateUrl: 'tax-calculate-item.html',
+            controller: 'CalculateCtrl'
+        });
     }
 ]);

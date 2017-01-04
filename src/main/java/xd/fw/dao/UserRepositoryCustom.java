@@ -8,7 +8,7 @@ public interface UserRepositoryCustom {
 
     void saveUser(User user) throws Exception;
 
-    void saveRole(Role role, int deptId) throws Exception ;
+    void saveRole(Role role, int deptId) throws Exception;
 
     int[] batchSaveProduct(List<Product> productList, String userName);
 
@@ -19,4 +19,6 @@ public interface UserRepositoryCustom {
     void saveProject(Project project);
 
     void saveBudget(Budget budget);
+
+    void runSessionCommit(SessionCommit sessionCommit);
 }

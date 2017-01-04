@@ -142,4 +142,10 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
         }
         budgetRepository.save(budget);
     }
+
+    @Override
+    @Transactional
+    public void runSessionCommit(SessionCommit sessionCommit) {
+        sessionCommit.process();
+    }
 }

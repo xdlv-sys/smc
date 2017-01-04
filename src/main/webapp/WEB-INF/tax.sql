@@ -312,4 +312,7 @@ insert into t_role_mod values(-64,-2,37);
 
 insert into t_mod values(38,'预算进项税计算','/calculate/obtainCalculate',null,null,37);
 insert into t_role_mod values(-63,-2,38);
-alter table t_group_item add column `tax_ratio` number(3,1) after column `total`;
+alter table t_group_item add column `tax_ratio` float after `total`;
+
+insert into t_mod values(39,'预算税负计算','/calculate/showTaxCalculate',null,null,37);
+insert into t_role_mod values(-62,-2,39);
