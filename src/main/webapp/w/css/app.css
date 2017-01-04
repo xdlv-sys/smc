@@ -65,6 +65,9 @@ a:active {
 .max_height {
     height: 100%;
 }
+.max_height2 {
+    height: 99%;
+}
 
 .pull_center {
     text-align: center;
