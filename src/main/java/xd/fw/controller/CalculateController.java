@@ -1,32 +1,23 @@
 package xd.fw.controller;
 
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.document.AbstractXlsxStreamingView;
 import org.springframework.web.servlet.view.document.AbstractXlsxView;
 import xd.fw.bean.Budget;
 import xd.fw.bean.GroupItem;
-import xd.fw.bean.Product;
-import xd.fw.bean.ProjectOutSource;
 import xd.fw.dao.BudgetRepository;
 import xd.fw.dao.GroupItemRepository;
 import xd.fw.dao.UserRepositoryCustom;
 import xd.fw.mk.ExcelStreamView;
-import xd.fw.service.IConst;
-import xd.fw.util.FwException;
-import xd.fw.util.FwUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Map;
 
 import static xd.fw.util.FwUtil.*;
@@ -87,7 +78,8 @@ public class CalculateController extends BaseController {
                             return;
                         }
                         safeEach(group.getItems(), (item)->{
-                            inCount[0] += item.getTotal() * item.getTaxRatio() / (item.getTaxRatio() + 1);
+                            double v = item.getTotal() * item.getTaxRatio() / (item.getTaxRatio() + 1);
+                            inCount[0] += v;
                         });
                     });
                     double shouldTaxCount = saleCount - inCount[0];

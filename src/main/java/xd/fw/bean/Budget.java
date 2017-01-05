@@ -6,7 +6,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by xd on 2016/12/24.
@@ -27,7 +27,7 @@ public class Budget {
     private Project project;
 
     @OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,mappedBy = "budget")
-    List<BudgetGroup> groups;
+    Set<BudgetGroup> groups;
 
     public Project getProject() {
         return project;
@@ -77,11 +77,11 @@ public class Budget {
         this.importDate = importDate;
     }
 
-    public void setGroups(List<BudgetGroup> groups) {
+    public void setGroups(Set<BudgetGroup> groups) {
         this.groups = groups;
     }
 
-    public List<BudgetGroup> getGroups() {
+    public Set<BudgetGroup> getGroups() {
         return groups;
     }
 
