@@ -150,7 +150,21 @@ Array.prototype.containsId = function(o) {
         return v.id === o.id;
     });
 };
-
 Array.prototype.each = function(f) {
-    angular.forEach(this, f);
+    angular.forEach(this,f);
 };
+
+if (!angular.each){
+    angular.each = function(array, f){
+        if (angular.isBlank(array) || !f){
+            return;
+        }
+        var tmp;
+        for (var i=0;i<array.length;i++){
+            tmp = f(array[i],i);
+            if (tmp){
+                return tmp;
+            }
+        }
+    };
+}

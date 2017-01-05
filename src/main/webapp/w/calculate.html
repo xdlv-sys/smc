@@ -2,7 +2,7 @@
     <div layout="row" class="xd_tool_bar">
         <md-button class="md-primary md-raised" ng-click="calculateBudget()" ng-disabled="budgetGrid.selection.getSelectedRows().length!==1" ng-if="allow(38)">预算进项税计算</md-button>
 
-        <md-button class="md-primary md-raised" ng-click="showTaxCalculateBudget()" ng-disabled="budgetGrid.selection.getSelectedRows().length < 1" ng-if="allow(39)">预算税负计算</md-button>
+        <md-button class="md-primary md-raised" ng-click="showTaxCalculateBudget()" ng-disabled="disableShowTaxCalculte()" ng-if="allow(39)">预算税负计算</md-button>
     </div>
     
     <div flex ui-grid="budgetGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>

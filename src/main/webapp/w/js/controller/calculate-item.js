@@ -75,6 +75,7 @@ controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'modul
             onRegisterApi: function(gridApi) {
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                     $scope.$apply();
+                    $scope.updateTotal(); // update total info manually
                     common.post('/calculate/updateRatio.cmd',{
                         id : rowEntity.id,
                         taxRatio: rowEntity.taxRatio
@@ -86,6 +87,7 @@ controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'modul
     $scope.manBudgetGrid = $scope.createGrid([]);
     $scope.materialBudgetGrid = $scope.createGrid([]);
     $scope.machineBudgetGrid = $scope.createGrid([]);
+
     
     angular.forEach($scope.budget.groups, function(g) {
         if (g.name === '人工') {
@@ -96,5 +98,48 @@ controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'modul
             $scope.machineBudgetGrid = $scope.createGrid(g.items);
         }
     });
+
+    $scope.totalBudgetGrid = {
+    	columnDefs : [{
+    		name : '人工',
+    		field: 'man'
+    	},{
+    		name : '材料',
+    		field: 'material'
+    	},{
+    		name : '机械',
+    		field: 'machine'
+    	},{
+    		name : '合计',
+    		field: 'total'
+    	}],
+    	data:[]
+    };
+
+    $scope.updateTotal = function(){
+    	var manTotal = 0, 
+        materialTotal = 0, 
+        machineTotal = 0;
+
+        function taxCount(v){
+    	    return v.taxRatio !== null ? (v.total * v.taxRatio / (v.taxRatio + 1)) : 0;
+        }
+        angular.forEach($scope.manBudgetGrid.data, function(v){
+        	manTotal += taxCount(v);
+        });
+        angular.forEach($scope.materialBudgetGrid.data, function(v){
+        	materialTotal += taxCount(v);
+        });
+        angular.forEach($scope.machineBudgetGrid.data, function(v){
+        	machineTotal += taxCount(v);
+        });
+        $scope.totalBudgetGrid.data = [{
+        	man : manTotal.toFixed(2),
+    		material : materialTotal.toFixed(2),
+    		machine : machineTotal.toFixed(2),
+    		total: (manTotal + materialTotal + machineTotal).toFixed(2)
+        }];
+    };
+    $scope.updateTotal();
 
 }]);

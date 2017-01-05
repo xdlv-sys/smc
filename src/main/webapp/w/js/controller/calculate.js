@@ -1,6 +1,15 @@
 controllers.controller('CalculateCtrl', ['$scope', '$rootScope', 'configuration', 'common', 'modal', 'module', '$filter', '$stateParams','$state', function($scope, $rootScope, configuration, common, modal, module, $filter, $stateParams,$state) {
 
     if ($stateParams.budgets){
+        angular.forEach($stateParams.budgets, function(b){
+            var rate = configuration.i18n(2,"rate",b.project.rate);
+            //remove percent flag % and parsed into float
+            rate = parseInt(rate.substring(0, rate.length -1));
+            rate = rate /100.0;
+            b.unTaxCount = (b.project.totalCount / (1 + rate)).toFixed(2);
+            b.saleCount = b.unTaxCount * rate;
+            
+        });
     	$scope.taxCalculateGrid = {
     		configuration: configuration,
     		columnDefs: [{
@@ -8,16 +17,16 @@ controllers.controller('CalculateCtrl', ['$scope', '$rootScope', 'configuration'
     			field: 'project.name'
     		},{
     			name: '合同金额',
-    			field: 'totalCount'
+    			field: 'project.totalCount'
     		},{
     			name : '税率',
-    			cellTemplate: '<div class="ui-grid-cell-contents" >{{grid.options.configuration.i18n(2,"rate",row.entity.rate)}}</div>'
+    			cellTemplate: '<div class="ui-grid-cell-contents" >{{grid.options.configuration.i18n(2,"rate",row.entity.project.rate)}}</div>'
     		},{
     			name: '不含税金额',
-    			cellTemplate: '<div class="ui-grid-cell-contents" >{{(row.entity.totalCount/(1+row.entity.rate===1? 0.11 : 0.03))}}</div>'
+                field: 'unTaxCount'
     		},{
-    			name: '进项税额',
-    			cellTemplate: ''
+    			name: '进项税额 ',
+    			field: 'saleCount'
     		},{
     			name: '应纳税额',
     			cellTemplate: ''
@@ -38,4 +47,20 @@ controllers.controller('CalculateCtrl', ['$scope', '$rootScope', 'configuration'
     	var budgets = $scope.budgetGrid.selection.getSelectedRows();
         $state.go('tax-calculate-item', { budgets: budgets });
     };
+    $scope.disableShowTaxCalculte = function(){
+        var budgets = $scope.budgetGrid.selection.getSelectedRows();
+
+        return budgets.length < 1 || angular.each(budgets, function(b){
+            return angular.each(b.groups, function(g){
+                if (g.name === '人工' 
+                    || g.name === '材料' || g.name === '机械'){
+                    return angular.each(g.items, function(i){
+                        if (i.taxRatio === null){
+                            return true;
+                        }
+                    });
+                }
+            });
+        });
+    }
 }]);
