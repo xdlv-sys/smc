@@ -1,4 +1,4 @@
-controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'module', '$filter', '$stateParams', 'configuration', function($scope, common, modal, module, $filter, $stateParams, configuration) {
+controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'module', '$filter', '$stateParams', 'configuration','util', function($scope, common, modal, module, $filter, $stateParams, configuration,util) {
 
     $scope.budget = $stateParams.budget;
 
@@ -121,17 +121,14 @@ controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'modul
         materialTotal = 0, 
         machineTotal = 0;
 
-        function taxCount(v){
-    	    return v.taxRatio !== null ? (v.total * v.taxRatio / (v.taxRatio + 1)) : 0;
-        }
         angular.forEach($scope.manBudgetGrid.data, function(v){
-        	manTotal += taxCount(v);
+        	manTotal += util.taxCount(v);
         });
         angular.forEach($scope.materialBudgetGrid.data, function(v){
-        	materialTotal += taxCount(v);
+        	materialTotal += util.taxCount(v);
         });
         angular.forEach($scope.machineBudgetGrid.data, function(v){
-        	machineTotal += taxCount(v);
+        	machineTotal += util.taxCount(v);
         });
         $scope.totalBudgetGrid.data = [{
         	man : manTotal.toFixed(2),

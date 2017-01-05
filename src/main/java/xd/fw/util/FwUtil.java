@@ -5,9 +5,7 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.usermodel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.task.AsyncTaskExecutor;
@@ -107,17 +105,18 @@ public class FwUtil {
         }
         list.forEach(p::process);
     }
+
     public interface CompareItem<T> {
         boolean compare(T t, T o);
     }
 
-    public static <T> void replaceOrAddListItem(List<T> list, T t, CompareItem<T> compare){
-        if (list == null){
+    public static <T> void replaceOrAddListItem(List<T> list, T t, CompareItem<T> compare) {
+        if (list == null) {
             list = new ArrayList<>();
         }
 
-        for (int i =0 ;i < list.size(); i++){
-            if (compare.compare(list.get(i), t)){
+        for (int i = 0; i < list.size(); i++) {
+            if (compare.compare(list.get(i), t)) {
                 list.set(i, t);
                 return;
             }
@@ -200,12 +199,12 @@ public class FwUtil {
                 File itemFile = new File(destDir, zipEntry.getName());
                 try {
                     if (zipEntry.isDirectory()) {
-                        if (!itemFile.exists() && !itemFile.mkdirs()){
+                        if (!itemFile.exists() && !itemFile.mkdirs()) {
                             throw new IOException("can not make dir :" + zipEntry.getName());
                         }
                         continue;
                     }
-                    if (itemFile.exists() && !itemFile.delete()){
+                    if (itemFile.exists() && !itemFile.delete()) {
                         throw new IOException("can no delete file:" + itemFile);
                     }
                     os = new FileOutputStream(itemFile);
@@ -224,6 +223,7 @@ public class FwUtil {
     static class ReaderThread implements Callable<String> {
         static Logger logger = LoggerFactory.getLogger(ReaderThread.class);
         BufferedReader br;
+
         ReaderThread(BufferedReader br) {
             this.br = br;
         }
@@ -250,7 +250,7 @@ public class FwUtil {
 
         Map<EncodeHintType, Object> hints = new HashMap<>();
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
-        hints.put(EncodeHintType.MARGIN,0);
+        hints.put(EncodeHintType.MARGIN, 0);
         BitMatrix matrix = new MultiFormatWriter().encode(content,
                 BarcodeFormat.QR_CODE, width, height, hints);
 
@@ -260,8 +260,8 @@ public class FwUtil {
                 image.setRGB(x, y, matrix.get(x, y) ? BLACK : WHITE);
             }
         }
-        try(ByteArrayOutputStream os = new ByteArrayOutputStream()){
-            ImageIO.write(image,"png", os);
+        try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
+            ImageIO.write(image, "png", os);
             return os.toByteArray();
         }
     }
@@ -276,6 +276,19 @@ public class FwUtil {
             }
         }
         return book;
+    }
+
+    public static Cell setCellValue(Sheet sheet, int row, int cell, String value) {
+        Row rowForWrite = sheet.getRow(row);
+        if (rowForWrite == null) {
+            rowForWrite = sheet.createRow(row);
+        }
+        Cell cellForWrite = rowForWrite.getCell(cell);
+        if (cellForWrite == null) {
+            cellForWrite = rowForWrite.createCell(cell);
+        }
+        cellForWrite.setCellValue(value);
+        return cellForWrite;
     }
 
     public static String getCellValue(Cell cell) {
@@ -299,26 +312,32 @@ public class FwUtil {
         return StringUtils.isBlank(value) || "无".equals(value) ? null : value.trim();
     }
 
-    public static int search(Object[] objects, Object obj){
-        if (obj == null){
+    public static int search(Object[] objects, Object obj) {
+        if (obj == null) {
             return -1;
         }
-        for (int index = 0; index < objects.length; index ++){
-            if (obj.equals(objects[index])){
+        for (int index = 0; index < objects.length; index++) {
+            if (obj.equals(objects[index])) {
                 return index;
             }
         }
         return -1;
     }
 
+    public static float toFixed(double d, int n) {
+        int power = (int) Math.pow(10, n);
+        return (float) (Math.round(d * power)) / power;
+    }
+
     final static SimpleDateFormat orderSdf = new SimpleDateFormat("HHmmssyyyyMMddSSS");
-    public static synchronized String createOutTradeNo(){
+
+    public static synchronized String createOutTradeNo() {
         return String.valueOf(orderSdf.format(new Date()));
     }
 
 
-
     public static void main(String[] args) throws Exception {
-        unzip(new File("C:\\Work\\Java\\output\\war.zip"), new File("C:\\Work\\Java\\output\\war"));
+        System.out.println(toFixed(1.2345, 2));
+        //unzip(new File("C:\\Work\\Java\\output\\war.zip"), new File("C:\\Work\\Java\\output\\war"));
     }
 }

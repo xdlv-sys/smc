@@ -1,4 +1,4 @@
-controllers.controller('CalculateCtrl', ['$scope', '$rootScope', 'configuration', 'common', 'modal', 'module', '$filter', '$stateParams','$state', function($scope, $rootScope, configuration, common, modal, module, $filter, $stateParams,$state) {
+controllers.controller('CalculateCtrl', ['$scope', '$rootScope', 'configuration', 'common', 'modal', 'module', '$filter', '$stateParams','$state','util', function($scope, $rootScope, configuration, common, modal, module, $filter, $stateParams,$state,util) {
 
     if ($stateParams.budgets){
         angular.forEach($stateParams.budgets, function(b){
@@ -8,6 +8,19 @@ controllers.controller('CalculateCtrl', ['$scope', '$rootScope', 'configuration'
             rate = rate /100.0;
             b.unTaxCount = (b.project.totalCount / (1 + rate)).toFixed(2);
             b.saleCount = b.unTaxCount * rate;
+
+            b.inCount = 0;
+            angular.forEach(b.groups, function(g){
+                if (g.name === '人工' 
+                    || g.name === '材料' || g.name === '机械'){
+                    angular.forEach(g.items, function(i){
+                        b.inCount += util.taxCount(i);
+                    });
+                }
+            });
+
+            b.shouldTaxCount = b.saleCount - b.inCount;
+            b.taxPercent = b.shouldTaxCount / b.unTaxCount;
             
         });
     	$scope.taxCalculateGrid = {
@@ -25,17 +38,28 @@ controllers.controller('CalculateCtrl', ['$scope', '$rootScope', 'configuration'
     			name: '不含税金额',
                 field: 'unTaxCount'
     		},{
-    			name: '进项税额 ',
+    			name: '销项税额 ',
     			field: 'saleCount'
     		},{
-    			name: '应纳税额',
-    			cellTemplate: ''
+    			name: '进项税额',
+                field: 'inCount'
     		},{
-    			name: '税负',
-    			cellTemplate: ''
-    		}],
+    			name: '应纳税额',
+    			field: 'shouldTaxCount'
+    		},{
+                name: '税负',
+                field: 'taxPercent'
+            }],
     		data: $stateParams.budgets
     	};
+    }
+
+    $scope.exportTaxCalculate = function(){
+        var url = '../calculate/exportTaxCalculate.cmd?';
+        angular.forEach($stateParams.budgets, function(b){
+            url += 'budgetIds=' + b.projectId + '&'
+        });
+        window.open(url,'_self');
     }
 
     $scope.calculateBudget = function(){

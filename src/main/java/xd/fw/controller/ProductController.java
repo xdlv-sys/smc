@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.document.AbstractXlsxStreamingView;
+import org.springframework.web.servlet.view.document.AbstractXlsxView;
 import xd.fw.bean.Product;
 import xd.fw.bean.ProductImport;
 import xd.fw.dao.ProductImportRepository;
 import xd.fw.dao.ProductRepository;
+import xd.fw.mk.ExcelStreamView;
 import xd.fw.service.IConst;
 import xd.fw.util.FwUtil;
 
@@ -172,11 +173,11 @@ public class ProductController extends BaseController {
     @ResponseBody
     public ModelAndView exportProduct(Product query) {
         List<Product> all = productRepository.findAll(Example.of(query, queryMatcher()));
-        AbstractXlsxStreamingView view = new AbstractXlsxStreamingView(){
+        AbstractXlsxView view = new ExcelStreamView(null, productExportFileName){
             @Override
             protected void buildExcelDocument(Map<String, Object> model, Workbook workbook
                     , HttpServletRequest request, HttpServletResponse response) throws Exception {
-                response.setHeader("Content-Disposition","attachment; filename=" + writeDownloadFile(request,productExportFileName));
+                super.buildExcelDocument(model,workbook,request,response);
                 Sheet sheet = createSheet(workbook,"sheet1");
                 Row row;
                 Product product;

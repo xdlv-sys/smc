@@ -15,6 +15,7 @@ import org.springframework.web.servlet.view.document.AbstractXlsxView;
 import xd.fw.bean.Project;
 import xd.fw.bean.ProjectOutSource;
 import xd.fw.dao.ProjectRepository;
+import xd.fw.mk.ExcelStreamView;
 import xd.fw.service.IConst;
 import xd.fw.util.FwException;
 import xd.fw.util.FwUtil;
@@ -23,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Map;
+
+import static xd.fw.util.FwUtil.setCellValue;
 
 /**
  * Created by xd on 2016/12/7.
@@ -59,36 +62,10 @@ public class ProjectController extends BaseController {
     @ResponseBody
     public ModelAndView exportProject(int projectId) {
         Project project = projectRepository.findOne(projectId);
-
-        AbstractXlsxView view = new AbstractXlsxView() {
+        AbstractXlsxView view = new ExcelStreamView("/project--export.xlsx", projectExportName){
             @Override
-            protected Workbook createWorkbook(Map<String, Object> model, HttpServletRequest request) {
-                try {
-                    return FwUtil.parseFile(getClass().getResourceAsStream("/project--export.xlsx"));
-                } catch (Exception e) {
-                    throw new FwException("can not create template file", e);
-                }
-            }
-
-            Cell setCellValue(Sheet sheet, int row, int cell, String value) {
-                Row rowForWrite = sheet.getRow(row);
-                if (rowForWrite == null){
-                    rowForWrite = sheet.createRow(row);
-                }
-                Cell cellForWrite = rowForWrite.getCell(cell);
-                if (cellForWrite == null){
-                    cellForWrite = rowForWrite.createCell(cell);
-                }
-                cellForWrite.setCellValue(value);
-                return cellForWrite;
-            }
-
-            @Override
-            protected void buildExcelDocument(Map<String, Object> model, Workbook workbook
-                    , HttpServletRequest request, HttpServletResponse response) throws Exception {
-                response.setHeader("Content-Disposition", "attachment; filename="
-                        + writeDownloadFile(request, projectExportName));
-                //for simpleDateFormat is not safe-thread
+            protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
+                super.buildExcelDocument(model, workbook, request, response);
                 SimpleDateFormat sdf = new SimpleDateFormat(IConst.DEFAULT_DATE_PATTERN);
                 Sheet sheet = workbook.getSheetAt(0);
                 setCellValue(sheet, 1, 1, project.getName());

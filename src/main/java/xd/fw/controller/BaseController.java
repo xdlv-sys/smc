@@ -93,7 +93,7 @@ public abstract class BaseController {
 
     enum BROWSER {IE, FIREFOX, CHROME}
 
-    protected BROWSER getBrowser(HttpServletRequest request) {
+    public static BROWSER getBrowser(HttpServletRequest request) {
         String userAgent = request.getHeader("USER-AGENT");
         if (StringUtils.isBlank(userAgent)) {
             return BROWSER.IE;
@@ -107,7 +107,7 @@ public abstract class BaseController {
         return BROWSER.IE;
     }
 
-    protected String writeDownloadFile(HttpServletRequest request, String fileName) throws UnsupportedEncodingException {
+    public static String writeDownloadFile(HttpServletRequest request, String fileName) throws UnsupportedEncodingException {
         if (getBrowser(request) == BROWSER.IE) {
             fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
             fileName = StringUtils.replace(fileName, "+", "%20");
