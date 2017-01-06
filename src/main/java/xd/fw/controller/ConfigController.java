@@ -26,7 +26,7 @@ public class ConfigController extends BaseController{
 
     @RequestMapping("deleteConfig")
     @ResponseBody
-    public String deleteUser(int[] confIds) {
+    public String deleteConfig(int[] confIds) {
         for (int id : confIds){
             confRepository.delete(id);
         }

@@ -11,40 +11,48 @@ insert into t_mod values(-9906,'修改角色','/role/saveRole',null,null,-99);
 
 insert into t_mod values(-98,'动态参数',null,'conf','fa fa-pencil',-100);
 
-drop table IF EXISTS t_dynamic_conf;
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_dynamic_conf';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
 create table t_dynamic_conf(
   id int primary key,
   group_no int,
-  conf_name varchar(60) ,
-  conf_value varchar(128),
-  conf_desc varchar(128)
-)ENGINE = INNODB;
+  conf_name varchar2(60) ,
+  conf_value varchar2(128),
+  conf_desc varchar2(128)
+);
 
-drop table IF EXISTS t_user;
+
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_user';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
 create table t_user(
   id int not null primary key,
-  name VARCHAR(50),
+  name VARCHAR(50) CONSTRAINT user_name UNIQUE,
   password VARCHAR(32),
   birthday date,
-  sex tinyint,
+  sex number(2),
   entry_time date,
-  mobile varchar(11),
-  phone varchar(16),
-  id_card varchar(32),
-  mail varchar(20),
-  dept int,
-  UNIQUE KEY `user_name` (`name`)
-)ENGINE = INNODB;
+  mobile varchar2(11),
+  phone varchar2(16),
+  id_card varchar2(32),
+  mail varchar2(20),
+  dept int
+);
 
 insert into t_user(id,name,password,sex,mail,dept) values(-10,'a','0cc175b9c0f1b6a831c399e269772661',0,'a@a.com',1);
 insert into t_user(id,name,password,sex,mail,dept) values(-9,'g','b2f5ff47436671b6e533d8dc3614845d',1,'g@g.com',1);
-
-drop table IF EXISTS t_dept;
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_dept';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
 create table t_dept(
   id int not null primary key,
   parent int,
-  name varchar(32)
-)ENGINE = INNODB;
+  name varchar2(32)
+);
 
 insert into t_dept values(0,-1,'公司');
 insert into t_dept values(1,0,'事业部');
@@ -77,13 +85,15 @@ insert into t_role values(9, '操作员(9)');
 insert into t_role values(10, '操作员(10)');
 insert into t_role values(11, '操作员(11)');
 
-drop table IF EXISTS t_dept_role;
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_dept_role';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
 create table t_dept_role(
-  id int auto_increment primary key,
+  id int primary key,
   dept_id int not null,
   role_id int not null
-)ENGINE = INNODB;
-
+);
 
 insert into t_dept_role values(1,3,1);
 insert into t_dept_role values(2,4,2);
@@ -133,38 +143,44 @@ insert into t_role_mod values(-90,-2,11);
 insert into t_role_mod values(-89,-2,12);
 
 -- product name manager
-drop table IF EXISTS t_product;
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_product';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
 create table t_product(
   id int primary key,
   code VARCHAR(32) not null,
-  name varchar(32) not null,
-  model varchar(64),
-  nature TINYINT not null,
-  genre TINYINT not null,
-  batch varchar(64),
-  storage double,
-  count_unit TINYINT,
-  weight_unit TINYINT,
-  bulk_unit TINYINT,
-  trademark varchar(64),
+  name varchar2(32) not null,
+  model varchar2(64),
+  nature number(2) not null,
+  genre number(2) not null,
+  batch varchar2(64),
+  storage number(38,4),
+  count_unit number(2),
+  weight_unit number(2),
+  bulk_unit number(2),
+  trademark varchar2(64),
   approve_code VARCHAR(64),
-  line_code varchar(64),
+  line_code varchar2(64),
   package_type VARCHAR(64) not null,
   bill_name VARCHAR(64),
-  rate double not null,
-  status TINYINT,
+  rate number(38,4) not null,
+  status number(2),
   import_id int,
-  create_time DATETIME
-)ENGINE = INNODB;
-insert into t_product values(-1,'code','a','m',1,1,'b',0.2,1,1,1,'t','a','l','p','b',1,0,-1,now());
+  create_time TIMESTAMP
+);
+insert into t_product values(-1,'code','a','m',1,1,'b',0.2,1,1,1,'t','a','l','p','b',1,0,-1,SYSDATE);
 
-drop table IF EXISTS t_product_import;
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_product_import';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
 create table t_product_import(
-  id int AUTO_INCREMENT primary key,
-  operator VARCHAR(64),
-  status TINYINT,
-  create_time DATETIME
-)ENGINE = INNODB;
+  id int primary key,
+  operator VARCHAR2(64),
+  status number(2),
+  create_time TIMESTAMP
+);
 
 insert into t_mod values(13,'商品管理',null,null,'fa fa-truck',0);
 insert into t_mod values(14,'商品导入及审核',null,'product','fa fa-truck',13);
@@ -185,44 +201,50 @@ insert into t_role_mod values(-82,-2,19);
 insert into t_role_mod values(-81,-2,20);
 
 -- project
-drop table if exists t_project;
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_project';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
 create table t_project(
   id int primary key,
-  name varchar(64),
-  employer varchar(64),
-  project_mode TINYINT,
-  project_type TINYINT,
-  manager varchar(16),
+  name varchar2(64),
+  employer varchar2(64),
+  project_mode number(2),
+  project_type number(2),
+  manager varchar2(16),
   contract_number VARCHAR(32),
   contract_sign_date date,
   contract_start_date date,
   contract_end_time date,
-  license_number varchar(32),
+  license_number varchar2(32),
   license_date date,
-  project_location varchar(64),
-  supply_mode TINYINT,
+  project_location varchar2(64),
+  supply_mode number(2),
   total_count float,
-  rate TINYINT,
+  rate number(2),
   untaxed_count float,
-  out_source TINYINT,
-  attach TINYINT,
-  status TINYINT,
-  create_time DATETIME
-)ENGINE = INNODB;
+  out_source number(2),
+  attach number(2),
+  status number(2),
+  create_time TIMESTAMP
+);
 
-drop table if exists t_project_out_source;
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_project_out_source';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
 create table t_project_out_source (
   id INT PRIMARY KEY,
-  contract_name varchar(64),
-  unit_name varchar(64),
-  address varchar(128),
+  contract_name varchar2(64),
+  unit_name varchar2(64),
+  address varchar2(128),
   sign_date date,
   start_date date,
-  location varchar(128),
-  supply TINYINT,
+  location varchar2(128),
+  supply number(2),
   count float,
   project_id int
-)ENGINE = INNODB;
+);
 
 insert into t_mod values(21,'项目管理',null,null,'fa fa-calendar-check-o',0);
 insert into t_mod values(22,'项目新建与查询',null,'project','fa fa-calendar-minus-o',21);
@@ -249,57 +271,72 @@ insert into t_role_mod values(-73,-2,28);
 insert into t_role_mod values(-72,-2,29);
 insert into t_role_mod values(-71,-2,30);
 
-drop table if exists t_budget;
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_budget';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
 create table t_budget (
   project_id INT PRIMARY KEY,
-  import_name varchar(128),
+  import_name varchar2(128),
   report_date date,
-  import_user varchar(64),
-  import_date TIMESTAMP DEFAULT now()
-)ENGINE = INNODB;
+  import_user varchar2(64),
+  import_date TIMESTAMP DEFAULT SYSDATE
+);
 
-drop table if exists t_budget_group;
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_budget_group';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
 create table t_budget_group (
   id INT PRIMARY KEY,
   project_id int,
-  group_index TINYINT,
-  name varchar(128),
-  total double
-)ENGINE = INNODB;
+  group_index number(2),
+  name varchar2(128),
+  total number(38,4)
+);
 
-drop table if exists t_group_item;
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_group_item';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
 create table t_group_item (
   id INT PRIMARY KEY,
   group_id int,
   item_index int,
-  material_name varchar(64),
-  model varchar(32),
-  unit varchar(16),
-  count double,
-  price double,
-  total double
-)ENGINE = INNODB;
+  material_name varchar2(64),
+  model varchar2(32),
+  unit varchar2(16),
+  count number(38,4),
+  price number(38,4),
+  total number(38,4)
+);
 
-drop table if exists t_construction_progress;
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_construction_progress';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
 create table t_construction_progress (
   id INT PRIMARY KEY,
   project_id int,
   belong date,
-  finished double,
-  area double,
-  import_user varchar(64),
-  update_date TIMESTAMP DEFAULT now()
-)ENGINE = INNODB;
+  finished number(38,4),
+  area number(38,4),
+  import_user varchar2(64),
+  update_date TIMESTAMP DEFAULT SYSDATE
+);
 
-drop table if exists t_contract_progress;
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_contract_progress';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
 create table t_contract_progress (
   id INT PRIMARY KEY,
   project_id int,
   belong date,
-  finished double,
-  import_user varchar(64),
-  update_date TIMESTAMP DEFAULT now()
-)ENGINE = INNODB;
+  finished number(38,4),
+  import_user varchar2(64),
+  update_date TIMESTAMP DEFAULT SYSDATE
+);
 
 insert into t_mod values(31,'项目进度管理',null,'progress','fa fa-list-ol',21);
 -- insert into t_mod values(32,'项目合同进度管理',null,'contract-progress','fa fa-outdent',21);
@@ -321,7 +358,7 @@ insert into t_role_mod values(-64,-2,37);
 
 insert into t_mod values(38,'预算进项税计算','/calculate/obtainCalculate',null,null,37);
 insert into t_role_mod values(-63,-2,38);
-alter table t_group_item add column `tax_ratio` float after `total`;
+alter table t_group_item add tax_ratio float;
 
 insert into t_mod values(39,'预算税负计算','/calculate/showTaxCalculate',null,null,37);
 insert into t_role_mod values(-62,-2,39);

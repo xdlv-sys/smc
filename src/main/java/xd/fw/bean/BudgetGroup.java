@@ -27,6 +27,7 @@ public class BudgetGroup {
     Budget budget;
 
     @OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,mappedBy = "group")
+    @OrderBy("itemIndex ASC")
     List<GroupItem> items;
 
     public List<GroupItem> getItems() {

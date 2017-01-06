@@ -67,7 +67,7 @@ services.service('module', ['common', 'configuration', function(common, configur
         return common.createGridOption([{
             name: '商品编号',
             field: 'code',
-            cellTemplate: '<div class="ui-grid-cell-contents" ng-click="grid.appScope.showDetail(row)"><a ng-href="javascript:void(0)">{{grid.getCellValue(row, col)}}</a></div>'
+            cellTemplate: '<div class="ui-grid-cell-contents" ng-click="grid.appScope.showDetail(row)"><a href="javascript:void(0)">{{grid.getCellValue(row, col)}}</a></div>'
         }, {
             name: '商品名称',
             field: 'name'
@@ -127,7 +127,7 @@ services.service('module', ['common', 'configuration', function(common, configur
         return common.createGridOption([{
             name: '项目名称',
             field: 'name',
-            cellTemplate: '<div class="ui-grid-cell-contents" ng-click="grid.appScope.showDetail(row)"><a ng-href="javascript:void(0)">{{grid.getCellValue(row, col)}}</a></div>'
+            cellTemplate: '<div class="ui-grid-cell-contents" ng-click="grid.appScope.showDetail(row)"><a href="javascript:void(0)">{{grid.getCellValue(row, col)}}</a></div>'
         }, {
             name: '发包方',
             field: 'employer'
@@ -164,7 +164,7 @@ services.service('module', ['common', 'configuration', function(common, configur
         return common.createGridOption([{
             name: '工程名',
             field: 'importName',
-            cellTemplate: '<div class="ui-grid-cell-contents" ng-click="grid.appScope.showDetail(row)"><a ng-href="javascript:void(0)">{{grid.getCellValue(row, col)}}</a></div>'
+            cellTemplate: '<div class="ui-grid-cell-contents" ng-click="grid.appScope.showDetail(row)"><a href="javascript:void(0)">{{grid.getCellValue(row, col)}}</a></div>'
         }, {
             name: '所属项目',
             field: 'project.name'
