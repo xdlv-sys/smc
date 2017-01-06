@@ -60,17 +60,6 @@ create table t_role_mod(
 );
 
 BEGIN
-  EXECUTE IMMEDIATE 'DROP TABLE t_dynamic_conf';
-  EXCEPTION WHEN OTHERS THEN NULL;
-END;
-create table t_dynamic_conf(
-  conf_name VARCHAR2(60) primary key,
-  conf_value VARCHAR2(128),
-  conf_desc VARCHAR2(128),
-  dirty number(2)
-);
-
-BEGIN
   EXECUTE IMMEDIATE 'DROP TABLE t_event';
   EXCEPTION WHEN OTHERS THEN NULL;
 END;
@@ -84,9 +73,6 @@ create table t_event(
   try_count number(2) not null,
   trigger_date TIMESTAMP not null
 );
-
-insert into t_dynamic_conf(conf_name, conf_value, conf_desc, dirty) VALUES ('appUpdating','false','升级升级前，请将此参数改为true',0);
-
 insert into t_user values(-10,'a','0cc175b9c0f1b6a831c399e269772661','a@a.com');
 insert into t_user values(-9,'g','b2f5ff47436671b6e533d8dc3614845d','g@g.com');
 
