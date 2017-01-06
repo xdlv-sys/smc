@@ -16,7 +16,7 @@
         </bean>
 
     </beans>
-    <beans profile="product">
+    <beans profile="default">
         <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
             <property name="fileEncoding" value="UTF-8"/>
             <property name="locations">
