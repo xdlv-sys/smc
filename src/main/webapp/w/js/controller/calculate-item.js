@@ -31,24 +31,31 @@ controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'modul
 
     var columnDefs = [{
         name: '序号',
+        enableCellEdit: false,
         field: 'itemIndex'
     }, {
         name: '材料名称',
+        enableCellEdit: false,
         field: 'materialName'
     }, {
         name: '型号规格',
+        enableCellEdit: false,
         field: 'model'
     }, {
         name: '单位',
+        enableCellEdit: false,
         field: 'unit'
     }, {
         name: '数量',
+        enableCellEdit: false,
         field: 'count'
     }, {
         name: '预算价',
+        enableCellEdit: false,
         field: 'price'
     }, {
         name: '合计',
+        enableCellEdit: false,
         field: 'total'
     }, {
         name: '税率',
@@ -61,9 +68,11 @@ controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'modul
         editDropdownOptionsArray: ratios
     }, {
         name: '税额',
+        enableCellEdit: false,
         cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.taxRatio !== null ? (row.entity.total * row.entity.taxRatio/ (row.entity.taxRatio + 1)).toFixed(2) : ""}}</div>'
     }, {
         name: '不含税金额',
+        enableCellEdit: false,
         cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.taxRatio !== null ? (row.entity.total / (row.entity.taxRatio + 1)).toFixed(2) : ""}}</div>'
     }];
 
