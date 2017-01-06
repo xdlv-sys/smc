@@ -1,13 +1,4 @@
 -- group 1 : product
-drop table IF EXISTS t_dynamic_conf;
-create table t_dynamic_conf(
-  id int primary key,
-  group_no int,
-  conf_name varchar(60) ,
-  conf_value varchar(128),
-  conf_desc varchar(128)
-)ENGINE = INNODB;
-
 delete from t_dynamic_conf;
 insert into t_dynamic_conf values(-10,'0','confirm.1','是','通用确认');
 insert into t_dynamic_conf values(-9,'0','confirm.2','否','通用确认');

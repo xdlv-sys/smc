@@ -45,6 +45,10 @@
 
          return doc.label || doc.name;
      };
+ }).filter('toFixed', function() {
+     return function(input, n) {
+         return input.toFixed(n || 2);
+     };
  }).directive('xdDate', ['$filter',function($filter) {
      //special for md-datepicker
      return {

@@ -20,6 +20,7 @@ import xd.fw.util.FwException;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import static xd.fw.util.FwUtil.*;
 
@@ -61,7 +62,7 @@ public class BudgetController extends BaseController {
         budget.setProjectId(projectId);
         budget.setImportUser(userName);
         budget.setImportDate(new Timestamp(System.currentTimeMillis()));
-        budget.setGroups(new ArrayList<>());
+        budget.setGroups(new HashSet<>());
 
         String[] groupIndexes = groupIndex.split(" ");
         Sheet sheet = wb.getSheetAt(0);

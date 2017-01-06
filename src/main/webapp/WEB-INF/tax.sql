@@ -11,6 +11,15 @@ insert into t_mod values(-9906,'修改角色','/role/saveRole',null,null,-99);
 
 insert into t_mod values(-98,'动态参数',null,'conf','fa fa-pencil',-100);
 
+drop table IF EXISTS t_dynamic_conf;
+create table t_dynamic_conf(
+  id int primary key,
+  group_no int,
+  conf_name varchar(60) ,
+  conf_value varchar(128),
+  conf_desc varchar(128)
+)ENGINE = INNODB;
+
 drop table IF EXISTS t_user;
 create table t_user(
   id int not null primary key,

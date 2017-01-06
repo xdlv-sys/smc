@@ -102,16 +102,20 @@ controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'modul
     $scope.totalBudgetGrid = {
     	columnDefs : [{
     		name : '人工',
-    		field: 'man'
+    		field: 'man',
+    		cellFilter: 'toFixed'
     	},{
     		name : '材料',
-    		field: 'material'
+    		field: 'material',
+    		cellFilter: 'toFixed'
     	},{
     		name : '机械',
-    		field: 'machine'
+    		field: 'machine',
+    		cellFilter: 'toFixed'
     	},{
     		name : '合计',
-    		field: 'total'
+    		field: 'total',
+    		cellFilter: 'toFixed'
     	}],
     	data:[]
     };
@@ -131,12 +135,18 @@ controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'modul
         	machineTotal += util.taxCount(v);
         });
         $scope.totalBudgetGrid.data = [{
-        	man : manTotal.toFixed(2),
-    		material : materialTotal.toFixed(2),
-    		machine : machineTotal.toFixed(2),
-    		total: (manTotal + materialTotal + machineTotal).toFixed(2)
+        	man : manTotal,
+    		material : materialTotal,
+    		machine : machineTotal,
+    		total: (manTotal + materialTotal + machineTotal)
         }];
     };
     $scope.updateTotal();
+
+    $scope.exportCalculate = function(){
+        var url = '../calculate/exportCalculate.cmd?';
+        url += 'id=' + $scope.budget.projectId;
+        window.open(url,'_self');
+    };
 
 }]);

@@ -6,7 +6,7 @@ controllers.controller('CalculateCtrl', ['$scope', '$rootScope', 'configuration'
             //remove percent flag % and parsed into float
             rate = parseInt(rate.substring(0, rate.length -1));
             rate = rate /100.0;
-            b.unTaxCount = (b.project.totalCount / (1 + rate)).toFixed(2);
+            b.unTaxCount = (b.project.totalCount / (1 + rate));
             b.saleCount = b.unTaxCount * rate;
 
             b.inCount = 0;
@@ -36,19 +36,24 @@ controllers.controller('CalculateCtrl', ['$scope', '$rootScope', 'configuration'
     			cellTemplate: '<div class="ui-grid-cell-contents" >{{grid.options.configuration.i18n(2,"rate",row.entity.project.rate)}}</div>'
     		},{
     			name: '不含税金额',
-                field: 'unTaxCount'
+                field: 'unTaxCount',
+                cellFilter: 'toFixed'
     		},{
     			name: '销项税额 ',
-    			field: 'saleCount'
+    			field: 'saleCount',
+                cellFilter: 'toFixed'
     		},{
     			name: '进项税额',
-                field: 'inCount'
+                field: 'inCount',
+                cellFilter: 'toFixed'
     		},{
     			name: '应纳税额',
-    			field: 'shouldTaxCount'
+    			field: 'shouldTaxCount',
+                cellFilter: 'toFixed'
     		},{
                 name: '税负',
-                field: 'taxPercent'
+                field: 'taxPercent',
+                cellFilter: 'toFixed:4'
             }],
     		data: $stateParams.budgets
     	};
@@ -60,7 +65,7 @@ controllers.controller('CalculateCtrl', ['$scope', '$rootScope', 'configuration'
             url += 'budgetIds=' + b.projectId + '&'
         });
         window.open(url,'_self');
-    }
+    };
 
     $scope.calculateBudget = function(){
         var budget = $scope.budgetGrid.selection.getSelectedRows()[0];
