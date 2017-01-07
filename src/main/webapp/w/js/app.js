@@ -52,6 +52,14 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
                 obj[i] = $rootScope.convertDates(v);
             });
         };
+        $rootScope.convertList = function(param, key,subKey){
+            subKey = subKey || 'id';
+            var array = param[key];
+            angular.forEach(array, function(v,i){
+                param[key + '[' + i + '].' + subKey] = v;
+            });
+            delete param[key];
+        };
         //used to convert all date and list parameters to the right style
         $rootScope.convertParams = function(param, key) {
             //convert all date time

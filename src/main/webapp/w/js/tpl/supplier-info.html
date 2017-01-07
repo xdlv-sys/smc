@@ -1,0 +1,86 @@
+<div layout="row">
+    <md-input-container flex>
+        <label>供应商全称</label>
+        <input ng-model="modal.data.name" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+    <md-input-container>
+        <label>部门</label>
+        <md-select ng-model="modal.data.dept" ng-disabled="!modal.add" md-on-open="loadDepts()" required style="min-width:120px;">
+            <md-option ng-repeat="n in modal.depts" ng-value="n.id">{{n.name}}</md-option>
+        </md-select>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>纳税人识别号（三证合一号</label>
+        <input ng-model="modal.data.licenseCode" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+    <md-input-container flex>
+        <label>供应商纳税人身份分类</label>
+        <md-select flex ng-model="modal.data.identityType" ng-disabled="!modal.add" required>
+            <md-option ng-repeat="n in modal.identities" ng-value="n.index">{{n.value}}</md-option>
+        </md-select>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>商品或服务分类</label>
+        <md-select flex ng-model="modal.data.supplierTypes" ng-disabled="!modal.add" required multiple>
+            <md-option ng-repeat="n in modal.supplierTypes" ng-value="n.index">{{n.value}}</md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container flex>
+        <label>商品或服务子类</label>
+        <md-select flex ng-model="modal.data.supplierSubTypes" ng-disabled="!modal.add" required multiple>
+            <md-option ng-repeat="n in modal.supplierSubTypes" ng-value="n.index">{{n.value}}</md-option>
+        </md-select>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>公司法人</label>
+        <input ng-model="modal.data.legalPerson" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+    <md-input-container flex>
+        <label>注册资本</label>
+        <input ng-model="modal.data.assets" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>供应商经营范围</label>
+        <textarea ng-model="modal.data.runScope" type="text" ng-readonly="!modal.add" required></textarea>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>公司注册地址</label>
+        <input ng-model="modal.data.address" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+    <md-input-container flex>
+        <label>公司电话</label>
+        <input ng-model="modal.data.telephone" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+    <md-input-container>
+        <label>营业期限</label>
+        <md-datepicker ng-model="modal.data.licenseDate" required xd-date ng-readonly="!modal.add"></md-datepicker>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>开户银行</label>
+        <input ng-model="modal.data.bank" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+    <md-input-container flex>
+        <label>银行账号</label>
+        <input ng-model="modal.data.bankNumber" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+</div>
+<div layout="row">
+    <lf-ng-md-file-input flex aria-label="fileupload" lf-files='modal.data.licenseImg' lf-placeholder="营业执照上传" lf-browse-label="选择文件" lf-totalsize="5MB" progress> </lf-ng-md-file-input>
+    <lf-ng-md-file-input flex aria-label="fileupload" lf-files='modal.data.registryImg' lf-placeholder="税务登记证上传" lf-browse-label="选择文件" lf-totalsize="5MB" progress> </lf-ng-md-file-input>
+</div>
+<div layout="row">
+    <lf-ng-md-file-input flex aria-label="fileupload" lf-files='modal.data.organizationImg' lf-placeholder="组织机构代码证" lf-browse-label="选择文件" lf-totalsize="5MB" progress> </lf-ng-md-file-input>
+    <lf-ng-md-file-input flex aria-label="fileupload" lf-files='modal.data.openAccountImg' lf-placeholder="开户许可证" lf-browse-label="选择文件" lf-totalsize="5MB" progress> </lf-ng-md-file-input>
+</div>

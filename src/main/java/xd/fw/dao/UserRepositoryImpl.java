@@ -148,4 +148,10 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
     public void runSessionCommit(SessionCommit sessionCommit) {
         sessionCommit.process();
     }
+
+    @Override
+    @Transactional
+    public <T> T runSessionProcess(SessionProcessor<T> processor) {
+        return processor.process();
+    }
 }

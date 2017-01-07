@@ -102,6 +102,15 @@ angular.module('xdApp', [
             params: { budgets: null },
             templateUrl: 'tax-calculate-item.html',
             controller: 'CalculateCtrl'
+        }).state('supplier', {
+            url: '/supplier',
+            templateUrl: 'supplier.html',
+            controller: 'SupplierCtrl'
+        }).state('supplier-item', {
+            url: '/supplier-item',
+            params: { supplier: null },
+            templateUrl: 'supplier-item.html',
+            controller: 'SupplierItemCtrl'
         });
     }
 ]);

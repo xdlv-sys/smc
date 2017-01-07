@@ -22,7 +22,7 @@ services.service('common', ['$http', 'modal', function($http, modal) {
         return '../' + url;
     };
     this.loadAllPage = function(url, call) {
-        this.loadPage(url, { page: 1, limit: 999999 }, call);
+        return this.loadPage(url, { page: 1, limit: 999999 }, call);
     };
     this.loadPage = function(url, params, call) {
         params = params || {};
@@ -30,7 +30,7 @@ services.service('common', ['$http', 'modal', function($http, modal) {
             params.page = params.page || 1;
             params.limit = params.limit || 25;
         }
-        this.post(url, params, call);
+        return this.post(url, params, call);
     };
     this.post = function(url, params, call) {
         //remove all undefined value
@@ -41,7 +41,7 @@ services.service('common', ['$http', 'modal', function($http, modal) {
             }
         }
 
-        $http.post(this.relativeUrl(url), params).success(function(data) {
+        return $http.post(this.relativeUrl(url), params).success(function(data) {
             if (data && data.errorMsg) {
                 if (call && call.fail && !call.fail(data)) {
                     return;

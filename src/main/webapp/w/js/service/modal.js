@@ -59,7 +59,7 @@ services.service('modal', ['$mdDialog', function($mdDialog) {
                 parent: angular.element(document.body),
                 targetEvent: conf.ev,
                 controllerAs: 'modal',
-                clickOutsideToClose: true // Only for -xs, -sm breakpoints.
+                clickOutsideToClose: false // Only for -xs, -sm breakpoints.
             })
             .then(function(data) {
                 if (conf.ok) {

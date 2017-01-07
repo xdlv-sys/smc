@@ -21,4 +21,6 @@ public interface UserRepositoryCustom {
     void saveBudget(Budget budget);
 
     void runSessionCommit(SessionCommit sessionCommit);
+
+    <T> T runSessionProcess(SessionProcessor<T> processor);
 }

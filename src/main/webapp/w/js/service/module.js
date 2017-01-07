@@ -159,6 +159,13 @@ services.service('module', ['common', 'configuration', function(common, configur
         m.rates = configuration.group(2, 'rate');
         return m;
     };
+    this.getSupplierTypes = function(m) {
+        m = m || {};
+        m.supplierTypes = configuration.group(3, 'supplierType');
+        m.supplierSubTypes = configuration.group(3, 'supplierSubType');
+        m.identities = configuration.group(3, 'identity');
+        return m;
+    };
 
     this.createBudgetGrid = function(scope, loadData, configuration) {
         return common.createGridOption([{
@@ -194,6 +201,21 @@ services.service('module', ['common', 'configuration', function(common, configur
             name: '进度累计',
             field: 'allProgress',
             cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{row.entity.lastAllCount + row.entity.finished}}' + '</div>'
+        }], scope, loadData, configuration);
+    };
+    this.createSupplierGrid = function(scope, loadData, configuration) {
+        return common.createGridOption([{
+            name: '供应商名称',
+            field: 'name'
+        }, {
+            name: '供应商税号',
+            field: 'licenseCode'
+        }, {
+            name: '供应商纳税人身份类别',
+            field: 'identityType'
+        }, {
+            name: '资质是否上传',
+            field: 'licenseImg'
         }], scope, loadData, configuration);
     };
 

@@ -11,18 +11,6 @@ insert into t_mod values(-9906,'修改角色','/role/saveRole',null,null,-99);
 
 insert into t_mod values(-98,'动态参数',null,'conf','fa fa-pencil',-100);
 
-BEGIN
-  EXECUTE IMMEDIATE 'DROP TABLE t_dynamic_conf';
-  EXCEPTION WHEN OTHERS THEN NULL;
-END;
-create table t_dynamic_conf(
-  id int primary key,
-  group_no int,
-  conf_name varchar2(60) ,
-  conf_value varchar2(128),
-  conf_desc varchar2(128)
-);
-
 
 BEGIN
   EXECUTE IMMEDIATE 'DROP TABLE t_user';
@@ -362,3 +350,57 @@ alter table t_group_item add tax_ratio float;
 
 insert into t_mod values(39,'预算税负计算','/calculate/showTaxCalculate',null,null,37);
 insert into t_role_mod values(-62,-2,39);
+
+-- ----------------supplier ------------------
+insert into t_mod values(40,'各部分采购',null,null,'fa fa-shopping-cart',0);
+insert into t_mod values(41,'供应商管理',null,'supplier','fa fa-address-book',40);
+insert into t_mod values(42,'新增供应商','supplier/saveSupplier',null,null,41);
+insert into t_mod values(43,'修改供应商','supplier/saveSupplier',null,null,41);
+
+insert into t_role_mod values(-61,-2,40);
+insert into t_role_mod values(-60,-2,41);
+insert into t_role_mod values(-59,-2,42);
+insert into t_role_mod values(-58,-2,43);
+
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_supplier';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
+create table t_supplier (
+  id INT PRIMARY KEY,
+  license_code varchar2(64),
+  name varchar2(128),
+  identity_type number(2),
+  legal_person varchar2(32),
+  assets number(38,2),
+  license_date date,
+  run_scope varchar2(256),
+  address varchar2(256),
+  telephone varchar2(16),
+  bank varchar2(64),
+  bank_number varchar2(64),
+  license_img varchar2(64),
+  registry_img varchar2(64),
+  organization_img varchar2(64),
+  open_account_img varchar2(64),
+  dept int,
+  update_date TIMESTAMP DEFAULT SYSDATE
+);
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_supplier_type';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
+create table t_supplier_type (
+  id INT PRIMARY KEY,
+  supplier_id int,
+  supplier_type number(2)
+);
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_supplier_sub_type';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
+create table t_supplier_sub_type (
+  id INT PRIMARY KEY,
+  supplier_id int,
+  supplier_sub_type number(2)
+);

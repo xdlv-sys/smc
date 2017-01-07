@@ -52,8 +52,6 @@ dependencies {
             [group: 'org.aspectj', name: 'aspectjrt', version: '1.8.9'],
             'org.apache.commons:commons-lang3:3.5',
             [group: 'org.apache.poi', name: 'poi-ooxml', version: '3.16-beta1'],
-
-            [group: 'org.aspectj', name: 'aspectjtools', version: '1.8.9'],
             [group: 'com.oracle', name: 'ojdbc6', version: '12.1.0.1-atlassian-hosted']
     )
 

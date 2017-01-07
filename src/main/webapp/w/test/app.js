@@ -1,37 +1,10 @@
 controllers.controller('taxController', ['$scope', '$mdSidenav', 'modal', 'ngPopoverFactory',
     function($scope, $mdSidenav, modal, ngPopoverFactory) {
 
-    console.log(['<div layout="column" class="lf-ng-md-file-input" ng-model="lf001002">',
-                            '<div layout="column" class="lf-ng-md-file-input-preview-container" ng-class="{\'disabled\':isDisabled}" ng-show="isDrag || (isPreview && !isFilesNull)">',
-                                '<div class="close lf-ng-md-file-input-x" ng-click="removeAllFiles($event)" ng-hide="isFilesNull || !isPreview" >&times;</div>',
-                                '<div class="lf-ng-md-file-input-drag">',
-                                    '<div layout="row" layout-align="center center" class="lf-ng-md-file-input-drag-text-container" ng-show="(isFilesNull || !isPreview) && isDrag">',
-                                        '<div class="lf-ng-md-file-input-drag-text">{{strCaptionDragAndDrop}}</div>',
-                                    '</div>',
-                                    '<div class="lf-ng-md-file-input-thumbnails" ng-show="isPreview">',
-                                    '</div>',
-                                    '<div class="clearfix" style="clear:both"></div>',
-                                '</div>',
-                            '</div>',
-                            '<div layout="row" class="lf-ng-md-file-input-container" >',
-                                '<div class="lf-ng-md-file-input-caption" layout="row" layout-align="start center" flex ng-class="{\'disabled\':isDisabled}" >',
-                                    '<md-icon class="lf-icon" ng-class="strCaptionIconCls"></md-icon>',
-                                    '<div flex class="lf-ng-md-file-input-caption-text-default" ng-show="isFilesNull">',
-                                        '{{strCaptionPlaceholder}}',
-                                    '</div>',
-                                    '<div flex class="lf-ng-md-file-input-caption-text" ng-hide="isFilesNull">',
-                                        '{{strCaption}}',
-                                    '</div>',
-                                    '<md-progress-linear md-mode="determinate" value="{{floatProgress}}" ng-show="intLoading && isProgress"></md-progress-linear>',
-                                '</div>',
-                                '<md-button ng-disabled="isDisabled" ng-click="openDialog($event, this)" class="md-raised md-primary" >',
-                                    
-                                    '{{strCaptionBrowse}}',
-                                    '<input type="file" aria-label="{{strAriaLabel}}" accept="{{accept}}" ng-disabled="isDisabled" class="lf-ng-md-file-input-tag" />',//,onchange="angular.element(this).scope().onFileChanged(this)"/>',
-                                '</md-button>',
-                            '</div>',
-
-                        '</div>'].join(''));
+    var array = [1,2];
+    angular.forEach(array, function(v){
+        console.log('-------------' + v);
+    });
         //modal.wait();
 $scope.browser = 'TT';
 var a = [];
