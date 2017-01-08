@@ -5,8 +5,8 @@
     </md-input-container>
     <md-input-container>
         <label>部门</label>
-        <md-select ng-model="modal.data.dept" ng-disabled="!modal.add" md-on-open="loadDepts()" required style="min-width:120px;">
-            <md-option ng-repeat="n in modal.depts" ng-value="n.id">{{n.name}}</md-option>
+        <md-select ng-model="modal.data.dept" ng-disabled="!modal.add" required style="min-width:130px;">
+            <md-option ng-repeat="n in depts" ng-value="n.id">{{n.name}}</md-option>
         </md-select>
     </md-input-container>
 </div>
@@ -75,6 +75,26 @@
         <label>银行账号</label>
         <input ng-model="modal.data.bankNumber" type="text" ng-readonly="!modal.add" required>
     </md-input-container>
+</div>
+<div layout="row" ng-if="modal.edit">
+    <md-input-container flex>
+        <label>营业执照</label>
+        <a href="javascript:">
+        <input ng-model="modal.licenseImg" type="text" readonly></a>
+    </md-input-container>
+    <md-input-container flex>
+        <label>税务登记证</label>
+        <input ng-model="modal.registryImg" type="text" readonly>
+    </md-input-container>
+    <md-input-container flex>
+        <label>组织机构代码证</label>
+        <input ng-model="modal.organizationImg" type="text" readonly>
+    </md-input-container>
+    <md-input-container flex>
+        <label>开户许可证</label>
+        <input ng-model="modal.openAccountImg" type="text" readonly>
+    </md-input-container>
+
 </div>
 <div layout="row">
     <lf-ng-md-file-input flex aria-label="fileupload" lf-files='modal.data.licenseImg' lf-placeholder="营业执照上传" lf-browse-label="选择文件" lf-totalsize="5MB" progress> </lf-ng-md-file-input>

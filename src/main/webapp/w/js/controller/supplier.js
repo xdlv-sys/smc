@@ -16,11 +16,20 @@ controllers.controller('SupplierCtrl', ['$scope', '$rootScope', 'configuration',
     $scope.loadSuppliers(1, $scope.supplierGrid.paginationPageSize);
 
     $scope.addSupplier = function() {
-        $state.go('supplier-item');
+        $scope.showDetail({}, true);
     };
 
     $scope.modSupplier = function() {
-        $state.go('supplier-item', { supplier: row.entity });
+        $scope.showDetail($scope.supplierGrid.selection.getSelectedRows()[0], true, true);
+    };
+    $scope.showDetail = function(supplier,add,edit){
+        $state.go('supplier-item', {
+            supplier: {
+                data: supplier,
+                add : add,
+                edit: edit
+            }
+        });
     };
 
     // upload budget for suppliers

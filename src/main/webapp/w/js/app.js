@@ -17,6 +17,9 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
         $scope.loginSuccess = true;
         $rootScope.user = $scope.user = user;
         $rootScope.mods = mods;
+        common.loadAllPage('/dept/obtainDepts.cmd', function(data){
+            $rootScope.depts = data.data;
+        });
         $rootScope.back = function() {
             history.back();
         };

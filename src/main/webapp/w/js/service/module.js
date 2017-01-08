@@ -206,16 +206,24 @@ services.service('module', ['common', 'configuration', function(common, configur
     this.createSupplierGrid = function(scope, loadData, configuration) {
         return common.createGridOption([{
             name: '供应商名称',
-            field: 'name'
+            cellTemplate: '<div class="ui-grid-cell-contents" ng-click="grid.appScope.showDetail(row.entity, false)"><a href="javascript:">{{row.entity.name}}</a></div>',
+            width: '20%'
         }, {
             name: '供应商税号',
-            field: 'licenseCode'
+            field: 'licenseCode',
+            width: '20%'
         }, {
             name: '供应商纳税人身份类别',
-            field: 'identityType'
+            cellTemplate: '<div class="ui-grid-cell-contents">{{grid.options.configuration.i18n(3,"identity",row.entity.identityType)}}</div>',
+            width: '20%'
         }, {
             name: '资质是否上传',
-            field: 'licenseImg'
+            width: '40%',
+            cellTemplate:[
+            '<input type="checkbox" ng-checked="row.entity.licenseImg">营业执照</input>'
+            ,'<input type="checkbox" ng-checked="row.entity.registryImg">税务登记证</input>'
+            ,'<input type="checkbox" ng-checked="row.entity.organizationImg">组织机构代码证</input>'
+            ,'<input type="checkbox" ng-checked="row.entity.openAccountImg">开户许可证</input>'].join('')
         }], scope, loadData, configuration);
     };
 

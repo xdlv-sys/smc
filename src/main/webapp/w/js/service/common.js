@@ -18,7 +18,7 @@ services.config(['$httpProvider', function($httpProvider) {
 }]);
 
 services.service('common', ['$http', 'modal', function($http, modal) {
-    this.relativeUrl = function(url){
+    this.relativeUrl = function(url) {
         return '../' + url;
     };
     this.loadAllPage = function(url, call) {
@@ -49,8 +49,13 @@ services.service('common', ['$http', 'modal', function($http, modal) {
                     modal.alert('操作失败，请重试或联系管理员。');
                 }
             } else {
-                if (call && call.success) {
-                    call.success(data);
+                // success
+                if (angular.isFunction(call)) {
+                    call(data);
+                } else {
+                    if (call && call.success) {
+                        call.success(data);
+                    }
                 }
             }
         });
@@ -151,18 +156,18 @@ Array.prototype.containsId = function(o) {
     });
 };
 Array.prototype.each = function(f) {
-    angular.forEach(this,f);
+    angular.forEach(this, f);
 };
 
-if (!angular.each){
-    angular.each = function(array, f){
-        if (angular.isBlank(array) || !f){
+if (!angular.each) {
+    angular.each = function(array, f) {
+        if (angular.isBlank(array) || !f) {
             return;
         }
         var tmp;
-        for (var i=0;i<array.length;i++){
-            tmp = f(array[i],i);
-            if (tmp){
+        for (var i = 0; i < array.length; i++) {
+            tmp = f(array[i], i);
+            if (tmp) {
                 return tmp;
             }
         }
