@@ -1,7 +1,6 @@
 controllers.controller('SupplierItemCtrl', ['$scope', 'common', 'modal', 'module', '$filter', '$stateParams', 'configuration', function($scope, common, modal, module, $filter, $stateParams, configuration) {
 
-    $scope.modal = module.getSupplierTypes(angular.extend({}
-        ,$stateParams.supplier));
+    $scope.modal = module.getSupplierTypes(angular.extend({}, $stateParams.supplier));
 
     function fTypes(key) {
         var sTypes = [];
@@ -17,7 +16,6 @@ controllers.controller('SupplierItemCtrl', ['$scope', 'common', 'modal', 'module
     $scope.modal.registryImg = $scope.modal.data.registryImg;
     $scope.modal.organizationImg = $scope.modal.data.organizationImg;
     $scope.modal.openAccountImg = $scope.modal.data.openAccountImg;
-
 
     $scope.saveSupplier = function() {
         var supplier = angular.copy($scope.modal.data);
@@ -40,6 +38,14 @@ controllers.controller('SupplierItemCtrl', ['$scope', 'common', 'modal', 'module
             success: function() {
                 modal.alert('供应商保存成功');
             }
+        });
+    };
+
+    $scope.showImage = function(type) {
+        modal.open({
+            url: 'js/tpl/supplier-img.html',
+            width: 800,
+            imageName: '../supplier/showImage.cmd?supplierId=' + $scope.modal.data.id + '&type=' + type
         });
     };
 }]);

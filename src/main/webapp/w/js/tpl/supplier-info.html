@@ -77,20 +77,20 @@
     </md-input-container>
 </div>
 <div layout="row" ng-if="modal.edit">
-    <md-input-container flex>
+    <md-input-container flex ng-click="showImage(1)">
         <label>营业执照</label>
         <a href="javascript:">
         <input ng-model="modal.licenseImg" type="text" readonly></a>
     </md-input-container>
-    <md-input-container flex>
+    <md-input-container flex ng-click="showImage(2)">
         <label>税务登记证</label>
         <input ng-model="modal.registryImg" type="text" readonly>
     </md-input-container>
-    <md-input-container flex>
+    <md-input-container flex ng-click="showImage(3)">
         <label>组织机构代码证</label>
         <input ng-model="modal.organizationImg" type="text" readonly>
     </md-input-container>
-    <md-input-container flex>
+    <md-input-container flex ng-click="showImage(4)">
         <label>开户许可证</label>
         <input ng-model="modal.openAccountImg" type="text" readonly>
     </md-input-container>

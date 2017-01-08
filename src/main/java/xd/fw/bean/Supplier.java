@@ -4,7 +4,6 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -37,7 +36,6 @@ public class Supplier {
     private String organizationImg;
     private String openAccountImg;
     private Integer dept;
-    private Timestamp updateDate;
 
     @OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,mappedBy = "supplier")
     List<SupplierType> supplierTypes;
@@ -198,14 +196,6 @@ public class Supplier {
         this.dept = dept;
     }
 
-    public Timestamp getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Timestamp updateDate) {
-        this.updateDate = updateDate;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -237,7 +227,6 @@ public class Supplier {
         if (openAccountImg != null ? !openAccountImg.equals(supplier.openAccountImg) : supplier.openAccountImg != null)
             return false;
         if (dept != null ? !dept.equals(supplier.dept) : supplier.dept != null) return false;
-        if (updateDate != null ? !updateDate.equals(supplier.updateDate) : supplier.updateDate != null) return false;
 
         return true;
     }
@@ -261,7 +250,6 @@ public class Supplier {
         result = 31 * result + (organizationImg != null ? organizationImg.hashCode() : 0);
         result = 31 * result + (openAccountImg != null ? openAccountImg.hashCode() : 0);
         result = 31 * result + (dept != null ? dept.hashCode() : 0);
-        result = 31 * result + (updateDate != null ? updateDate.hashCode() : 0);
         return result;
     }
 }

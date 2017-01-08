@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import xd.fw.bean.Supplier;
-import xd.fw.bean.SupplierType;
 import xd.fw.dao.SupplierRepository;
 import xd.fw.dao.SupplierSubTypeRepository;
 import xd.fw.dao.SupplierTypeRepository;
@@ -36,10 +36,11 @@ public class SupplierController extends BaseController {
     UserRepositoryCustom userRepositoryCustom;
 
     File supplierDir;
+    String supplierFileDirectory = "supplier-files";
 
     @PostConstruct
     public void init() {
-        supplierDir = new File(I18n.getWebInfDir(), "supplier-files/");
+        supplierDir = new File(I18n.getWebInfDir(), supplierFileDirectory + "/");
         if (!supplierDir.exists() && !supplierDir.mkdir()) {
             throw new FwException("failed to create directory for storage of supplier files ");
         }
@@ -85,11 +86,41 @@ public class SupplierController extends BaseController {
         transferTo(registryImgF, supplierId);
         return DONE;
     }
+
+    @RequestMapping("showImage")
+    public ModelAndView showImage(int supplierId, int type){
+        Supplier supplier = supplierRepository.findOne(supplierId);
+        String name;
+        switch (type){
+            case 1 :
+                name = supplier.getLicenseImg();
+                break;
+            case 2:
+                name = supplier.getRegistryImg();
+                break;
+            case 3:
+                name = supplier.getOrganizationImg();
+                break;
+            case 4:
+                name = supplier.getOpenAccountImg();
+                break;
+            default: throw new FwException("invalidate type for supplier image file");
+        }
+        return new ModelAndView("/WEB-INF/" + supplierFileDirectory
+                + "/" + makeKey(supplierId,name));
+
+    }
+
+
     private void transferTo(MultipartFile file, Integer supplierId) throws IOException {
         if (file == null){
             return;
         }
-        file.transferTo(new File(supplierDir, String.format("%d-%s"
-                , supplierId, file.getOriginalFilename())));
+        file.transferTo(new File(supplierDir
+                , makeKey(supplierId, file.getOriginalFilename())));
+    }
+
+    private String makeKey(int supplierId, String fileName){
+        return String.format("%d-%s", supplierId, fileName);
     }
 }
