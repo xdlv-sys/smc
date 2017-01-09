@@ -401,6 +401,7 @@ BEGIN
 END;
 create table t_supplier_sub_type (
   id INT PRIMARY KEY,
-  supplier_id int,
-  supplier_sub_type number(2)
+  supplier_type int,
+  supplier_sub_type int
 );
+

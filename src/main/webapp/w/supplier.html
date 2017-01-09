@@ -3,10 +3,11 @@
         <md-button class="md-primary md-raised" ng-click="addSupplier()" ng-if="allow(42)">新增供应商</md-button>
         <md-button class="md-primary md-raised" ng-click="modSupplier()" ng-disabled="supplierGrid.selection.getSelectedRows().length!==1" ng-if="allow(43)">编辑供应商</md-button>
 
-        <md-input-container flex="33" class="query-text">
+        <md-input-container flex="33" class="query-text" ng-model="query.dept" style="margin-left:15px;">
             <label>部门</label>
             <md-select ng-model="query.dept">
-                <md-option ng-repeat="dept in modal.depts" ng-value="dept">{{dept.name}}</md-option>
+                <md-option value="-1">全部</md-option>
+                <md-option ng-repeat="dept in depts" ng-value="dept.id">{{dept.name}}</md-option>
             </md-select>
         </md-input-container>
     </div>

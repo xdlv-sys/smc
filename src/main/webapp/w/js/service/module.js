@@ -207,15 +207,15 @@ services.service('module', ['common', 'configuration', function(common, configur
         return common.createGridOption([{
             name: '供应商名称',
             cellTemplate: '<div class="ui-grid-cell-contents" ng-click="grid.appScope.showDetail(row.entity, false)"><a href="javascript:">{{row.entity.name}}</a></div>',
-            width: '20%'
+            width: '19%'
         }, {
             name: '供应商税号',
             field: 'licenseCode',
-            width: '20%'
+            width: '19%'
         }, {
             name: '供应商纳税人身份类别',
             cellTemplate: '<div class="ui-grid-cell-contents">{{grid.options.configuration.i18n(3,"identity",row.entity.identityType)}}</div>',
-            width: '20%'
+            width: '19%'
         }, {
             name: '资质是否上传',
             width: '40%',

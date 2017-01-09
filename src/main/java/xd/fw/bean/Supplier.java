@@ -40,24 +40,12 @@ public class Supplier {
     @OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,mappedBy = "supplier")
     List<SupplierType> supplierTypes;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,mappedBy = "supplier")
-    @Fetch(FetchMode.SUBSELECT)
-    List<SupplierSubType> supplierSubTypes;
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public List<SupplierSubType> getSupplierSubTypes() {
-        return supplierSubTypes;
-    }
-
-    public void setSupplierSubTypes(List<SupplierSubType> supplierSubTypes) {
-        this.supplierSubTypes = supplierSubTypes;
     }
 
     public List<SupplierType> getSupplierTypes() {

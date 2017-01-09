@@ -16,19 +16,19 @@ public class SupplierSubType {
             pkColumnName = "table_name", valueColumnName = "current_id",
             initialValue = 100, allocationSize = 100)
     private Integer id;
-    private Byte supplierSubType;
+    private Integer supplierSubType;
 
     @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name = "supplier_id")
+    @JoinColumn(name = "supplier_type")
     @JsonIgnore
-    private Supplier supplier;
+    private SupplierType supplierType;
 
-    public Supplier getSupplier() {
-        return supplier;
+    public SupplierType getSupplierType() {
+        return supplierType;
     }
 
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
+    public void setSupplierType(SupplierType supplierType) {
+        this.supplierType = supplierType;
     }
 
     public Integer getId() {
@@ -39,12 +39,12 @@ public class SupplierSubType {
         this.id = id;
     }
 
-    public Byte getSupplierSubType() {
-        return supplierSubType;
+    public void setSupplierSubType(Integer supplierSubType) {
+        this.supplierSubType = supplierSubType;
     }
 
-    public void setSupplierSubType(Byte supplierSubType) {
-        this.supplierSubType = supplierSubType;
+    public Integer getSupplierSubType() {
+        return supplierSubType;
     }
 
     @Override

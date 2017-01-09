@@ -1,6 +1,7 @@
 package xd.fw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -8,10 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import xd.fw.bean.Supplier;
-import xd.fw.dao.SupplierRepository;
-import xd.fw.dao.SupplierSubTypeRepository;
-import xd.fw.dao.SupplierTypeRepository;
-import xd.fw.dao.UserRepositoryCustom;
+import xd.fw.bean.SupplierType;
+import xd.fw.dao.*;
 import xd.fw.util.FwException;
 import xd.fw.util.FwUtil;
 import xd.fw.util.I18n;
@@ -33,7 +32,10 @@ public class SupplierController extends BaseController {
     @Autowired
     SupplierTypeRepository supplierTypeRepository;
     @Autowired
+    SupplierTypeNameRepository supplierTypeNameRepository;
+    @Autowired
     UserRepositoryCustom userRepositoryCustom;
+
 
     File supplierDir;
     String supplierFileDirectory = "supplier-files";
@@ -48,35 +50,38 @@ public class SupplierController extends BaseController {
 
     @RequestMapping("obtainSuppliers")
     @ResponseBody
-    public PageContent obtainSuppliers(int page, int limit) {
-        return page(supplierRepository.findAll(pageRequest(page, limit)));
+    public PageContent obtainSupplierTypeNames() {
+        return page(supplierTypeNameRepository.findAll());
     }
+
+    @RequestMapping("obtainSuppliers")
+    @ResponseBody
+    public PageContent obtainSuppliers(int page, int limit, Supplier query) {
+        return page(supplierRepository.findAll(Example.of(query, queryMatcher()),pageRequest(page, limit)));
+    }
+
 
     @RequestMapping("saveSupplier")
     @ResponseBody
     public String saveSupplier(
-            @RequestParam(required = false)MultipartFile licenseImgF
-            , @RequestParam(required = false)MultipartFile openAccountImgF
-            , @RequestParam(required = false)MultipartFile organizationImgF
-            ,@RequestParam(required = false) MultipartFile registryImgF
-            , Supplier supplier) throws IOException {
-
-
+            @RequestParam(required = false) MultipartFile licenseImgF
+            , @RequestParam(required = false) MultipartFile openAccountImgF
+            , @RequestParam(required = false) MultipartFile organizationImgF
+            , @RequestParam(required = false) MultipartFile registryImgF, Supplier supplier) throws IOException {
         Integer supplierId = userRepositoryCustom.runSessionProcess(() -> {
             if (supplier.getId() != null) {
                 Supplier supplierToSaved = supplierRepository.findOne(supplier.getId());
                 supplierTypeRepository.delete(supplierToSaved.getSupplierTypes());
-                supplierSubTypeRepository.delete(supplierToSaved.getSupplierSubTypes());
             }
 
             Supplier savedSupplier = supplierRepository.save(supplier);
             FwUtil.safeEach(savedSupplier.getSupplierTypes(), o -> {
                 o.setSupplier(savedSupplier);
-                supplierTypeRepository.save(o);
-            });
-            FwUtil.safeEach(savedSupplier.getSupplierSubTypes(), s -> {
-                s.setSupplier(savedSupplier);
-                supplierSubTypeRepository.save(s);
+                SupplierType supplierType = supplierTypeRepository.save(o);
+                FwUtil.safeEach(o.getSupplierSubTypes(), s->{
+                    s.setSupplierType(supplierType);
+                    supplierSubTypeRepository.save(s);
+                });
             });
             return savedSupplier.getId();
         });
@@ -88,11 +93,11 @@ public class SupplierController extends BaseController {
     }
 
     @RequestMapping("showImage")
-    public ModelAndView showImage(int supplierId, int type){
+    public ModelAndView showImage(int supplierId, int type) {
         Supplier supplier = supplierRepository.findOne(supplierId);
         String name;
-        switch (type){
-            case 1 :
+        switch (type) {
+            case 1:
                 name = supplier.getLicenseImg();
                 break;
             case 2:
@@ -104,23 +109,24 @@ public class SupplierController extends BaseController {
             case 4:
                 name = supplier.getOpenAccountImg();
                 break;
-            default: throw new FwException("invalidate type for supplier image file");
+            default:
+                throw new FwException("invalidate type for supplier image file");
         }
         return new ModelAndView("/WEB-INF/" + supplierFileDirectory
-                + "/" + makeKey(supplierId,name));
+                + "/" + makeKey(supplierId, name));
 
     }
 
 
     private void transferTo(MultipartFile file, Integer supplierId) throws IOException {
-        if (file == null){
+        if (file == null) {
             return;
         }
         file.transferTo(new File(supplierDir
                 , makeKey(supplierId, file.getOriginalFilename())));
     }
 
-    private String makeKey(int supplierId, String fileName){
+    private String makeKey(int supplierId, String fileName) {
         return String.format("%d-%s", supplierId, fileName);
     }
 }

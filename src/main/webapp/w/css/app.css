@@ -141,3 +141,7 @@ md-tabs {
 .item_tool{
     margin-bottom:60px;
 }
+.supplier_img{
+    cursor: pointer;
+    color:blue!important;
+}

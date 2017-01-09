@@ -1,7 +1,7 @@
 <div layout="row">
     <md-input-container flex>
         <label>供应商全称</label>
-        <input ng-model="modal.data.name" type="text" ng-readonly="!modal.add" required>
+        <input ng-model="modal.data.name" type="text" ng-readonly="!modal.add || modal.edit" required>
     </md-input-container>
     <md-input-container>
         <label>部门</label>
@@ -76,31 +76,30 @@
         <input ng-model="modal.data.bankNumber" type="text" ng-readonly="!modal.add" required>
     </md-input-container>
 </div>
-<div layout="row" ng-if="modal.edit">
+<div layout="row" ng-if="modal.edit || !modal.add">
     <md-input-container flex ng-click="showImage(1)">
         <label>营业执照</label>
-        <a href="javascript:">
-        <input ng-model="modal.licenseImg" type="text" readonly></a>
+        <input ng-model="modal.licenseImg" type="text" readonly class="supplier_img">
     </md-input-container>
     <md-input-container flex ng-click="showImage(2)">
         <label>税务登记证</label>
-        <input ng-model="modal.registryImg" type="text" readonly>
+        <input ng-model="modal.registryImg" type="text" readonly class="supplier_img">
     </md-input-container>
     <md-input-container flex ng-click="showImage(3)">
         <label>组织机构代码证</label>
-        <input ng-model="modal.organizationImg" type="text" readonly>
+        <input ng-model="modal.organizationImg" type="text" readonly class="supplier_img">
     </md-input-container>
     <md-input-container flex ng-click="showImage(4)">
         <label>开户许可证</label>
-        <input ng-model="modal.openAccountImg" type="text" readonly>
+        <input ng-model="modal.openAccountImg" type="text" readonly class="supplier_img">
     </md-input-container>
 
 </div>
-<div layout="row">
+<div layout="row" ng-if="modal.add">
     <lf-ng-md-file-input flex aria-label="fileupload" lf-files='modal.data.licenseImg' lf-placeholder="营业执照上传" lf-browse-label="选择文件" lf-totalsize="5MB" progress> </lf-ng-md-file-input>
     <lf-ng-md-file-input flex aria-label="fileupload" lf-files='modal.data.registryImg' lf-placeholder="税务登记证上传" lf-browse-label="选择文件" lf-totalsize="5MB" progress> </lf-ng-md-file-input>
 </div>
-<div layout="row">
+<div layout="row" ng-if="modal.add">
     <lf-ng-md-file-input flex aria-label="fileupload" lf-files='modal.data.organizationImg' lf-placeholder="组织机构代码证" lf-browse-label="选择文件" lf-totalsize="5MB" progress> </lf-ng-md-file-input>
     <lf-ng-md-file-input flex aria-label="fileupload" lf-files='modal.data.openAccountImg' lf-placeholder="开户许可证" lf-browse-label="选择文件" lf-totalsize="5MB" progress> </lf-ng-md-file-input>
 </div>

@@ -3,6 +3,7 @@ package xd.fw.bean;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by xd on 2017/1/7.
@@ -18,10 +19,21 @@ public class SupplierType {
     private Integer id;
     private Byte supplierType;
 
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id")
     @JsonIgnore
     private Supplier supplier;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "supplierType")
+    Set<SupplierSubType> supplierSubTypes;
+
+    public Set<SupplierSubType> getSupplierSubTypes() {
+        return supplierSubTypes;
+    }
+
+    public void setSupplierSubTypes(Set<SupplierSubType> supplierSubTypes) {
+        this.supplierSubTypes = supplierSubTypes;
+    }
 
     public Supplier getSupplier() {
         return supplier;

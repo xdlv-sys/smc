@@ -1,16 +1,24 @@
 controllers.controller('SupplierCtrl', ['$scope', '$rootScope', 'configuration', 'common', 'modal', 'module', '$filter', '$state', function($scope, $rootScope, configuration, common, modal, module, $filter, $state) {
 
+    $scope.query = {
+        dept: undefined
+    };
     $scope.loadSuppliers = function(page, limit) {
-        common.loadPage('/supplier/obtainSuppliers.cmd', angular.extend({
+        common.loadPage('/supplier/obtainSuppliers.cmd', {
             page: page,
-            limit: limit
-        }, $scope.query), {
+            limit: limit,
+            dept: $scope.query.dept == -1 ? undefined : $scope.query.dept
+        }, {
             success: function(data) {
                 $scope.supplierGrid.data = data.data;
                 $scope.supplierGrid.totalItems = data.total;
             }
         });
     };
+    $scope.$watch('query.dept', function(v){
+        $scope.loadSuppliers(1,$scope.supplierGrid.paginationPageSize);
+    });
+
 
     $scope.supplierGrid = module.createSupplierGrid($scope, $scope.loadSuppliers, configuration);
     $scope.loadSuppliers(1, $scope.supplierGrid.paginationPageSize);

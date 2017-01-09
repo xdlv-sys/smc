@@ -24,6 +24,8 @@ controllers.controller('SupplierItemCtrl', ['$scope', 'common', 'modal', 'module
 
         function f(key) {
             if (angular.isBlank(supplier[key])) {
+                // make sure these file we don't wanna change to be overwritten
+                supplier[key] = $scope.modal[key];
                 return;
             }
             supplier[key + 'F'] = $scope.modal.data[key][0].lfFile;
@@ -45,6 +47,7 @@ controllers.controller('SupplierItemCtrl', ['$scope', 'common', 'modal', 'module
         modal.open({
             url: 'js/tpl/supplier-img.html',
             width: 800,
+            title: '查看',
             imageName: '../supplier/showImage.cmd?supplierId=' + $scope.modal.data.id + '&type=' + type
         });
     };

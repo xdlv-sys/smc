@@ -19,7 +19,7 @@
 
     <appender name="FILE-AUDIT"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${DEV_HOME}/log.log</file>
+        <file>${DEV_HOME}/tax-log.log</file>
         <encoder>
             <pattern>
                 ${FORMAT}
@@ -43,7 +43,7 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>WARN</level>
         </filter>
-        <file>${DEV_HOME}/error.log</file>
+        <file>${DEV_HOME}/tax-error.log</file>
         <encoder>
             <pattern>
                 ${FORMAT}

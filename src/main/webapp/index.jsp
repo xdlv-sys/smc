@@ -1,1 +1,1 @@
-<%response.sendRedirect("/www/index.html");%>
+<%response.sendRedirect("/w/index.html");%>
