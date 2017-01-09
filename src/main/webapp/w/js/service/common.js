@@ -158,6 +158,12 @@ Array.prototype.containsId = function(o) {
 Array.prototype.each = function(f) {
     angular.forEach(this, f);
 };
+Array.prototype.pushAll = function(array) {
+    var me = this;
+    angular.forEach(array, function(v){
+        me.push(v);
+    });
+};
 
 if (!angular.each) {
     angular.each = function(array, f) {

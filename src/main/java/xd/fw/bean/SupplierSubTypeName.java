@@ -12,21 +12,20 @@ import javax.persistence.*;
 public class SupplierSubTypeName {
     @Id
     private Integer id;
-    private Integer parentId;
     private String name;
     private String rate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     @JsonIgnore
-    private SupplierType supplierType;
+    private SupplierTypeName supplierTypeName;
 
-    public SupplierType getSupplierType() {
-        return supplierType;
+    public SupplierTypeName getSupplierTypeName() {
+        return supplierTypeName;
     }
 
-    public void setSupplierType(SupplierType supplierType) {
-        this.supplierType = supplierType;
+    public void setSupplierTypeName(SupplierTypeName supplierTypeName) {
+        this.supplierTypeName = supplierTypeName;
     }
 
     public Integer getId() {
@@ -35,13 +34,6 @@ public class SupplierSubTypeName {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getParentId() {
-        return parentId;
-    }
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
     }
 
     public String getName() {
@@ -68,7 +60,6 @@ public class SupplierSubTypeName {
         SupplierSubTypeName that = (SupplierSubTypeName) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (parentId != null ? !parentId.equals(that.parentId) : that.parentId != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (rate != null ? !rate.equals(that.rate) : that.rate != null) return false;
 
@@ -78,7 +69,6 @@ public class SupplierSubTypeName {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (parentId != null ? parentId.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (rate != null ? rate.hashCode() : 0);
         return result;

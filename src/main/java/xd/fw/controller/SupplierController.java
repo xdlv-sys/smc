@@ -48,7 +48,7 @@ public class SupplierController extends BaseController {
         }
     }
 
-    @RequestMapping("obtainSuppliers")
+    @RequestMapping("obtainSupplierTypeNames")
     @ResponseBody
     public PageContent obtainSupplierTypeNames() {
         return page(supplierTypeNameRepository.findAll());

@@ -161,8 +161,6 @@ services.service('module', ['common', 'configuration', function(common, configur
     };
     this.getSupplierTypes = function(m) {
         m = m || {};
-        m.supplierTypes = configuration.group(3, 'supplierType');
-        m.supplierSubTypes = configuration.group(3, 'supplierSubType');
         m.identities = configuration.group(3, 'identity');
         return m;
     };

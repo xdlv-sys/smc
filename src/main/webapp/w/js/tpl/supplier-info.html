@@ -26,13 +26,13 @@
     <md-input-container flex>
         <label>商品或服务分类</label>
         <md-select flex ng-model="modal.data.supplierTypes" ng-disabled="!modal.add" required multiple>
-            <md-option ng-repeat="n in modal.supplierTypes" ng-value="n.index">{{n.value}}</md-option>
+            <md-option ng-repeat="n in modal.supplierTypes" ng-value="n.id">{{n.name}}</md-option>
         </md-select>
     </md-input-container>
     <md-input-container flex>
         <label>商品或服务子类</label>
         <md-select flex ng-model="modal.data.supplierSubTypes" ng-disabled="!modal.add" required multiple>
-            <md-option ng-repeat="n in modal.supplierSubTypes" ng-value="n.index">{{n.value}}</md-option>
+            <md-option ng-repeat="n in modal.supplierSubTypes" ng-value="n.id">{{n.name}}</md-option>
         </md-select>
     </md-input-container>
 </div>

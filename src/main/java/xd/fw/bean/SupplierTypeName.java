@@ -14,15 +14,15 @@ public class SupplierTypeName {
     private Byte degree;
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,mappedBy = "supplierType")
-    List<SupplierSubType> supplierSubTypes;
+    @OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,mappedBy = "supplierTypeName")
+    List<SupplierSubTypeName> supplierSubTypeNames;
 
-    public List<SupplierSubType> getSupplierSubTypes() {
-        return supplierSubTypes;
+    public List<SupplierSubTypeName> getSupplierSubTypeNames() {
+        return supplierSubTypeNames;
     }
 
-    public void setSupplierSubTypes(List<SupplierSubType> supplierSubTypes) {
-        this.supplierSubTypes = supplierSubTypes;
+    public void setSupplierSubTypeNames(List<SupplierSubTypeName> supplierSubTypeNames) {
+        this.supplierSubTypeNames = supplierSubTypeNames;
     }
 
     public Integer getId() {

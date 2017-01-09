@@ -1,16 +1,34 @@
 controllers.controller('SupplierItemCtrl', ['$scope', 'common', 'modal', 'module', '$filter', '$stateParams', 'configuration', function($scope, common, modal, module, $filter, $stateParams, configuration) {
 
-    $scope.modal = module.getSupplierTypes(angular.extend({}, $stateParams.supplier));
+    $scope.modal = module.getSupplierTypes(angular.extend({
+        allSupplierTypes: []
+    }, $stateParams.supplier));
 
-    function fTypes(key) {
-        var sTypes = [];
-        angular.forEach($scope.modal.data[key + 's'], function(s) {
-            sTypes.push(s[key]);
+    common.loadAllPage('/supplier/obtainSupplierTypeNames.cmd', function(data) {
+        $scope.modal.allSupplierTypes = [];
+        angular.forEach(data.data, function(v) {
+            $scope.modal.allSupplierTypes[v.degree] = $scope.modal.allSupplierTypes[v.degree] || [];
+            $scope.modal.allSupplierTypes[v.degree].push(v);
         });
-        $scope.modal.data[key + 's'] = sTypes;
-    }
-    fTypes('supplierType');
-    fTypes('supplierSubType');
+    });
+
+    $scope.$watch('modal.data.identityType', function(n) {
+        //reset all type and sub types ,don't modify this easily due to be very complicate
+        $scope.modal.supplierTypes = $scope.modal.allSupplierTypes[n];
+        $scope.modal.supplierSubTypes = [];
+        //$scope.modal.data.supplierTypes = [];
+        //$scope.modal.data.supplierSubTypes = [];
+    });
+
+    $scope.$watch('modal.data.supplierTypes', function(types) {
+        $scope.modal.supplierSubTypes = [];
+        angular.forEach($scope.modal.supplierTypes, function(s){
+            if (types && types.contains(s.id)){
+                $scope.modal.supplierSubTypes.pushAll(s.supplierSubTypeNames);
+            }
+        });
+    });
+
     //for edit
     $scope.modal.licenseImg = $scope.modal.data.licenseImg;
     $scope.modal.registryImg = $scope.modal.data.registryImg;
@@ -19,8 +37,24 @@ controllers.controller('SupplierItemCtrl', ['$scope', 'common', 'modal', 'module
 
     $scope.saveSupplier = function() {
         var supplier = angular.copy($scope.modal.data);
-        $scope.convertList(supplier, 'supplierTypes', 'supplierType');
-        $scope.convertList(supplier, 'supplierSubTypes', 'supplierSubType');
+        supplier.supplierTypes.each(function(t,i){
+            supplier['supplierTypes[' + i + '].supplierType'] = t;
+            
+            //find all sub types in this type
+            var st = angular.each($scope.modal.supplierTypes,function(v){
+                if (v.id === t){
+                    return v;
+                }
+            });
+            var si = 0;
+            st.supplierSubTypeNames.each(function(sst){
+                if (supplier.supplierSubTypes.contains(sst.id)){
+                    supplier['supplierTypes[' + i + '].supplierSubTypes[' + si + '].supplierSubType'] = sst.id;
+                }
+            });
+        });
+        delete supplier.supplierTypes;
+        delete supplier.supplierSubTypes;
 
         function f(key) {
             if (angular.isBlank(supplier[key])) {
@@ -35,6 +69,8 @@ controllers.controller('SupplierItemCtrl', ['$scope', 'common', 'modal', 'module
         f('openAccountImg');
         f('organizationImg');
         f('registryImg');
+
+        console.log(supplier);
 
         common.uploadFile('/supplier/saveSupplier.cmd', supplier, {
             success: function() {

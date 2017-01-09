@@ -85,22 +85,4 @@ insert into t_dynamic_conf values(65,'3','identity.1','A类供应商(一般纳�
 insert into t_dynamic_conf values(66,'3','identity.2','B类供应商(小规模纳税人)','供应商纳税人身份分类');
 insert into t_dynamic_conf values(67,'3','identity.3','C类供应商(不能取得抵扣票据纳税人)','供应商纳税人身份分类');
 
-insert into t_dynamic_conf values(68,'3','supplierType.1','货物供应商（含进口）">货物供应商（含进口）','商品或服务分类');
-insert into t_dynamic_conf values(69,'3','supplierType.2','商誉等无形资产销售供应商','商品或服务分类');
-insert into t_dynamic_conf values(70,'3','supplierType.3','不动产销售、不动产租赁供应商','商品或服务分类');
-insert into t_dynamic_conf values(71,'3','supplierType.4','有形动产租赁服务供应商','商品或服务分类');
-insert into t_dynamic_conf values(72,'3','supplierType.5','建筑服务供应商','商品或服务分类');
-insert into t_dynamic_conf values(73,'3','supplierType.6','交通运输服务供应商','商品或服务分类');
-insert into t_dynamic_conf values(74,'3','supplierType.7','生活服务供应商','商品或服务分类');
-insert into t_dynamic_conf values(75,'3','supplierType.8','现代服务供应商','商品或服务分类');
-insert into t_dynamic_conf values(76,'3','supplierType.9','金融服务供应商','商品或服务分类');
-insert into t_dynamic_conf values(77,'3','supplierType.10','其他服务供应商','商品或服务分类');
-
-insert into t_dynamic_conf values(78,'3','supplierSubType.1','一般货物供应商（含进口）','商品或服务分类子类');
-insert into t_dynamic_conf values(79,'3','supplierSubType.2','小型水厂自来水供应商','商品或服务分类子类');
-insert into t_dynamic_conf values(80,'3','supplierSubType.3','砂、土、石料供应商','商品或服务分类子类');
-insert into t_dynamic_conf values(81,'3','supplierSubType.4','砖、瓦、石灰供应商','商品或服务分类子类');
-insert into t_dynamic_conf values(82,'3','supplierSubType.5','混凝土供应商">混凝土供应商','商品或服务分类子类');
-
-
 
