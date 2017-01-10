@@ -1,10 +1,23 @@
 controllers.controller('taxController', ['$scope', '$mdSidenav', 'modal', 'ngPopoverFactory',
     function($scope, $mdSidenav, modal, ngPopoverFactory) {
 
-    var array = [1,2];
+ var str="去年是20%年，今年是15%年";
+
+    var newStr=str.replace(/\d+%/g, function () {
+
+        //调用方法时内部会产生 this 和 arguments
+        console.log(arguments[0]);
+
+        //查找数字后，可以对数字进行其他操作
+        return arguments[0] * 2;
+    });
+
+    console.log(newStr);
+
+    /*var array = [1,2];
     angular.forEach(array, function(v){
         console.log('-------------' + v);
-    });
+    });*/
         //modal.wait();
 $scope.browser = 'TT';
 var a = [];

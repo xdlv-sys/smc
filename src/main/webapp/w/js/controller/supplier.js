@@ -1,4 +1,4 @@
-controllers.controller('SupplierCtrl', ['$scope', '$rootScope', 'configuration', 'common', 'modal', 'module', '$filter', '$state', function($scope, $rootScope, configuration, common, modal, module, $filter, $state) {
+controllers.controller('SupplierCtrl', ['$scope', '$rootScope', 'configuration', 'common', 'modal', 'module', '$filter', '$state','supplierTypeName', function($scope, $rootScope, configuration, common, modal, module, $filter, $state,supplierTypeName) {
 
     $scope.query = {
         dept: undefined
@@ -19,7 +19,6 @@ controllers.controller('SupplierCtrl', ['$scope', '$rootScope', 'configuration',
         $scope.loadSuppliers(1, $scope.supplierGrid.paginationPageSize);
     });
 
-
     $scope.supplierGrid = module.createSupplierGrid($scope, $scope.loadSuppliers, configuration);
     $scope.loadSuppliers(1, $scope.supplierGrid.paginationPageSize);
 
@@ -31,12 +30,8 @@ controllers.controller('SupplierCtrl', ['$scope', '$rootScope', 'configuration',
         $scope.showDetail($scope.supplierGrid.selection.getSelectedRows()[0], true, true);
     };
     $scope.showDetail = function(supplier, add, edit) {
-        common.loadAllPage('/supplier/obtainSupplierTypeNames.cmd', function(data) {
-            var allSupplierTypes = [];
-            angular.forEach(data.data, function(v) {
-                allSupplierTypes[v.degree] = allSupplierTypes[v.degree] || [];
-                allSupplierTypes[v.degree].push(v);
-            });
+        supplierTypeName.success(function(data) {
+            var allSupplierTypes = data;
             //convert types and sub types accordingly
             var supplierTypes = supplier.supplierTypes;
             supplier.supplierTypes = [];

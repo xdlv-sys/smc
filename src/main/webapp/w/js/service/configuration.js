@@ -45,6 +45,6 @@ services.service('configuration', ['common', function(common) {
             }
         });
         return ret;
-    }
+    };
 
 }]);

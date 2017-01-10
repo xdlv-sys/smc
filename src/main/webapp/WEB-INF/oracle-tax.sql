@@ -353,7 +353,7 @@ insert into t_role_mod values(-62,-2,39);
 
 -- ----------------supplier ------------------
 insert into t_mod values(40,'各部分采购',null,null,'fa fa-shopping-cart',0);
-insert into t_mod values(41,'供应商管理',null,'supplier','fa fa-address-book',40);
+insert into t_mod values(41,'供应商管理',null,'supplier','fa fa-address-book-o',40);
 insert into t_mod values(42,'新增供应商','supplier/saveSupplier',null,null,41);
 insert into t_mod values(43,'修改供应商','supplier/saveSupplier',null,null,41);
 
@@ -404,4 +404,27 @@ create table t_supplier_sub_type (
   supplier_type int,
   supplier_sub_type int
 );
+
+insert into t_mod values(44,'采购成本税收测算',null,'cost-tax','fa fa-asterisk',40);
+insert into t_mod values(45,'测算',null,null,null,44);
+insert into t_role_mod values(-57,-2,44);
+insert into t_role_mod values(-56,-2,45);
+
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_project_purchase';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
+create table t_project_purchase (
+  id INT PRIMARY KEY,
+  project_id int,
+  belong date,
+  company varchar2(64),
+  product_name varchar2(32),
+  product_model varchar2(64),
+  product_unit number(2),
+  product_count number(38,4),
+  price number(38,4)
+);
+insert into t_mod values(46,'实际实施采购管理',null,'purchase','fa fa-shopping-cart',40);
+insert into t_role_mod values(-55,-2,46);
 
