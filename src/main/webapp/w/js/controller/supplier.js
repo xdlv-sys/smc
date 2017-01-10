@@ -15,8 +15,8 @@ controllers.controller('SupplierCtrl', ['$scope', '$rootScope', 'configuration',
             }
         });
     };
-    $scope.$watch('query.dept', function(v){
-        $scope.loadSuppliers(1,$scope.supplierGrid.paginationPageSize);
+    $scope.$watch('query.dept', function(v) {
+        $scope.loadSuppliers(1, $scope.supplierGrid.paginationPageSize);
     });
 
 
@@ -30,13 +30,31 @@ controllers.controller('SupplierCtrl', ['$scope', '$rootScope', 'configuration',
     $scope.modSupplier = function() {
         $scope.showDetail($scope.supplierGrid.selection.getSelectedRows()[0], true, true);
     };
-    $scope.showDetail = function(supplier,add,edit){
-        $state.go('supplier-item', {
-            supplier: {
-                data: supplier,
-                add : add,
-                edit: edit
-            }
+    $scope.showDetail = function(supplier, add, edit) {
+        common.loadAllPage('/supplier/obtainSupplierTypeNames.cmd', function(data) {
+            var allSupplierTypes = [];
+            angular.forEach(data.data, function(v) {
+                allSupplierTypes[v.degree] = allSupplierTypes[v.degree] || [];
+                allSupplierTypes[v.degree].push(v);
+            });
+            //convert types and sub types accordingly
+            var supplierTypes = supplier.supplierTypes;
+            supplier.supplierTypes = [];
+            supplier.supplierSubTypes = [];
+            angular.forEach(supplierTypes,function(t){
+                supplier.supplierTypes.push(t.supplierType);
+                t.supplierSubTypes.each(function(st){
+                    supplier.supplierSubTypes.push(st.supplierSubType);
+                });
+            });
+            $state.go('supplier-item', {
+                supplier: {
+                    data: supplier,
+                    add: add,
+                    edit: edit,
+                    allSupplierTypes : allSupplierTypes
+                }
+            });
         });
     };
 

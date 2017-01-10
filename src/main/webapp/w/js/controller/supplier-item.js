@@ -1,23 +1,13 @@
 controllers.controller('SupplierItemCtrl', ['$scope', 'common', 'modal', 'module', '$filter', '$stateParams', 'configuration', function($scope, common, modal, module, $filter, $stateParams, configuration) {
 
     $scope.modal = module.getSupplierTypes(angular.extend({
-        allSupplierTypes: []
     }, $stateParams.supplier));
-
-    common.loadAllPage('/supplier/obtainSupplierTypeNames.cmd', function(data) {
-        $scope.modal.allSupplierTypes = [];
-        angular.forEach(data.data, function(v) {
-            $scope.modal.allSupplierTypes[v.degree] = $scope.modal.allSupplierTypes[v.degree] || [];
-            $scope.modal.allSupplierTypes[v.degree].push(v);
-        });
-    });
 
     $scope.$watch('modal.data.identityType', function(n) {
         //reset all type and sub types ,don't modify this easily due to be very complicate
         $scope.modal.supplierTypes = $scope.modal.allSupplierTypes[n];
         $scope.modal.supplierSubTypes = [];
-        //$scope.modal.data.supplierTypes = [];
-        //$scope.modal.data.supplierSubTypes = [];
+        
     });
 
     $scope.$watch('modal.data.supplierTypes', function(types) {
@@ -49,7 +39,7 @@ controllers.controller('SupplierItemCtrl', ['$scope', 'common', 'modal', 'module
             var si = 0;
             st.supplierSubTypeNames.each(function(sst){
                 if (supplier.supplierSubTypes.contains(sst.id)){
-                    supplier['supplierTypes[' + i + '].supplierSubTypes[' + si + '].supplierSubType'] = sst.id;
+                    supplier['supplierTypes[' + i + '].supplierSubTypes[' + si++ + '].supplierSubType'] = sst.id;
                 }
             });
         });

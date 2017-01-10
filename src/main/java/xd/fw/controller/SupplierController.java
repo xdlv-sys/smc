@@ -69,11 +69,6 @@ public class SupplierController extends BaseController {
             , @RequestParam(required = false) MultipartFile organizationImgF
             , @RequestParam(required = false) MultipartFile registryImgF, Supplier supplier) throws IOException {
         Integer supplierId = userRepositoryCustom.runSessionProcess(() -> {
-            if (supplier.getId() != null) {
-                Supplier supplierToSaved = supplierRepository.findOne(supplier.getId());
-                supplierTypeRepository.delete(supplierToSaved.getSupplierTypes());
-            }
-
             Supplier savedSupplier = supplierRepository.save(supplier);
             FwUtil.safeEach(savedSupplier.getSupplierTypes(), o -> {
                 o.setSupplier(savedSupplier);

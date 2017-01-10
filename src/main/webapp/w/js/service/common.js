@@ -64,7 +64,9 @@ services.service('common', ['$http', 'modal', function($http, modal) {
     this.uploadFile = function(url, params, conf) {
         var formData = new FormData();
         for (var key in params) {
-            formData.append(key, params[key]);
+            if (!angular.isBlank(params[key])){
+                formData.append(key, params[key]);
+            }
         }
 
         modal.wait();
