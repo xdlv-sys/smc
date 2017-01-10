@@ -1,0 +1,25 @@
+<md-tabs flex>
+    <md-tab label="项目采购">
+        <md-content layout="column" class="max_height" ng-controller="ProjectPurchaseCtrl">
+            <div layout="row" class="xd_tool_bar">
+                <md-button class="md-primary md-raised" ng-click="showPurchase()" ng-disabled="projectGrid .selection.getSelectedRows().length !== 1">查看采购</md-button>
+                <lf-ng-md-file-input class="upload_file" aria-label="fileupload" lf-files='importFile' lf-placeholder="选择Excel文件上传" lf-browse-label="选择文件" lf-mimetype="application/msexcel" lf-totalsize="5MB" progress> </lf-ng-md-file-input>
+                
+                <md-input-container style="margin-right:8px;">
+                    <label>所属年月</label>
+                    <md-datepicker ng-model="importDate" xd-date md-date-filter="onlyTheFirstDayPredicate"></md-datepicker>
+                </md-input-container>
+                
+                <md-button class="md-primary md-raised" ng-click="importProjectPurchase()" ng-disabled="importFile.length < 1 || projectGrid .selection.getSelectedRows().length !== 1 || !importDate">导入采购</md-button>
+            </div>
+            <div flex ui-grid="projectGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
+        </md-content>
+    </md-tab>
+    <md-tab label="工程采购">
+        <md-content class="max_height" layout="column">
+            <div layout="row">
+                <md-button class="md-primary md-raised" ng-click="addPurshase()">新增</md-button>
+            </div>
+        </md-content>
+    </md-tab>
+</md-tabs>

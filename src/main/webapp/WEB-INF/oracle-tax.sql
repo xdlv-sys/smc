@@ -423,7 +423,11 @@ create table t_project_purchase (
   product_model varchar2(64),
   product_unit number(2),
   product_count number(38,4),
-  price number(38,4)
+  price number(38,4),
+  un_tax_count number(38,4),
+  rate number(38,4),
+  rate_count number(38,4),
+  total number(38,4)
 );
 insert into t_mod values(46,'实际实施采购管理',null,'purchase','fa fa-shopping-cart',40);
 insert into t_role_mod values(-55,-2,46);

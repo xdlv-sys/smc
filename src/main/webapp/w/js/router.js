@@ -116,6 +116,10 @@ angular.module('xdApp', [
             params: { supplier: null },
             templateUrl: 'cost-tax.html',
             controller: 'CostTaxCtrl'
+        }).state('purchase', {
+            url: '/purchase',
+            templateUrl: 'purchase.html',
+            controller: 'ProjectCtrl'
         });
     }
 ]);

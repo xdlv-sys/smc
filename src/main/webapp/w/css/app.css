@@ -74,6 +74,9 @@ a:active {
 .pull_center {
     text-align: center;
 }
+.upload_file{
+    min-width: 380px;
+}
 
 
 /************************************************************/

@@ -13,7 +13,6 @@ import xd.fw.bean.Budget;
 import xd.fw.bean.GroupItem;
 import xd.fw.dao.BudgetRepository;
 import xd.fw.dao.GroupItemRepository;
-import xd.fw.dao.UserRepositoryCustom;
 import xd.fw.mk.ExcelStreamView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,9 +31,6 @@ public class CalculateController extends BaseController {
     BudgetRepository budgetRepository;
     @Autowired
     GroupItemRepository groupItemRepository;
-
-    @Autowired
-    UserRepositoryCustom userRepositoryCustom;
 
     @Value("${tax_calculate_file_name}")
     String taxCalculateFileName;

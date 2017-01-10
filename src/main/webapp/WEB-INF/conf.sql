@@ -85,4 +85,6 @@ insert into t_dynamic_conf values(65,'3','identity.1','A类供应商(一般纳�
 insert into t_dynamic_conf values(66,'3','identity.2','B类供应商(小规模纳税人)','供应商纳税人身份分类');
 insert into t_dynamic_conf values(67,'3','identity.3','C类供应商(不能取得抵扣票据纳税人)','供应商纳税人身份分类');
 
-
+-- -------------------------
+insert into t_dynamic_conf values(68,'1','countUnit.16','条','计量单位');
+insert into t_dynamic_conf values(69,'1','countUnit.17','盒','计量单位');

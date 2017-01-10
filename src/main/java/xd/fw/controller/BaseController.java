@@ -2,6 +2,8 @@ package xd.fw.controller;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.ExampleMatcher;
@@ -25,6 +27,8 @@ import java.util.List;
  * Created by xd on 2016/11/30.
  */
 public abstract class BaseController {
+
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     UserRepositoryCustom userRepositoryCustom;

@@ -17,7 +17,7 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
         $scope.loginSuccess = true;
         $rootScope.user = $scope.user = user;
         $rootScope.mods = mods;
-        common.loadAllPage('/dept/obtainDepts.cmd', function(data){
+        common.loadAllPage('/dept/obtainDepts.cmd', function(data) {
             $rootScope.depts = data.data;
         });
         $rootScope.back = function() {
@@ -55,13 +55,16 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
                 obj[i] = $rootScope.convertDates(v);
             });
         };
-        $rootScope.convertList = function(param, key,subKey){
+        $rootScope.convertList = function(param, key, subKey) {
             subKey = subKey || 'id';
             var array = param[key];
-            angular.forEach(array, function(v,i){
+            angular.forEach(array, function(v, i) {
                 param[key + '[' + i + '].' + subKey] = v;
             });
             delete param[key];
+        };
+        $rootScope.onlyTheFirstDayPredicate = function(date) {
+            return date.getDate() === 1;
         };
         //used to convert all date and list parameters to the right style
         $rootScope.convertParams = function(param, key) {

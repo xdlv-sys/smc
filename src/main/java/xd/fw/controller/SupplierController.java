@@ -10,7 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import xd.fw.bean.Supplier;
 import xd.fw.bean.SupplierType;
-import xd.fw.dao.*;
+import xd.fw.dao.SupplierRepository;
+import xd.fw.dao.SupplierSubTypeRepository;
+import xd.fw.dao.SupplierTypeNameRepository;
+import xd.fw.dao.SupplierTypeRepository;
 import xd.fw.util.FwException;
 import xd.fw.util.FwUtil;
 import xd.fw.util.I18n;
@@ -33,9 +36,6 @@ public class SupplierController extends BaseController {
     SupplierTypeRepository supplierTypeRepository;
     @Autowired
     SupplierTypeNameRepository supplierTypeNameRepository;
-    @Autowired
-    UserRepositoryCustom userRepositoryCustom;
-
 
     File supplierDir;
     String supplierFileDirectory = "supplier-files";

@@ -39,9 +39,6 @@ services.service('modal', ['$mdDialog', function($mdDialog) {
     this.open = function(conf, scope) {
         $mdDialog.show({
                 controller: function() {
-                    this.onlyTheFirstDayPredicate = function(date) {
-                        return date.getDate() === 1;
-                    };
                     this.data = {};
                     this.width = 300;
                     this.cancel = function() {
