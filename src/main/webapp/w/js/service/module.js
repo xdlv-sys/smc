@@ -181,6 +181,21 @@ services.service('module', ['common', 'configuration', function(common, configur
             field: 'importDate'
         }], scope, loadData, configuration);
     };
+    this.createPurchaseImportGrid = function(scope, loadData, configuration) {
+        return common.createGridOption([{
+            name: '项目名称',
+            cellTemplate: '<div class="ui-grid-cell-contents">{{grid.appScope.project.name}}</div>'
+        }, {
+            name: '所属年月',
+            cellTemplate: '<div class="ui-grid-cell-contents">{{grid.appScope.onlyYearAndMonth(row.entity.belong)}}</div>'
+        }, {
+            name: '导入者',
+            field: 'operator'
+        }, {
+            name: '导入时间',
+            field: 'createTime'
+        }], scope, loadData, configuration);
+    };
 
     this.createConstructionItemGrid = function(scope, loadData, configuration) {
         return common.createGridOption([{

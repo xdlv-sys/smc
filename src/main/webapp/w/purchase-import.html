@@ -1,0 +1,16 @@
+<md-content flex layout="column" class="max_height">
+    <div layout="row" class="xd_tool_bar">
+        <md-button class="md-primary md-raised fa fa-backward" ng-click="back()">&nbsp;返回</md-button>
+        <md-button class="md-primary md-raised" ng-click="deletePurchaseImport()" ng-disabled="purchaseImportGrid.selection.getSelectedRows().length < 1">删除</md-button>
+        <md-input-container style="margin-right:8px;">
+            <label>开始年月</label>
+            <md-datepicker ng-model="query.startDate" xd-date md-date-filter="onlyTheFirstDayPredicate"></md-datepicker>
+        </md-input-container>
+        <md-input-container style="margin-right:8px;">
+            <label>结束年月</label>
+            <md-datepicker ng-model="query.endDate" xd-date md-date-filter="onlyTheFirstDayPredicate"></md-datepicker>
+        </md-input-container>
+        <md-button class="md-primary md-raised" ng-click="loadPurchaseImports()">查询</md-button>
+    </div>
+    <div flex ui-grid="purchaseImportGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
+</md-content>

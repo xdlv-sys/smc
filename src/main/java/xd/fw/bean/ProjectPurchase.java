@@ -14,7 +14,6 @@ public class ProjectPurchase {
     @TableGenerator(name = "pk_project_purchase_id", table = "t_primary_key",
             pkColumnName = "table_name", valueColumnName = "current_id")
     private Integer id;
-    private Integer projectId;
     private Date belong;
     private String company;
     private String productName;
@@ -26,21 +25,21 @@ public class ProjectPurchase {
     private Double rate;
     private Double rateCount;
     private Double total;
+    private Integer importId;
 
+    public Integer getImportId() {
+        return importId;
+    }
+
+    public void setImportId(Integer importId) {
+        this.importId = importId;
+    }
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Integer projectId) {
-        this.projectId = projectId;
     }
 
     public Date getBelong() {
@@ -139,7 +138,6 @@ public class ProjectPurchase {
         ProjectPurchase that = (ProjectPurchase) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (projectId != null ? !projectId.equals(that.projectId) : that.projectId != null) return false;
         if (belong != null ? !belong.equals(that.belong) : that.belong != null) return false;
         if (company != null ? !company.equals(that.company) : that.company != null) return false;
         if (productName != null ? !productName.equals(that.productName) : that.productName != null) return false;
@@ -154,7 +152,6 @@ public class ProjectPurchase {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (projectId != null ? projectId.hashCode() : 0);
         result = 31 * result + (belong != null ? belong.hashCode() : 0);
         result = 31 * result + (company != null ? company.hashCode() : 0);
         result = 31 * result + (productName != null ? productName.hashCode() : 0);

@@ -84,6 +84,12 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
             });
             delete param[key];
         };
+        $rootScope.onlyYearAndMonth = function(d){
+            if (angular.isBlank(d)){
+                return '';
+            }
+            return $filter('date')(new Date(d), 'yyyy-MM');
+        };
 
         $state.go(state);
     });

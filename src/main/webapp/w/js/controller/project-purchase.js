@@ -4,11 +4,15 @@ controllers.controller('ProjectPurchaseCtrl', ['$scope', '$rootScope', 'configur
         common.uploadFile('/purchase/importProjectPurchase.cmd', {
             file: $scope.importFile[0].lfFile,
             importDate: $scope.importDate,
-            projectId: $scope.projectGrid.selection.getSelectedRows()[0].id
+            operator: $scope.user.name,
+            projectId: $scope.getSelectedProjects()[0].id
         }, {
             success: function(result) {
                 modal.alert('成功导入:' + result.data.right + '条');
             }
         });
-    }
+    };
+    $scope.showPurchase = function(row) {
+        $state.go('purchase-import', { project: $scope.getSelectedProjects()[0] });
+    };
 }]);
