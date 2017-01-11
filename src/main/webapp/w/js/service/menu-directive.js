@@ -61,7 +61,7 @@
              });
              ngModel.$formatters.push(function(text){
                 if (angular.isBlank(text)){
-                    return text;
+                    return '';
                 }
                 return new Date(text);
              });
