@@ -44,8 +44,15 @@ public class PurchaseController extends BaseController{
 
     @RequestMapping("obtainPurchaseImports")
     @ResponseBody
-    public PageContent obtainPurchaseImports(int page, int limit, int projectId,Date startDate, Date endDate, ProjectPurchaseImport query) {
+    public PageContent obtainPurchaseImports(int page, int limit, int projectId,Date startDate, Date endDate) {
         Page<ProjectPurchaseImport> list = projectPurchaseImportRepository.findByBelongBetweenAndProjectId(
+                startDate, endDate, projectId, pageRequest(page, limit));
+        return page(list);
+    }
+    @RequestMapping("obtainPurchases")
+    @ResponseBody
+    public PageContent obtainPurchases(int page, int limit, int projectId,Date startDate, Date endDate) {
+        Page<ProjectPurchase> list = projectPurchaseRepository.findByBelongBetweenAndProjectId(
                 startDate, endDate, projectId, pageRequest(page, limit));
         return page(list);
     }
@@ -56,15 +63,11 @@ public class PurchaseController extends BaseController{
             return DONE;
         }
         userRepositoryCustom.runSessionCommit(()->{
-            Arrays.stream(purchaseImportIds).forEach(id->{
-                projectPurchaseImportRepository.delete(id);
-            });
+            Arrays.stream(purchaseImportIds).forEach(id-> projectPurchaseImportRepository.delete(id));
             projectPurchaseRepository.deleteByImportIdIn(purchaseImportIds);
         });
         return DONE;
     }
-
-
 
     @RequestMapping("importProjectPurchase")
     @ResponseBody
@@ -124,7 +127,7 @@ public class PurchaseController extends BaseController{
             projectPurchase.setRate(product.getRate());
             projectPurchase.setUnTaxCount(projectPurchase.getTotal() * (1 - product.getRate()));
             projectPurchase.setRateCount(projectPurchase.getTotal() * product.getRate());
-
+            projectPurchase.setProjectId(projectId);
             projectPurchaseList.add(projectPurchase);
         }
         userRepositoryCustom.runSessionCommit(()->{

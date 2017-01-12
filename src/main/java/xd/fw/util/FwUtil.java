@@ -106,6 +106,13 @@ public class FwUtil {
         list.forEach(p::process);
     }
 
+    public static <T> void safeEach(T[] array, SafeEachProcess<T> p){
+        if (array == null || array.length < 1){
+            return;
+        }
+        Arrays.stream(array).forEach(p::process);
+    }
+
     public interface CompareItem<T> {
         boolean compare(T t, T o);
     }

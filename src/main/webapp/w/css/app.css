@@ -77,6 +77,9 @@ a:active {
 .upload_file{
     min-width: 380px;
 }
+.tab_tool{
+    min-height:107px!important;
+}
 
 
 /************************************************************/

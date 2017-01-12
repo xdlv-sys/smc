@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by xd on 2017/1/10.
  */
 @Entity
-@Table(name="t_project_purchase")
+@Table(name="T_PROJECT_PURCHASE")
 public class ProjectPurchase {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "pk_project_purchase_id")
@@ -26,6 +26,14 @@ public class ProjectPurchase {
     private Double rateCount;
     private Double total;
     private Integer importId;
+    private Integer projectId;
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
 
     public Integer getImportId() {
         return importId;

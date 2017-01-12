@@ -196,6 +196,42 @@ services.service('module', ['common', 'configuration', function(common, configur
             field: 'createTime'
         }], scope, loadData, configuration);
     };
+    this.createPurchaseGrid = function(scope, loadData, configuration) {
+        return common.createGridOption([{
+            name: '所属年月',
+            cellTemplate: '<div class="ui-grid-cell-contents">{{grid.appScope.onlyYearAndMonth(row.entity.belong)}}</div>'
+        }, {
+            name: '供应商名称',
+            field: 'company'
+        }, {
+            name: '商品服务名',
+            field: 'productName'
+        }, {
+            name: '商品规格型号',
+            field: 'productModel'
+        }, {
+            name: '计量单位',
+            field: 'productUnit'
+        }, {
+            name: '入库数量',
+            field: 'productCount'
+        }, {
+            name: '不含税单价',
+            field: 'price'
+        }, {
+            name: '不含税金额',
+            field: 'unTaxCount'
+        }, {
+            name: '税率',
+            field: 'rate'
+        },{
+            name: '税额',
+            field: 'rateCount'
+        },{
+            name: '价税合计金额',
+            field: 'total'
+        }], scope, loadData, configuration);
+    };
 
     this.createConstructionItemGrid = function(scope, loadData, configuration) {
         return common.createGridOption([{
