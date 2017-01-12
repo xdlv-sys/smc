@@ -1,6 +1,16 @@
-controllers.controller('EngineeringPurchaseCtrl', ['$scope', '$rootScope', 'configuration', 'common', 'modal', 'module', '$filter', '$state', function($scope, $rootScope, configuration, common, modal, module, $filter, $state) {
+controllers.controller('EngineeringPurchaseCtrl', ['$scope', '$rootScope', 'configuration', 'common', 'modal', 'module', '$filter', '$state', 'supplierTypeName', function($scope, $rootScope, configuration, common, modal, module, $filter, $state, supplierTypeName) {
 
     $scope.addPurchase = function(row) {
-        $state.go('purchase-import', { project: $scope.getSelectedProjects()[0] });
+        $scope.showDetail(true);
+    };
+
+    $scope.showDetail = function(add) {
+        $state.go('engineering-purchase-item', {
+            project: {
+                project: $scope.getSelectedProjects()[0],
+                type: $scope.type,
+                add: add
+            }
+        });
     };
 }]);

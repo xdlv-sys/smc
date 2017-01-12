@@ -1,0 +1,78 @@
+<div layout="row">
+    <md-input-container flex>
+        <label>货物或应税劳务、服务名称</label>
+        <input ng-model="modal.data.name" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+    <md-input-container>
+        <label>采购时间</label>
+        <md-datepicker ng-model="modal.data.belong" required xd-date ng-readonly="!modal.add"></md-datepicker>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>项目名称</label>
+        <input ng-model="modal.project.name" type="text" readonly>
+    </md-input-container>
+    <md-input-container flex>
+        <label>部门</label>
+        <md-select ng-model="modal.data.dept" ng-disabled="!modal.add" required>
+            <md-option ng-repeat="n in depts" ng-value="n.id">{{n.name}}</md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container flex>
+        <label>供应商类别</label>
+        <md-select flex ng-model="modal.data.supplierType" ng-disabled="!modal.add" required>
+            <md-option ng-repeat="n in modal.identities" ng-value="n.index">{{n.value}}</md-option>
+        </md-select>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>商品或服务分类</label>
+        <md-select flex ng-model="modal.data.serviceType">
+            <md-option ng-repeat="n in modal.supplierTypes" ng-value="n">{{n.name}}</md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container flex>
+        <label>商品或服务子类</label>
+        <md-select flex ng-model="modal.data.serviceSubType">
+            <md-option ng-repeat="n in modal.data.serviceType.supplierSubTypeNames" ng-value="n">{{n.name}}</md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container flex>
+        <label>规格型号</label>
+        <input ng-model="modal.data.productModel" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>单位</label>
+        <input ng-model="modal.data.productUnit" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+    <md-input-container flex>
+        <label>不含税单价</label>
+        <input ng-model="modal.data.price" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+    <md-input-container flex>
+        <label>数量</label>
+        <input type="text" ng-model="modal.data.productCount" ng-readonly="!modal.add" required>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>税率</label>
+        <input ng-model="modal.data.rate" type="text" ng-readonly required>
+    </md-input-container>
+    <md-input-container flex>
+        <label>不含税金额</label>
+        <input type="text" ng-model="modal.data.unTaxCount" ng-readonly="!modal.add" ng-value="parseFloat(modal.data.price) * parseFloat(modal.data.productCount)" required>
+    </md-input-container>
+    <md-input-container flex>
+        <label>税额</label>
+        <input ng-model="modal.data.rateCount" ng-value="modal.data.unTaxCount * modal.data.rate" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+    <md-input-container flex>
+        <label>价税合计金额</label>
+        <input ng-model="modal.data.total" type="text" ng-readonly="!modal.add" required>
+    </md-input-container>
+</div>

@@ -143,6 +143,7 @@ md-tabs {
 
 .xd_tool_bar {
     height: 58px;
+    overflow: hidden;
 }
 .item_tool{
     margin-bottom:60px;

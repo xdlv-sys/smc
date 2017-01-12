@@ -3,7 +3,6 @@
         <md-content flex layout="column" class="max_height">
             <div layout="row" class="xd_tool_bar">
                 <md-button class="md-primary md-raised fa fa-backward" ng-click="back()">&nbsp;返回</md-button>
-                
                 <md-input-container style="margin-right:8px;">
                     <label>开始年月</label>
                     <md-datepicker ng-model="query2.startDate" xd-date md-date-filter="onlyTheFirstDayPredicate"></md-datepicker>
@@ -20,7 +19,6 @@
     <md-tab label="导入记录">
         <md-content flex layout="column" class="max_height">
             <div layout="row" class="xd_tool_bar">
-                
                 <md-button class="md-primary md-raised" ng-click="deletePurchaseImport()" ng-disabled="purchaseImportGrid.selection.getSelectedRows().length < 1">删除</md-button>
                 <md-input-container style="margin-right:8px;">
                     <label>开始年月</label>

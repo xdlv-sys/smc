@@ -1,6 +1,6 @@
 <md-tabs class="tab_tool">
     <md-tab label="项目采购">
-        <md-content layout="column" ng-controller="ProjectPurchaseCtrl">
+        <md-content layout="column" ng-controller="ProjectPurchaseCtrl" style="overflow: hidden;">
             <div layout="row" class="xd_tool_bar">
                 <md-button class="md-primary md-raised" ng-click="showPurchase()" ng-disabled="projectGrid .selection.getSelectedRows().length !== 1">查看采购记录</md-button>
                 <lf-ng-md-file-input class="upload_file" aria-label="fileupload" lf-files='importFile' lf-placeholder="选择Excel文件上传" lf-browse-label="选择文件" lf-mimetype="application/msexcel" lf-totalsize="5MB" progress> </lf-ng-md-file-input>
@@ -15,24 +15,22 @@
         </md-content>
     </md-tab>
     <md-tab label="工程采购">
-        <md-content layout="column" ng-controller="EngineeringPurchaseCtrl">
-            <div layout="row">
-                <input ng-model="type" ng-value="engineering" style="visibility:hidden">
-                <md-button class="md-primary md-raised" ng-click="addPurshase()">新增</md-button>
+        <md-content layout="column" ng-controller="EngineeringPurchaseCtrl" ng-init="type='engineering'">
+            <div layout="row" class="xd_tool_bar">
+                <md-button class="md-primary md-raised" ng-click="addPurchase()">新增工程采购</md-button>
             </div>
         </md-content>
     </md-tab>
     <md-tab label="综合采购">
-        <md-content layout="column" ng-controller="EngineeringPurchaseCtrl">
-            <div layout="row">
-                <input ng-model="type" ng-value="composite" style="visibility:hidden">
-                <md-button class="md-primary md-raised" ng-click="addPurshase()">新增</md-button>
+        <md-content layout="column" ng-controller="EngineeringPurchaseCtrl" ng-init="type='composite'">
+            <div layout="row" class="xd_tool_bar">
+                <md-button class="md-primary md-raised" ng-click="addPurchase()">新增综合采购</md-button>
             </div>
         </md-content>
     </md-tab>
     <md-tab label="项目采购查询">
         <md-content layout="column" ng-controller="EngineeringPurchaseCtrl">
-            <div layout="row">
+            <div layout="row" class="xd_tool_bar">
                 <md-button class="md-primary md-raised" ng-click="addPurshase()">新增</md-button>
             </div>
         </md-content>

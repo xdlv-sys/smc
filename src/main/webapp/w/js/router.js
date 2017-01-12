@@ -125,6 +125,12 @@ angular.module('xdApp', [
             params: { project: null },
             templateUrl: 'purchase-import.html',
             controller: 'PurchaseImportCtrl'
+        }).state('engineering-purchase-item', {
+            url: '/engineering-purchase-item',
+            params: { project: null },
+            templateUrl: 'engineering-purchase-item.html',
+            controller: 'EngineeringPurchaseItemCtrl'
         });
+
     }
 ]);

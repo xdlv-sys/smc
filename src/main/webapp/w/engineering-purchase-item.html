@@ -1,0 +1,9 @@
+<div layout="column" flex>
+    <div layout="row" style="margin-bottom:60px;">
+        <md-button class="md-primary md-raised fa fa-backward" ng-click="back()">&nbsp;返回</md-button>
+        <md-button class="md-primary md-raised fa fa-save" ng-click="savePurchase()" ng-disabled="form.$invalid" aria-label="save purchase" ng-if="modal.add">&nbsp;保存</md-button>
+    </div>
+    <form role='form' name='form' novalidate="">
+        <div ng-include="'js/tpl/engineering-purchase-info.html'" ></div>
+    </form>
+</div>
