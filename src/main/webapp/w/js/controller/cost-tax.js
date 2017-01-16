@@ -1,4 +1,4 @@
-controllers.controller('CostTaxCtrl', ['$scope', 'common', 'modal', 'module', '$filter', '$stateParams', 'configuration', 'supplierTypeName', function($scope, common, modal, module, $filter, $stateParams, configuration, supplierTypeName) {
+controllers.controller('CostTaxCtrl', ['$scope', 'common', 'modal', 'module', '$filter', '$stateParams', 'configuration', 'supplierTypeName','util', function($scope, common, modal, module, $filter, $stateParams, configuration, supplierTypeName,util) {
 
     supplierTypeName.success(function(allSupplierTypes) {
         $scope.modal = module.getSupplierTypes({
@@ -28,9 +28,6 @@ controllers.controller('CostTaxCtrl', ['$scope', 'common', 'modal', 'module', '$
     };
 
     $scope.calculate = function(){
-        var rates = [];
-        $scope.supplierSubType.name.replace(/(\d+)%/g, function(s,r){
-            rates.push(parseInt(r));
-        });     
+        return util.rate($scope.supplierSubType.name);
     }
 }]);

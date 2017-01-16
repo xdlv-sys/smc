@@ -1,6 +1,7 @@
 package xd.fw.bean;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by xd on 1/12/2017.
@@ -14,9 +15,11 @@ public class CompositePurchase {
             pkColumnName = "table_name", valueColumnName = "current_id")
     private Integer id;
     private Integer dept;
+    private Date belong;
     private Integer year;
     private Integer month;
     private Integer projectId;
+    private Integer supplierId;
     private Integer supplierType;
     private Integer serviceType;
     private Integer serviceSubType;
@@ -29,6 +32,22 @@ public class CompositePurchase {
     private Integer rate;
     private Integer rateCount;
     private Integer total;
+
+    public Date getBelong() {
+        return belong;
+    }
+
+    public void setBelong(Date belong) {
+        this.belong = belong;
+    }
+
+    public Integer getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(Integer supplierId) {
+        this.supplierId = supplierId;
+    }
 
     public Integer getId() {
         return id;

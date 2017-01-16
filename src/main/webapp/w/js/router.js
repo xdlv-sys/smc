@@ -130,6 +130,10 @@ angular.module('xdApp', [
             params: { project: null },
             templateUrl: 'engineering-purchase-item.html',
             controller: 'EngineeringPurchaseItemCtrl'
+        }).state('engineering-purchase-list', {
+            url: '/engineering-purchase-list',
+            templateUrl: 'engineering-purchase-list.html',
+            controller: 'EngineeringPurchaseListCtrl'
         });
 
     }

@@ -17,12 +17,20 @@ services.config(['$httpProvider', function($httpProvider) {
     });*/
 }]);
 
-services.service('common', ['$http', 'modal', function($http, modal) {
+services.service('common', ['$http', 'modal', '$q', function($http, modal, $q) {
     this.relativeUrl = function(url) {
         return '../' + url;
     };
-    this.loadAllPage = function(url, call) {
-        return this.loadPage(url, { page: 1, limit: 999999 }, call);
+    this.loadAllPage2 = function(url, params) {
+        var deferred = $q.defer();
+        var parmas_0 = angular.extend({ page: 1, limit: 999999 }, params);
+        this.post(url, parmas_0, function(data) {
+            deferred.resolve(data.data);
+        });
+        return deferred.promise;
+    };
+    this.loadAllPage = function(url, call, params) {
+        return this.loadPage(url, angular.extend({ page: 1, limit: 999999 }, params), call);
     };
     this.loadPage = function(url, params, call) {
         params = params || {};
@@ -64,7 +72,7 @@ services.service('common', ['$http', 'modal', function($http, modal) {
     this.uploadFile = function(url, params, conf) {
         var formData = new FormData();
         for (var key in params) {
-            if (!angular.isBlank(params[key])){
+            if (!angular.isBlank(params[key])) {
                 formData.append(key, params[key]);
             }
         }
@@ -162,7 +170,7 @@ Array.prototype.each = function(f) {
 };
 Array.prototype.pushAll = function(array) {
     var me = this;
-    angular.forEach(array, function(v){
+    angular.forEach(array, function(v) {
         me.push(v);
     });
 };

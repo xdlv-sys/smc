@@ -196,6 +196,7 @@ services.service('module', ['common', 'configuration', function(common, configur
             field: 'createTime'
         }], scope, loadData, configuration);
     };
+
     this.createPurchaseGrid = function(scope, loadData, configuration) {
         return common.createGridOption([{
             name: '所属年月',
@@ -218,6 +219,46 @@ services.service('module', ['common', 'configuration', function(common, configur
         }, {
             name: '不含税单价',
             field: 'price'
+        }, {
+            name: '不含税金额',
+            field: 'unTaxCount'
+        }, {
+            name: '税率',
+            field: 'rate'
+        },{
+            name: '税额',
+            field: 'rateCount'
+        },{
+            name: '价税合计金额',
+            field: 'total'
+        }], scope, loadData, configuration);
+    };
+
+    this.createEngineeringPurchaseGrid = function(scope, loadData, configuration) {
+        return common.createGridOption([{
+            name: '采购时间',
+            cellTemplate: '<div class="ui-grid-cell-contents">{{grid.appScope.onlyYearAndMonth(row.entity.belong)}}</div>'
+        }, {
+            name: '部门',
+            field: 'dept'
+        }, {
+            name: '项目编号',
+            field: 'projectId'
+        }, {
+            name: '供应商编号',
+            field: 'supplierId'
+        }, {
+            name: '货物或应税劳务、服务名称',
+            field: 'name'
+        }, {
+            name: '规格型号',
+            field: 'productModel'
+        }, {
+            name: '不含税单价',
+            field: 'price'
+        }, {
+            name: '数量',
+            field: 'productCount'
         }, {
             name: '不含税金额',
             field: 'unTaxCount'

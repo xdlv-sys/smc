@@ -4,13 +4,14 @@
         <input ng-model="modal.data.name" type="text" ng-readonly="!modal.add" required>
     </md-input-container>
 
-    <md-autocomplete
+    <md-autocomplete flex 
           md-selected-item="selectedSupplier"
           md-search-text="searchForSupplier"
           md-items="item in querySupplier(searchForSupplier)"
           md-item-text="item.name"
           md-min-length="0"
-          placeholder="供应商">
+          md-selected-item-change="supplierItemChange(item)"
+          md-floating-label="供应商">
         <md-item-template>
           <span md-highlight-text="searchForSupplier" md-highlight-flags="^i">{{item.name}}</span>
         </md-item-template>

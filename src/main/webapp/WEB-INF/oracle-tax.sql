@@ -452,9 +452,11 @@ END;
 create table t_engineering_purchase (
   id INT PRIMARY KEY,
   dept int,
+  belong date,
   year int,
   month int,
   project_id int,
+  supplier_id int,
   supplier_type number(2),
   service_type int,
   service_sub_type int,
@@ -476,9 +478,11 @@ END;
 create table t_composite_purchase (
   id INT PRIMARY KEY,
   dept int,
+  belong date,
   year int,
   month int,
   project_id int,
+  supplier_id int,
   supplier_type number(2),
   service_type int,
   service_sub_type int,
