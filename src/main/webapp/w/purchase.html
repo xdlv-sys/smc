@@ -1,41 +1,57 @@
-<md-tabs class="tab_tool">
+<md-tabs flex>
     <md-tab label="项目采购">
-        <md-content layout="column" ng-controller="ProjectPurchaseCtrl" style="overflow: hidden;">
+        <md-content layout="column" ng-controller="ProjectPurchaseCtrl" class="max_height">
             <div layout="row" class="xd_tool_bar">
                 <md-button class="md-primary md-raised" ng-click="showPurchase()" ng-disabled="projectGrid .selection.getSelectedRows().length !== 1">查看采购记录</md-button>
                 <lf-ng-md-file-input class="upload_file" aria-label="fileupload" lf-files='importFile' lf-placeholder="选择Excel文件上传" lf-browse-label="选择文件" lf-mimetype="application/msexcel" lf-totalsize="5MB" progress> </lf-ng-md-file-input>
-                
                 <md-input-container style="margin-right:8px;">
                     <label>所属年月</label>
                     <md-datepicker ng-model="importDate" xd-date md-date-filter="onlyTheFirstDayPredicate"></md-datepicker>
                 </md-input-container>
-                
                 <md-button class="md-primary md-raised" ng-click="importProjectPurchase()" ng-disabled="importFile.length < 1 || projectGrid.selection.getSelectedRows().length !== 1 || !importDate">导入采购</md-button>
             </div>
+            <div flex ui-grid="projectGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
         </md-content>
     </md-tab>
     <md-tab label="工程采购">
-        <md-content layout="column" ng-controller="EngineeringPurchaseCtrl" ng-init="type='engineering'">
+        <md-content layout="column" ng-controller="EngineeringPurchaseCtrl" ng-init="type='engineering'" class="max_height">
             <div layout="row" class="xd_tool_bar">
-                <md-button class="md-primary md-raised" ng-click="showPurchase()">查看工程采购</md-button>
                 <md-button class="md-primary md-raised" ng-click="addPurchase()" ng-disabled="projectGrid.selection.getSelectedRows().length > 1">新增工程采购</md-button>
+                <md-button class="md-primary md-raised" ng-click="modPurchase()" ng-disabled="purchaseGrid.selection.getSelectedRows().length!==1">编辑采购</md-button>
+                <md-button class="md-primary md-raised" ng-click="deletePurchases()" ng-disabled="purchaseGrid.selection.getSelectedRows().length < 1">删除采购</md-button>
+                <md-input-container flex="33" class="query-text" ng-model="query.dept" style="margin-left:15px;">
+                    <label>部门</label>
+                    <md-select ng-model="query.dept">
+                        <md-option value="-1">全部</md-option>
+                        <md-option ng-repeat="dept in depts" ng-value="dept.id">{{dept.name}}</md-option>
+                    </md-select>
+                </md-input-container>
             </div>
+            <div flex ui-grid="purchaseGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
         </md-content>
     </md-tab>
     <md-tab label="综合采购">
-        <md-content layout="column" ng-controller="EngineeringPurchaseCtrl" ng-init="type='composite'">
+        <md-content layout="column" ng-controller="EngineeringPurchaseCtrl" ng-init="type='composite'" class="max_height">
             <div layout="row" class="xd_tool_bar">
-                <md-button class="md-primary md-raised" ng-click="showPurchase()">查看综合采购</md-button>
                 <md-button class="md-primary md-raised" ng-click="addPurchase()" ng-disabled="projectGrid.selection.getSelectedRows().length > 1">新增综合采购</md-button>
+                <md-button class="md-primary md-raised" ng-click="modPurchase()" ng-disabled="purchaseGrid.selection.getSelectedRows().length!==1">编辑采购</md-button>
+                <md-button class="md-primary md-raised" ng-click="deletePurchases()" ng-disabled="purchaseGrid.selection.getSelectedRows().length < 1">删除采购</md-button>
+                <md-input-container flex="33" class="query-text" ng-model="query.dept" style="margin-left:15px;">
+                    <label>部门</label>
+                    <md-select ng-model="query.dept">
+                        <md-option value="-1">全部</md-option>
+                        <md-option ng-repeat="dept in depts" ng-value="dept.id">{{dept.name}}</md-option>
+                    </md-select>
+                </md-input-container>
             </div>
+            <div flex ui-grid="purchaseGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
         </md-content>
     </md-tab>
     <md-tab label="项目采购查询">
-        <md-content layout="column" ng-controller="EngineeringPurchaseCtrl">
+        <md-content layout="column" class="max_height">
             <div layout="row" class="xd_tool_bar">
                 <md-button class="md-primary md-raised" ng-click="addPurshase()">新增</md-button>
             </div>
         </md-content>
     </md-tab>
 </md-tabs>
-<div flex ui-grid="projectGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>

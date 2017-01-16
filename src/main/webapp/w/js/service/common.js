@@ -17,7 +17,13 @@ services.config(['$httpProvider', function($httpProvider) {
     });*/
 }]);
 
-services.service('common', ['$http', 'modal', '$q', function($http, modal, $q) {
+services.service('common', ['$http', 'modal', '$q','$timeout', function($http, modal, $q,$timeout) {
+    this.async = function(f){
+        var p = $timeout(function(){
+            f();
+            $timeout.cancel(p);
+        });
+    };
     this.relativeUrl = function(url) {
         return '../' + url;
     };

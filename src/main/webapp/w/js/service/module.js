@@ -240,13 +240,13 @@ services.service('module', ['common', 'configuration', function(common, configur
             cellTemplate: '<div class="ui-grid-cell-contents">{{grid.appScope.onlyYearAndMonth(row.entity.belong)}}</div>'
         }, {
             name: '部门',
-            field: 'dept'
+            field: 'dept.name'
         }, {
-            name: '项目编号',
-            field: 'projectId'
+            name: '项目名称',
+            field: 'project.name'
         }, {
-            name: '供应商编号',
-            field: 'supplierId'
+            name: '供应商',
+            field: 'supplier.name'
         }, {
             name: '货物或应税劳务、服务名称',
             field: 'name'

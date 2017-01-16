@@ -37,7 +37,10 @@ public class EngineeringPurchaseController extends BaseController{
     @Autowired
     CompositePurchaseRepository compositePurchaseRepository;
 
-    @RequestMapping("obtainEngineeringPurchases")
+    @Autowired
+    ProjectRepository projectRepository;
+
+    @RequestMapping("obtainPurchases")
     @ResponseBody
     public PageContent obtainEngineeringPurchases(int page, int limit, EngineeringPurchase query) {
         return page(engineeringPurchaseRepository.findAll(Example.of(query, queryMatcher())

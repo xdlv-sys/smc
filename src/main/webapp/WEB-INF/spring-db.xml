@@ -27,6 +27,7 @@
         </property>
         <property name="jpaProperties">
             <props>
+                <prop key="hibernate.max_fetch_depth">3</prop>
                 <prop key="hibernate.physical_naming_strategy">xd.fw.mk.PhysicalNamingStrategyImpl</prop>
             </props>
         </property>
