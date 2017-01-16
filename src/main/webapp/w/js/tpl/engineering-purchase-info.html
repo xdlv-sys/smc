@@ -3,6 +3,23 @@
         <label>货物或应税劳务、服务名称</label>
         <input ng-model="modal.data.name" type="text" ng-readonly="!modal.add" required>
     </md-input-container>
+
+    <md-autocomplete
+          md-selected-item="selectedSupplier"
+          md-search-text="searchForSupplier"
+          md-items="item in querySupplier(searchForSupplier)"
+          md-item-text="item.name"
+          md-min-length="0"
+          placeholder="供应商">
+        <md-item-template>
+          <span md-highlight-text="searchForSupplier" md-highlight-flags="^i">{{item.name}}</span>
+        </md-item-template>
+        <!-- <md-not-found>
+          No states matching "{{ctrl.searchText}}" were found.
+          <a ng-click="ctrl.newState(ctrl.searchText)">Create a new one!</a>
+        </md-not-found> -->
+      </md-autocomplete>
+
     <md-input-container>
         <label>采购时间</label>
         <md-datepicker ng-model="modal.data.belong" required xd-date ng-readonly="!modal.add"></md-datepicker>
@@ -61,18 +78,18 @@
 <div layout="row">
     <md-input-container flex>
         <label>税率</label>
-        <input ng-model="modal.data.rate" type="text" ng-readonly required>
+        <input ng-model="modal.data.rate" type="text" required>
     </md-input-container>
     <md-input-container flex>
         <label>不含税金额</label>
-        <input type="text" ng-model="modal.data.unTaxCount" ng-readonly="!modal.add" ng-value="parseFloat(modal.data.price) * parseFloat(modal.data.productCount)" required>
+        <input type="text" ng-model="modal.data.unTaxCount" readonly required>
     </md-input-container>
     <md-input-container flex>
         <label>税额</label>
-        <input ng-model="modal.data.rateCount" ng-value="modal.data.unTaxCount * modal.data.rate" type="text" ng-readonly="!modal.add" required>
+        <input ng-model="modal.data.rateCount" type="text" readonly required>
     </md-input-container>
     <md-input-container flex>
         <label>价税合计金额</label>
-        <input ng-model="modal.data.total" type="text" ng-readonly="!modal.add" required>
+        <input ng-model="modal.data.total" type="text" readonly required>
     </md-input-container>
 </div>
