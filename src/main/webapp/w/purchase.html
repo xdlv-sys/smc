@@ -48,10 +48,33 @@
         </md-content>
     </md-tab>
     <md-tab label="项目采购查询">
-        <md-content layout="column" class="max_height">
+        <md-content layout="column" class="max_height" ng-controller="PurchaseQueryCtrl">
             <div layout="row" class="xd_tool_bar">
-                <md-button class="md-primary md-raised" ng-click="addPurshase()">新增</md-button>
+                <md-autocomplete flex md-selected-item="selectedProject" md-search-text="searchForPorject" md-items="item in queryPorject(searchForPorject)" md-item-text="item.name" md-min-length="0" md-floating-label="项目">
+                    <md-item-template>
+                        <span md-highlight-text="searchForPorject" md-highlight-flags="^i">{{item.name}}</span>
+                    </md-item-template>
+                </md-autocomplete>
+                <md-input-container style="margin-right:8px;">
+                    <label>开始年月</label>
+                    <md-datepicker ng-model="query2.startDate" xd-date md-date-filter="onlyTheFirstDayPredicate"></md-datepicker>
+                </md-input-container>
+                <md-input-container style="margin-right:8px;">
+                    <label>结束年月</label>
+                    <md-datepicker ng-model="query2.endDate" xd-date md-date-filter="onlyTheFirstDayPredicate"></md-datepicker>
+                </md-input-container>
+                <md-input-container class="query-text" flex>
+                    <label>采购类型</label>
+                    <md-select ng-model="queryType">
+                        <md-option value="1">项目采购</md-option>
+                        <md-option value="2">工程采购</md-option>
+                        <md-option value="3">综合采购</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-button class="md-primary md-raised" ng-click="loadPurchases()" ng-disabled="!selectedProject || !queryType">查询</md-button>
             </div>
+            <div flex ui-grid="purchaseQueryGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
         </md-content>
     </md-tab>
 </md-tabs>

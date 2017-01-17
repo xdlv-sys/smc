@@ -162,6 +162,7 @@ services.service('module', ['common', 'configuration', function(common, configur
     this.getSupplierTypes = function(m) {
         m = m || {};
         m.identities = configuration.group(3, 'identity');
+        m.countUnits = configuration.group(1, 'countUnit');
         return m;
     };
 
@@ -203,16 +204,16 @@ services.service('module', ['common', 'configuration', function(common, configur
             cellTemplate: '<div class="ui-grid-cell-contents">{{grid.appScope.onlyYearAndMonth(row.entity.belong)}}</div>'
         }, {
             name: '供应商名称',
-            field: 'company'
+            cellTemplate: '<div class="ui-grid-cell-contents" >{{row.entity.company || row.entity.supplier.name}}</div>'
         }, {
             name: '商品服务名',
-            field: 'productName'
+            cellTemplate: '<div class="ui-grid-cell-contents" >{{row.entity.productName || row.entity.name}}</div>'
         }, {
             name: '商品规格型号',
             field: 'productModel'
         }, {
             name: '计量单位',
-            field: 'productUnit'
+            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{grid.options.configuration.i18n(1,"countUnit",row.entity.productUnit)}}' + '</div>'
         }, {
             name: '入库数量',
             field: 'productCount'
