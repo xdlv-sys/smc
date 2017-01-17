@@ -1,0 +1,10 @@
+<md-content layout="column" class="max_height" ng-controller="ReceiptCtrl">
+    <div layout="row" class="xd_tool_bar">
+        <md-button class="md-primary md-raised" ng-click="showReceipt()" ng-disabled="projectGrid.selection.getSelectedRows().length!==1" >查看项目收款</md-button>
+        <md-button class="md-primary md-raised" ng-click="addReceipt()" ng-disabled="projectGrid.selection.getSelectedRows().length!==1" >录入项目收款</md-button>
+
+        <md-button class="md-primary md-raised" ng-click="showProgressAndReceipt()" ng-disabled="projectGrid.selection.getSelectedRows().length!==1">项目进度及收款</md-button>
+    </div>
+    
+    <div flex ui-grid="projectGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
+</md-content>

@@ -497,3 +497,20 @@ create table t_composite_purchase (
   total number(38,4)
 );
 
+insert into t_mod values(47,'税务分析管理',null,null,'fa fa-cogs',0);
+insert into t_mod values(48,'项目收款管理',null,'receipt','fa fa-credit-card-alt',47);
+insert into t_role_mod values(-54,-2,47);
+insert into t_role_mod values(-53,-2,48);
+
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE t_project_receipt';
+  EXCEPTION WHEN OTHERS THEN NULL;
+END;
+create table t_project_receipt (
+  id INT PRIMARY KEY,
+  project_id int,
+  belong date,
+  count number(38,4),
+  create_time date
+);
+

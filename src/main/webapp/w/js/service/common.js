@@ -118,7 +118,7 @@ services.service('common', ['$http', 'modal', '$q','$timeout', function($http, m
             onRegisterApi: function(gridApi) {
                 if (!this.selection) {
                     this.selection = gridApi.selection;
-                    gridApi.pagination.on.paginationChanged(scope, loadData);
+                    gridApi.pagination && gridApi.pagination.on.paginationChanged(scope, loadData);
                 }
 
             }

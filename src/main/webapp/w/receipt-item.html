@@ -1,0 +1,6 @@
+<div layout="row" class="xd_tool_bar">
+    <md-button class="md-primary md-raised fa fa-backward" ng-click="back()">&nbsp;返回</md-button>
+    <md-button class="md-primary md-raised" ng-click="modReceipt()" ng-disabled="itemGrid.selection.getSelectedRows().length!==1">编辑收款</md-button>
+    <md-button class="md-primary md-raised" ng-click="deleteReceipt()" ng-disabled="itemGrid.selection.getSelectedRows().length < 1">删除收款</md-button>
+</div>
+<div flex ui-grid="itemGrid" ui-grid-selection ui-grid-auto-resize class="max_height"></div>

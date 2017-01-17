@@ -340,4 +340,29 @@ services.service('module', ['common', 'configuration', function(common, configur
         }], scope, loadData, configuration);
     };
 
+    this.createReceiptGrid = function(scope, loadData, configuration) {
+        return common.createGridOption([{
+            name: '所属月份',
+            cellTemplate: '<div class="ui-grid-cell-contents">{{grid.appScope.onlyYearAndMonth(row.entity.belong)}}</div>'
+        }, {
+            name: '项目名称',
+            field: 'project.name'
+        }, {
+            name: '至上期收款累计',
+            field: 'allByLastMonth',
+            cellFilter: 'toFixed'
+        }, {
+            name: '本月回款额',
+            field: 'count',
+            cellFilter: 'toFixed'
+        }, {
+            name: '累计收款（含跨年）',
+            field: 'allByNow',
+            cellFilter: 'toFixed'
+        },{
+            name: '完成进度回款率（%）',
+            field: 'percent'
+        }], scope, loadData, configuration);
+    };
+
 }]);
