@@ -2,6 +2,7 @@ package xd.fw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,6 +13,7 @@ import xd.fw.dao.ProjectRepository;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by xd on 2017/1/10.
@@ -32,9 +34,18 @@ public class CompositePurchaseController extends BaseController{
 
     @RequestMapping("obtainPurchases")
     @ResponseBody
-    public PageContent obtainEngineeringPurchases(int page, int limit, CompositePurchase query) {
+    public PageContent obtainPurchases(int page, int limit ,CompositePurchase query) {
         return page(compositePurchaseRepository.findAll(Example.of(query, queryMatcher())
                 ,pageRequest(page, limit)));
+    }
+
+    @RequestMapping("obtainPurchasesForQuery")
+    @ResponseBody
+    public PageContent obtainPurchasesForQuery(int page, int limit
+            , Date startDate, Date endDate, int projectId) {
+        Page<CompositePurchase> list = compositePurchaseRepository.findByBelongBetweenAndProjectId(
+                startDate, endDate, projectId, pageRequest(page, limit));
+        return page(list);
     }
     @RequestMapping("savePurchases")
     @ResponseBody

@@ -3,31 +3,32 @@
         <div layout="row" style="margin-top:10px;">
             <md-input-container flex>
                 <label>供应商纳税人身份分类</label>
-                <md-select flex ng-model="identityType">
+                <md-select flex ng-model="identityType" ng-readonly="identityType" required>
                     <md-option ng-repeat="n in modal.identities" ng-value="n.index">{{n.value}}</md-option>
                 </md-select>
             </md-input-container>
             <md-input-container flex>
                 <label>采购支付总额</label>
-                <input ng-model="totalCount" type="text">
+                <input ng-model="totalCount" type="number" required>
             </md-input-container>
         </div>
         <div layout="row">
             <md-input-container flex>
                 <label>商品或服务分类</label>
-                <md-select flex ng-model="supplierType">
+                <md-select flex ng-model="supplierType" required>
                     <md-option ng-repeat="n in modal.supplierTypes" ng-value="n">{{n.name}}</md-option>
                 </md-select>
             </md-input-container>
             <md-input-container flex>
                 <label>商品或服务子类</label>
-                <md-select flex ng-model="supplierSubType">
+                <md-select flex ng-model="supplierSubType" required>
                     <md-option ng-repeat="n in supplierType.supplierSubTypeNames" ng-value="n">{{n.name}}</md-option>
                 </md-select>
             </md-input-container>
         </div>
         <div layout="row" class="xd_tool_bar">
             <span flex></span>
+            <!-- <md-button class="md-primary md-raised" ng-click="costTaxForm={}">&nbsp;重置&nbsp;</md-button> -->
             <md-button class="md-primary md-raised" ng-click="calculate()" ng-disabled="costTaxForm.$invalid" ng-if="allow(45)">&nbsp;测算&nbsp;</md-button>
         </div>
     </form>

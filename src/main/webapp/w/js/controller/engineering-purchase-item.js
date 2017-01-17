@@ -1,6 +1,7 @@
 controllers.controller('EngineeringPurchaseItemCtrl', ['$scope', '$rootScope', 'configuration', 'common', 'modal', 'module', '$filter', '$state', '$stateParams', 'supplierTypeName','util', function($scope, $rootScope, configuration, common, modal, module, $filter, $state, $stateParams, supplierTypeName,util) {
 
     $scope.modal = module.getSupplierTypes($stateParams.project);
+    
     if (angular.isBlank($scope.modal.data)){
         $scope.modal.data = {};
     } else {

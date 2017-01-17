@@ -34,17 +34,24 @@ public class EngineeringPurchaseController extends BaseController{
 
     @Autowired
     EngineeringPurchaseRepository engineeringPurchaseRepository;
-    @Autowired
-    CompositePurchaseRepository compositePurchaseRepository;
 
     @Autowired
     ProjectRepository projectRepository;
 
     @RequestMapping("obtainPurchases")
     @ResponseBody
-    public PageContent obtainEngineeringPurchases(int page, int limit, EngineeringPurchase query) {
+    public PageContent obtainPurchases(int page, int limit ,EngineeringPurchase query) {
         return page(engineeringPurchaseRepository.findAll(Example.of(query, queryMatcher())
                 ,pageRequest(page, limit)));
+    }
+
+    @RequestMapping("obtainPurchasesForQuery")
+    @ResponseBody
+    public PageContent obtainPurchasesForQuery(int page, int limit
+            , Date startDate, Date endDate, int projectId) {
+        Page<EngineeringPurchase> list = engineeringPurchaseRepository.findByBelongBetweenAndProjectId(
+                startDate, endDate, projectId, pageRequest(page, limit));
+        return page(list);
     }
     @RequestMapping("savePurchases")
     @ResponseBody
