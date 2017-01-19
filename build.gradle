@@ -30,6 +30,7 @@ repositories {
 configurations{
     compile.exclude group: 'log4j'
     compile.exclude group: 'org.apache.logging.log4j'
+    compile.exclude group: 'org.hibernate', module: 'hibernate-entitymanager'
 }
 
 dependencies {
