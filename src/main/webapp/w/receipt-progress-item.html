@@ -1,0 +1,77 @@
+<div layout="column" flex ng-init="tableWidth=1970">
+    <div layout="row" class="item_tool">
+        <md-button class="md-primary md-raised fa fa-backward" ng-click="back()">&nbsp;返回</md-button>
+        <md-button class="md-primary md-raised" ng-click="exportProgress()">&nbsp;导出</md-button>
+        <md-button class="md-primary md-raised" ng-click="print()">&nbsp;打印</md-button>
+        <md-button class="md-primary md-raised" ng-click="modProgress()">编辑工程月进度、收款说明</md-button>
+        <md-button class="md-primary md-raised fa fa-plus" ng-click="tableWidth = tableWidth + 100"></md-button>
+        <md-button class="md-primary md-raised fa fa-minus" ng-click="tableWidth = tableWidth - 100"></md-button>
+    </div>
+    <h1 class="pull_center">{{show.year}}年{{show.month}}月已完工程月进度报表</h1>
+    <b>项目:{{project.name}}</b>
+    <br>
+    <md-content flex>
+        <table border="1" class="table" style="min-width:{{tableWidth}}px; margin: 0 auto;">
+            <tr>
+                <td colspan="4"></td>
+                <td colspan="4">合同情况</td>
+                <td colspan="3"></td>
+                <td colspan="3">进度情况</td>
+                <td colspan="4">回款情况</td>
+                <td colspan="2">工程月进度、收款说明</td>
+            </tr>
+            <tr style="font-weight:bold;">
+                <td>序号</td>
+                <td>类别</td>
+                <td>项目名称</td>
+                <td>项目经理</td>
+
+                <td>合同金额</td>
+                <td>上期完成合同额</td>
+                <td>剩余合同额</td>
+                <td>合同完成率%</td>
+
+                <td>施工面积(M/M2)</td>
+                <td>开工日期</td>
+                <td>竣工日期</td>
+                
+                <td>至上期累计</td>
+                <td>本月完工</td>
+                <td>进度累计(含跨年)</td>
+                
+                <td>至上期收款累计</td>    
+                <td>本月回款额</td>
+                <td>累计收款(含跨年)</td>
+                <td>完成进度回款率%</td>
+
+                <td>进度</td>
+                <td>形象进度</td>
+            </tr>
+            <tr style="min-height:20px;">
+                <td>1</td>
+                <td>{{config.i18n(2,"projectType",project.projectType)}}</td>
+                <td>{{project.name}}</td>
+                <td>{{project.manager}}</td>
+
+                <td>{{project.totalCount}}</td>
+                <td>{{show.contract_last}}</td>
+                <td>{{show.contract_remain}}</td>
+                <td>{{show.contract_percent}}</td>
+                <td>{{show.area}}</td>
+                <td>{{project.contractStartDate}}</td>
+                <td>{{project.contractEndTime}}</td>
+                <td>{{show.construction_last}}</td>
+                <td>{{show.construction_current}}</td>
+                <td>{{show.construction_all}}</td>
+                <td>{{show.receipt_last}}</td>
+                <td>{{show.receipt_current}}</td>
+                <td>{{show.receipt_all}}</td>
+                <td>{{show.receipt_percent}}</td>
+                <td>{{show.addition_progress}}</td>
+                <td>{{show.addition_progress2}}</td>
+            </tr>
+            
+        </table>
+        <br>
+    </md-content>
+</div>

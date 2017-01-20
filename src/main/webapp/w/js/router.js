@@ -139,7 +139,13 @@ angular.module('xdApp', [
             params: { project: null },
             templateUrl: 'receipt-item.html',
             controller: 'ReceiptCtrl'
+        }).state('receipt-progress-item', {
+            url: '/receipt-progress-item',
+            params: { project: null },
+            templateUrl: 'receipt-progress-item.html',
+            controller: 'ReceiptProgressItemCtrl'
         });
 
+        
     }
 ]);

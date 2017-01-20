@@ -1,10 +1,23 @@
-<md-content layout="column" class="max_height" ng-controller="ReceiptCtrl">
-    <div layout="row" class="xd_tool_bar">
-        <md-button class="md-primary md-raised" ng-click="showReceipt()" ng-disabled="projectGrid.selection.getSelectedRows().length!==1" >查看项目收款</md-button>
-        <md-button class="md-primary md-raised" ng-click="addReceipt()" ng-disabled="projectGrid.selection.getSelectedRows().length!==1" >录入项目收款</md-button>
+<md-tabs class="tab_tool">
+    <md-tab label="项目收款">
+        <md-content layout="column" ng-controller="ReceiptCtrl">
+            <div layout="row" class="xd_tool_bar">
+                <md-button class="md-primary md-raised" ng-click="showReceipt()" ng-disabled="projectGrid.selection.getSelectedRows().length!==1">查看项目收款</md-button>
+                <md-button class="md-primary md-raised" ng-click="addReceipt()" ng-disabled="projectGrid.selection.getSelectedRows().length!==1">录入项目收款</md-button>
+            </div>
+        </md-content>
+    </md-tab>
+    <md-tab label="项目进度及收款">
+        <md-content layout="column">
+            <div layout="row" class="xd_tool_bar">
+                <md-input-container style="margin-right:8px;">
+                    <label>所属年月</label>
+                    <md-datepicker ng-model="belong" xd-date md-date-filter="onlyTheFirstDayPredicate"></md-datepicker>
+                </md-input-container>
 
-        <md-button class="md-primary md-raised" ng-click="showProgressAndReceipt()" ng-disabled="projectGrid.selection.getSelectedRows().length!==1">项目进度及收款</md-button>
-    </div>
-    
-    <div flex ui-grid="projectGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
-</md-content>
+                <md-button class="md-primary md-raised" ng-click="showProgressAndReceipt()" ng-disabled="!belong || projectGrid.selection.getSelectedRows().length!==1 ">项目进度及收款</md-button>
+                </div>
+        </md-content>
+    </md-tab>
+</md-tabs>
+<div flex ui-grid="projectGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>

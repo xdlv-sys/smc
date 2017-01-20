@@ -6,17 +6,11 @@
 </div>
 <div layout="row">
    <md-input-container flex>
-        <label>施工面积</label>
-        <input ng-model="modal.data.area" type="text" required>
+        <label>本月完成合同额</label>
+        <input ng-model="modal.data.finished" type="text" required>
     </md-input-container>
     <md-input-container>
         <label>所属年月</label>
         <md-datepicker ng-model="modal.data.belong" required xd-date ng-readonly="!modal.add" md-date-filter="modal.from.onlyTheFirstDayPredicate"></md-datepicker>
-    </md-input-container>
-</div>
-<div layout="row">
-    <md-input-container flex>
-        <label>本月完工</label>
-        <input ng-model="modal.data.finished" type="text" required>
     </md-input-container>
 </div>

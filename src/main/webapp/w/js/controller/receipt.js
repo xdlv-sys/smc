@@ -76,5 +76,4 @@ controllers.controller('ReceiptCtrl', ['$scope', '$rootScope', 'configuration', 
             data: $scope.itemGrid.selection.getSelectedRows()[0]
         });
     };
-
 }]);

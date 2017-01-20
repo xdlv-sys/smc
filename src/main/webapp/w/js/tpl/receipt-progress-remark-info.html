@@ -1,0 +1,20 @@
+<div layout="row">
+    <md-input-container flex>
+        <label>项目名称</label>
+        <input ng-model="modal.projectName" type="text" required readonly>
+    </md-input-container>
+    <md-input-container>
+        <label>所属年月</label>
+        <md-datepicker ng-model="modal.data.belong" required xd-date readonly md-date-filter="modal.from.onlyTheFirstDayPredicate"></md-datepicker>
+    </md-input-container>
+</div>
+<div layout="row">
+   <md-input-container flex>
+        <label>进度</label>
+        <input ng-model="modal.data.progress" type="text" required>
+    </md-input-container>
+    <md-input-container flex>
+        <label>形象进度</label>
+        <input ng-model="modal.data.progress2" type="text" required>
+    </md-input-container>
+</div>

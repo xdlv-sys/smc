@@ -100,4 +100,13 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
         project.itemType = itemType;
         $state.go('progress-item', { project: project });
     };
+
+    $scope.showProgressAndReceipt = function(){
+        $state.go('receipt-progress-item', { 
+            project: {
+                project : $scope.getSelectedProjects()[0],
+                belong: $scope.belong
+            } 
+        });
+    };
 }]);
