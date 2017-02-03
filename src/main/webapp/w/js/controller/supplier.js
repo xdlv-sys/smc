@@ -1,4 +1,4 @@
-controllers.controller('SupplierCtrl', ['$scope', '$rootScope', 'configuration', 'common', 'modal', 'module', '$filter', '$state','supplierTypeName', function($scope, $rootScope, configuration, common, modal, module, $filter, $state,supplierTypeName) {
+controllers.controller('SupplierCtrl', ['$scope', '$rootScope', 'configuration', 'common', 'modal', 'module', '$filter', '$state','supplierTypeName','$stateParams', function($scope, $rootScope, configuration, common, modal, module, $filter, $state,supplierTypeName,$stateParams) {
 
     $scope.query = {
         dept: undefined
@@ -20,6 +20,9 @@ controllers.controller('SupplierCtrl', ['$scope', '$rootScope', 'configuration',
     });
 
     $scope.supplierGrid = module.createSupplierGrid($scope, $scope.loadSuppliers, configuration);
+    if ($stateParams.man){
+        $scope.supplierGrid = module.createSupplierGrid2($scope, $scope.loadSuppliers, configuration);
+    }
     $scope.loadSuppliers(1, $scope.supplierGrid.paginationPageSize);
 
     $scope.addSupplier = function() {

@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static xd.fw.util.FwUtil.getCurrentYearAndMonth;
 import static xd.fw.util.FwUtil.setCellValue;
 
 /**
@@ -160,12 +161,6 @@ public class ProjectReceiptController extends BaseController {
         }
 
         return ret;
-    }
-
-    private int[] getCurrentYearAndMonth(Date belong){
-        Calendar instance = Calendar.getInstance();
-        instance.setTime(belong);
-        return new int[] {instance.get(Calendar.YEAR), instance.get(Calendar.MONTH)};
     }
 
     @RequestMapping("exportProgress")

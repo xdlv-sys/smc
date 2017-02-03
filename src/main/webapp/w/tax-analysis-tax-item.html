@@ -1,0 +1,48 @@
+<div layout="column" flex>
+    <div layout="row" class="item_tool">
+        <md-button class="md-primary md-raised fa fa-backward" ng-click="back()">&nbsp;返回</md-button>
+        <md-button class="md-primary md-raised" ng-click="export()">&nbsp;导出</md-button>
+    </div>
+    <h1 class="pull_center">{{project.name}}税收负担分析</h1>
+    <b>&nbsp;&nbsp;&nbsp;所属期:{{belong}}</b>
+    <br>
+    <md-content flex>
+        <table border="1" class="table" style="margin: 0 auto; width:98%; line-height: 30px;">
+            <tr>
+                <td>一、工程进度</td>
+                <td>本月数</td>
+                <td>项目开工至今累计</td>
+            </tr>
+            <tr>
+                <td>{{percent}}</td>
+                <td>{{data[0][0]}}</td>
+                <td>{{data[1][0]}}</td>
+            </tr>
+            <tr>
+                <td>二、税款计算</td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td>1、销项税额</td>
+                <td>{{data[0][1]}}</td>
+                <td>{{data[1][1]}}</td>
+            </tr>
+            <tr>
+                <td>2、进项税额</td>
+                <td>{{data[0][2]}}</td>
+                <td>{{data[1][2]}}</td>
+            </tr>
+            <tr>
+                <td>3、应纳税额</td>
+                <td>{{data[0][3]}}</td>
+                <td>{{data[1][3]}}</td>
+            </tr>
+            <tr>
+                <td>三、税负测算</td>
+                <td>{{data[0][4]}}</td>
+                <td>{{data[1][4]}}</td>
+            </tr>
+        </table>
+        <br>
+    </md-content>
+</div>

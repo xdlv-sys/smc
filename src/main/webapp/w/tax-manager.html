@@ -1,0 +1,36 @@
+<md-tabs flex>
+    <md-tab label="进项税分析及税负分析">
+        <md-content layout="column" ng-controller="TaxAnalysisCtrl" class="max_height">
+            <div layout="row" class="xd_tool_bar">
+                <md-input-container style="margin-right:8px;">
+                    <label>所属年月</label>
+                    <md-datepicker ng-model="belong" xd-date md-date-filter="onlyTheFirstDayPredicate"></md-datepicker>
+                </md-input-container>
+                <md-button class="md-primary md-raised" ng-click="inCountAnalysis()" ng-disabled="!belong || projectGrid.selection.getSelectedRows().length!==1">进项税分析</md-button>
+                <md-button class="md-primary md-raised" ng-click="taxAnalysis()" ng-disabled="!belong || projectGrid.selection.getSelectedRows().length!==1">税负分析</md-button>
+            </div>
+            <div flex ui-grid="projectGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize></div>
+        </md-content>
+    </md-tab>
+    <md-tab label="税负查询对比分析">
+        <md-content layout="column" ng-controller="TaxQueryCompareCtrl">
+            <div layout="row" class="xd_tool_bar">
+                <md-input-container style="margin-right:8px;">
+                    <label>所属年月</label>
+                    <md-datepicker ng-model="belong" xd-date md-date-filter="onlyTheFirstDayPredicate"></md-datepicker>
+                </md-input-container>
+                <md-input-container flex="20">
+                    <md-select ng-model="desc" required>
+                        <label>税负比率</label>
+                        <md-option ng-value="descs[0]">升序</md-option>
+                        <md-option ng-value="descs[1]">降序</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-button class="md-primary md-raised" ng-click="query()" ng-disabled="!belong || !desc">分析</md-button>
+
+                <md-button class="md-primary md-raised" ng-click="export()" ng-disabled="!belong || !desc">导出</md-button>
+            </div>
+            <div ng-include="'js/tpl/tax-analysis-tax-info.html'"></div>
+        </md-content>
+    </md-tab>
+</md-tabs>

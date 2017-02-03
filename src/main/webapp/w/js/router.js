@@ -144,6 +144,26 @@ angular.module('xdApp', [
             params: { project: null },
             templateUrl: 'receipt-progress-item.html',
             controller: 'ReceiptProgressItemCtrl'
+        }).state('tax-manager', {
+            url: '/tax-manager',
+            params: { project: null },
+            templateUrl: 'tax-manager.html',
+            controller: 'ProjectCtrl'
+        }).state('tax-analysis-in-count-item', {
+            url: '/tax-analysis-in-count-item',
+            params: { project: null },
+            templateUrl: 'tax-analysis-in-count-item.html',
+            controller: 'TaxAnalysisCtrl'
+        }).state('tax-analysis-tax-item', {
+            url: '/tax-analysis-tax-item',
+            params: { project: null },
+            templateUrl: 'tax-analysis-tax-item.html',
+            controller: 'TaxAnalysisTaxCtrl'
+        }).state('tax-man-manager', {
+            url: '/tax-man-manager',
+            templateUrl: 'supplier.html',
+            params: { man: true },
+            controller: 'SupplierCtrl'
         });
 
         

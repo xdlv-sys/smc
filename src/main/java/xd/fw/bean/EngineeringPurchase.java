@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "T_ENGINEERING_PURCHASE")
-public class EngineeringPurchase {
+public class EngineeringPurchase implements IPurchase{
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "pk_engineering_purchase_id")
     @TableGenerator(name = "pk_engineering_purchase_id", table = "t_primary_key",

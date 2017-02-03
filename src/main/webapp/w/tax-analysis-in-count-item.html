@@ -1,0 +1,51 @@
+<div layout="column" flex>
+    <div layout="row" class="item_tool">
+        <md-button class="md-primary md-raised fa fa-backward" ng-click="back()">&nbsp;返回</md-button>
+        <md-button class="md-primary md-raised" ng-click="export()">&nbsp;导出</md-button>
+    </div>
+    <h1 class="pull_center">{{project.name}}进项税分析表—按税率统计分析</h1>
+    <b>&nbsp;&nbsp;&nbsp;所属期:{{belong}}</b>
+    <br>
+    <md-content flex>
+        <table border="1" class="table" style="margin: 0 auto; width:98%; ">
+            <tr>
+                <td rowspan="2">序号</td>
+                <td rowspan="2">税率</td>
+                <td colspan="3">本期</td>
+                <td colspan="3">累计数</td>
+            </tr>
+            <tr>
+                <td>不含税金额</td>
+                <td>税额</td>
+                <td>占采购总额比重</td>
+                <td>不含税金额</td>
+                <td>税额</td>
+                <td>占采购总额比重</td>
+            </tr>
+            <tr ng-repeat="(k, v) in data">
+                <td>{{$index + 1}}</td>
+                <td>{{k}}</td>
+                <td>{{v[0]}}</td>
+                <td>{{v[1]}}</td>
+                <td>{{v[6]}}%</td>
+                <td>{{v[3]}}</td>
+                <td>{{v[4]}}</td>
+                <td>{{v[7]}}%</td>
+            </tr>
+            <tr>
+                <td colspan="2">合计</td>
+                <td>{{total[0]}}</td>
+                <td>{{total[1]}}</td>
+                <td></td>
+                <td>{{total[2]}}</td>
+                <td>{{total[3]}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2">当期采购总额</td>
+                <td colspan="6">{{total[4]}}</td>
+            </tr>
+        </table>
+        <br>
+    </md-content>
+</div>

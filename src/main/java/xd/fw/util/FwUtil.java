@@ -98,6 +98,9 @@ public class FwUtil {
     public interface SafeEachProcess<T> {
         void process(T t);
     }
+    public interface SafeArrayProcess<T> {
+        void process(T t, int i);
+    }
 
     public static <T> void safeEach(Collection<T> list, SafeEachProcess<T> p) {
         if (list == null || list.size() < 1) {
@@ -106,11 +109,13 @@ public class FwUtil {
         list.forEach(p::process);
     }
 
-    public static <T> void safeEach(T[] array, SafeEachProcess<T> p){
+    public static <T> void safeEach(T[] array, SafeArrayProcess<T> p){
         if (array == null || array.length < 1){
             return;
         }
-        Arrays.stream(array).forEach(p::process);
+        for (int i=0;i<array.length;i++){
+            p.process(array[i],i);
+        }
     }
 
     public interface CompareItem<T> {
@@ -335,6 +340,11 @@ public class FwUtil {
         int power = (int) Math.pow(10, n);
         return (float) (Math.round(d * power)) / power;
     }
+    public static void toFixed(float[] data, int n){
+        for (int i=0;i<data.length;i++){
+            data[i] = toFixed(data[i],n);
+        }
+    }
 
     final static SimpleDateFormat orderSdf = new SimpleDateFormat("HHmmssyyyyMMddSSS");
 
@@ -342,6 +352,11 @@ public class FwUtil {
         return String.valueOf(orderSdf.format(new Date()));
     }
 
+    public static int[] getCurrentYearAndMonth(Date belong){
+        Calendar instance = Calendar.getInstance();
+        instance.setTime(belong);
+        return new int[] {instance.get(Calendar.YEAR), instance.get(Calendar.MONTH) + 1};
+    }
 
     public static void main(String[] args) throws Exception {
         System.out.println(toFixed(1.2345, 2));

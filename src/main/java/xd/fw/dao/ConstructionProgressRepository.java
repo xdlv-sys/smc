@@ -10,5 +10,7 @@ import java.util.List;
 public interface ConstructionProgressRepository extends JpaRepository<ConstructionProgress, Integer> {
     ConstructionProgress findByBelongAndProjectId(Date belong, Integer projectId);
 
+    List<ConstructionProgress> findByProjectId(Integer projectId);
+
     List<ConstructionProgress> findByProjectIdAndBelongIsLessThanEqualOrderByBelongAsc(Integer projectId, Date belong);
 }

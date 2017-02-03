@@ -525,3 +525,13 @@ create table t_project_addition (
   progress varchar2(16),
   progress2 varchar2(64)
 );
+
+insert into t_mod values(49,'税收管理分析',null,'tax-manager','fa fa-bookmark-o',47);
+insert into t_role_mod values(-52,-2,49);
+
+insert into t_mod values(50,'纳税人身份管理',null,'tax-man-manager','fa fa-address-book',47);
+insert into t_role_mod values(-51,-2,50);
+
+insert into t_mod values(51,'税收分析与管理建议',null,'advise','fa fa-envira',47);
+insert into t_role_mod values(-50,-2,51);
+

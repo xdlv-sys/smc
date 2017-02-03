@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "T_COMPOSITE_PURCHASE")
-public class CompositePurchase {
+public class CompositePurchase implements IPurchase{
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "pk_composite_purchase_id")
     @TableGenerator(name = "pk_composite_purchase_id", table = "t_primary_key",

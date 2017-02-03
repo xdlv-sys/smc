@@ -315,6 +315,31 @@ services.service('module', ['common', 'configuration', function(common, configur
             ,'<input type="checkbox" ng-checked="row.entity.registryImg">税务登记证</input>'
             ,'<input type="checkbox" ng-checked="row.entity.organizationImg">组织机构代码证</input>'
             ,'<input type="checkbox" ng-checked="row.entity.openAccountImg">开户许可证</input>'].join('')
+        }/*,{
+            name: '纳税人身份复核',
+            width: '10%',
+            cellTemplate: '<div class="ui-grid-cell-contents"><a href="http://www.yibannashuiren.com/">yibannashuiren.com</a></div>',
+
+        }*/], scope, loadData, configuration);
+    };
+    this.createSupplierGrid2 = function(scope, loadData, configuration) {
+        return common.createGridOption([{
+            name: '供应商名称',
+            cellTemplate: '<div class="ui-grid-cell-contents" ng-click="grid.appScope.showDetail(row.entity, false)"><a href="javascript:">{{row.entity.name}}</a></div>',
+            width: '19%'
+        }, {
+            name: '供应商税号',
+            field: 'licenseCode',
+            width: '19%'
+        }, {
+            name: '供应商纳税人身份类别',
+            cellTemplate: '<div class="ui-grid-cell-contents">{{grid.options.configuration.i18n(3,"identity",row.entity.identityType)}}</div>',
+            width: '19%'
+        },{
+            name: '纳税人身份复核',
+            width: '40%',
+            cellTemplate: '<div class="ui-grid-cell-contents"><a href="http://www.yibannashuiren.com/">http://www.yibannashuiren.com</a></div>',
+
         }], scope, loadData, configuration);
     };
 

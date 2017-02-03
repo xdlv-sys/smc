@@ -135,6 +135,7 @@ md-tabs {
 .table th {
     border: 1px solid #cad9ea;
     padding: 0 1em 0;
+    text-align:center;
 }
 
 .table tr.alter {

@@ -8,7 +8,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="T_PROJECT_PURCHASE")
-public class ProjectPurchase {
+public class ProjectPurchase implements IPurchase {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "pk_project_purchase_id")
     @TableGenerator(name = "pk_project_purchase_id", table = "t_primary_key",
@@ -50,6 +50,7 @@ public class ProjectPurchase {
         this.id = id;
     }
 
+    @Override
     public Date getBelong() {
         return belong;
     }
@@ -106,6 +107,7 @@ public class ProjectPurchase {
         this.price = price;
     }
 
+    @Override
     public Double getUnTaxCount() {
         return unTaxCount;
     }
@@ -122,6 +124,7 @@ public class ProjectPurchase {
         this.rate = rate;
     }
 
+    @Override
     public Double getRateCount() {
         return rateCount;
     }
