@@ -44,7 +44,6 @@ BEGIN
   EXCEPTION WHEN OTHERS THEN NULL;
 END;
 create table t_user_role(
-  id int  primary key,
   user_id int not null,
   role_id int not null
 );

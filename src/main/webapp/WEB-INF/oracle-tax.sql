@@ -352,7 +352,7 @@ insert into t_mod values(39,'预算税负计算','/calculate/showTaxCalculate',n
 insert into t_role_mod values(-62,-2,39);
 
 -- ----------------supplier ------------------
-insert into t_mod values(40,'各部分采购',null,null,'fa fa-shopping-cart',0);
+insert into t_mod values(40,'各部门采购',null,null,'fa fa-shopping-cart',0);
 insert into t_mod values(41,'供应商管理',null,'supplier','fa fa-address-book-o',40);
 insert into t_mod values(42,'新增供应商','supplier/saveSupplier',null,null,41);
 insert into t_mod values(43,'修改供应商','supplier/saveSupplier',null,null,41);
