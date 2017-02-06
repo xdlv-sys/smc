@@ -1,4 +1,4 @@
-controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'modal', 'menu', '$state', '$filter', function($scope, $rootScope, common, modal, menu, $state, $filter) {
+controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'modal', 'menu', '$state', '$filter','$mdSidenav', function($scope, $rootScope, common, modal, menu, $state, $filter,$mdSidenav) {
 
     //functions for menu-link and menu-toggle
     this.isOpen = $scope.isOpen = function(section) {
@@ -7,6 +7,10 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
 
     this.toggleOpen = $scope.toggleOpen = function(section) {
         menu.toggleSelectSection(section);
+    };
+    $scope.menuOpen = true;
+    $scope.toggleMenu = function(){
+        $scope.menuOpen = !$scope.menuOpen;
     };
 
     $scope.menu = menu;
@@ -97,7 +101,7 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
     $scope.logout = function() {
         common.post('/user/userLogout.cmd', null, {});
         $scope.loginSuccess = false;
-        $state.go('login')
+        $state.go('login');
     };
 
     $scope.changePassword = function(e) {

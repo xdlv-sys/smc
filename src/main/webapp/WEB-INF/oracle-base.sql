@@ -53,7 +53,6 @@ BEGIN
   EXCEPTION WHEN OTHERS THEN NULL;
 END;
 create table t_role_mod(
-  id int primary key,
   role_id int not null,
   mod_id int not null
 );

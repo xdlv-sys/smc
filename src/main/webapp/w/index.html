@@ -78,7 +78,7 @@
 
 <body ng-app="xdApp" layout="column" ng-controller="taxController">
     <md-toolbar md-whiteframe="8" layout="row" class="md-toolbar-tools">
-        <md-button class="menu md-icon-button" hide-gt-sm ng-click="toggleMenu()" aria-label="Show User List">
+        <md-button class="menu md-icon-button" ng-click="toggleMenu()" aria-label="Show Menu" ng-if="loginSuccess">
             <md-icon md-svg-icon="menu"></md-icon>
         </md-button>
         <img src="img/logo.png" width="50px" height="50px" />
@@ -90,7 +90,7 @@
         </div>
     </md-toolbar>
     <div flex layout="row">
-        <md-sidenav md-whiteframe="8" class="md-whiteframe-4dp" ng-class="{'md-visually-hidden' : !loginSuccess}" ng-classmd-component-id="left" ng-click="toggleMenu()" md-is-locked-open="$mdMedia('gt-sm')">
+        <md-sidenav md-whiteframe="8" class="md-whiteframe-4dp" md-component-id="left" md-is-locked-open="menuOpen && loginSuccess">
             <md-content role="navigation">
                 <ul class="side-menu">
                     <li ng-repeat="section in menu.sections" class="parent-list-item" ng-if="loginSuccess">
