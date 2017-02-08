@@ -76,7 +76,7 @@ insert into t_user values(-9,'g','b2f5ff47436671b6e533d8dc3614845d','g@g.com');
 
 insert into t_role values(-2,'管理员');
 
-insert into t_user_role values(-2,-10,-2);-- administrator
+insert into t_user_role values(-10,-2);-- administrator
 
 insert into t_mod values(-100,'系统配置',null,null,'fa fa-user-secret',0);
 insert into t_mod values(-99,'用户管理',null,'user','fa fa-user',-100);
@@ -93,9 +93,9 @@ insert into t_mod values(-98,'动态参数',null,'user-DynamicConfig','fa fa-pen
 -- insert into t_mod values(-98,'权限管理',null,'user-RoleManager','x-fa fa-user-secret',-100);
 -- insert into t_mod values(-97,'角色管理',null,'user-RoleManager','x-fa fa-user-secret',-100);
 
-insert into t_role_mod values(-10,-2,-100);
-insert into t_role_mod values(-9,-2,-99);
-insert into t_role_mod values(-8,-2,-98);
+insert into t_role_mod values(-2,-100);
+insert into t_role_mod values(-2,-99);
+insert into t_role_mod values(-2,-98);
 
 
 

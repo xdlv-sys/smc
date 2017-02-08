@@ -117,18 +117,18 @@ insert into t_mod values(11,'修改角色','/role/saveRole',null,null,2);
 insert into t_mod values(12,'查看部门','/dept/obtainDepts',null,null,2);
 
 delete from t_role_mod;
-insert into t_role_mod values(-100,-2,1);
-insert into t_role_mod values(-99,-2,2);
-insert into t_role_mod values(-98,-2,3);
-insert into t_role_mod values(-97,-2,4);
-insert into t_role_mod values(-96,-2,5);
-insert into t_role_mod values(-95,-2,6);
-insert into t_role_mod values(-94,-2,7);
-insert into t_role_mod values(-93,-2,8);
-insert into t_role_mod values(-92,-2,9);
-insert into t_role_mod values(-91,-2,10);
-insert into t_role_mod values(-90,-2,11);
-insert into t_role_mod values(-89,-2,12);
+insert into t_role_mod values(-2,1);
+insert into t_role_mod values(-2,2);
+insert into t_role_mod values(-2,3);
+insert into t_role_mod values(-2,4);
+insert into t_role_mod values(-2,5);
+insert into t_role_mod values(-2,6);
+insert into t_role_mod values(-2,7);
+insert into t_role_mod values(-2,8);
+insert into t_role_mod values(-2,9);
+insert into t_role_mod values(-2,10);
+insert into t_role_mod values(-2,11);
+insert into t_role_mod values(-2,12);
 
 -- product name manager
 BEGIN
@@ -180,13 +180,13 @@ insert into t_mod values(18,'删除商品','/product/deleteProduct',null,null,14
 insert into t_mod values(19,'审批商品','/product/approveProduct',null,null,14);
 insert into t_mod values(20,'审批导入','/product-import/approveProductImport',null,null,14);
 
-insert into t_role_mod values(-88,-2,13);
-insert into t_role_mod values(-87,-2,14);
-insert into t_role_mod values(-85,-2,16);
-insert into t_role_mod values(-84,-2,17);
-insert into t_role_mod values(-83,-2,18);
-insert into t_role_mod values(-82,-2,19);
-insert into t_role_mod values(-81,-2,20);
+insert into t_role_mod values(-2,13);
+insert into t_role_mod values(-2,14);
+insert into t_role_mod values(-2,16);
+insert into t_role_mod values(-2,17);
+insert into t_role_mod values(-2,18);
+insert into t_role_mod values(-2,19);
+insert into t_role_mod values(-2,20);
 
 -- project
 BEGIN
@@ -247,17 +247,17 @@ insert into t_mod values(28,'删除预算','/budget/deleteBudget',null,null,23);
 insert into t_mod values(29,'导入预算','/budget/deleteBudget',null,null,23);
 insert into t_mod values(30,'查看预算','/budget/obtainBudgets',null,null,23);
 
-insert into t_role_mod values(-80,-2,21);
-insert into t_role_mod values(-79,-2,22);
-insert into t_role_mod values(-78,-2,23);
-insert into t_role_mod values(-77,-2,24);
-insert into t_role_mod values(-76,-2,25);
-insert into t_role_mod values(-75,-2,26);
-insert into t_role_mod values(-74,-2,27);
+insert into t_role_mod values(-2,21);
+insert into t_role_mod values(-2,22);
+insert into t_role_mod values(-2,23);
+insert into t_role_mod values(-2,24);
+insert into t_role_mod values(-2,25);
+insert into t_role_mod values(-2,26);
+insert into t_role_mod values(-2,27);
 
-insert into t_role_mod values(-73,-2,28);
-insert into t_role_mod values(-72,-2,29);
-insert into t_role_mod values(-71,-2,30);
+insert into t_role_mod values(-2,28);
+insert into t_role_mod values(-2,29);
+insert into t_role_mod values(-2,30);
 
 BEGIN
   EXECUTE IMMEDIATE 'DROP TABLE t_budget';
@@ -335,21 +335,21 @@ insert into t_mod values(34,'新建工程进度','/construction-progress/savePro
 insert into t_mod values(35,'查看合同进度','/contract-progress/obtainProgresses',null,null,31);
 insert into t_mod values(36,'新建合同进度','/contract-progress/saveProgress',null,null,31);
 
-insert into t_role_mod values(-70,-2,31);
-insert into t_role_mod values(-68,-2,33);
-insert into t_role_mod values(-67,-2,34);
-insert into t_role_mod values(-66,-2,35);
-insert into t_role_mod values(-65,-2,36);
+insert into t_role_mod values(-2,31);
+insert into t_role_mod values(-2,33);
+insert into t_role_mod values(-2,34);
+insert into t_role_mod values(-2,35);
+insert into t_role_mod values(-2,36);
 
 insert into t_mod values(37,'项目预算测算管理',null,'calculate','fa fa-calculator',21);
-insert into t_role_mod values(-64,-2,37);
+insert into t_role_mod values(-2,37);
 
 insert into t_mod values(38,'预算进项税计算','/calculate/obtainCalculate',null,null,37);
-insert into t_role_mod values(-63,-2,38);
+insert into t_role_mod values(-2,38);
 alter table t_group_item add tax_ratio float;
 
 insert into t_mod values(39,'预算税负计算','/calculate/showTaxCalculate',null,null,37);
-insert into t_role_mod values(-62,-2,39);
+insert into t_role_mod values(-2,39);
 
 -- ----------------supplier ------------------
 insert into t_mod values(40,'各部门采购',null,null,'fa fa-shopping-cart',0);
@@ -357,10 +357,10 @@ insert into t_mod values(41,'供应商管理',null,'supplier','fa fa-address-boo
 insert into t_mod values(42,'新增供应商','supplier/saveSupplier',null,null,41);
 insert into t_mod values(43,'修改供应商','supplier/saveSupplier',null,null,41);
 
-insert into t_role_mod values(-61,-2,40);
-insert into t_role_mod values(-60,-2,41);
-insert into t_role_mod values(-59,-2,42);
-insert into t_role_mod values(-58,-2,43);
+insert into t_role_mod values(-2,40);
+insert into t_role_mod values(-2,41);
+insert into t_role_mod values(-2,42);
+insert into t_role_mod values(-2,43);
 
 BEGIN
   EXECUTE IMMEDIATE 'DROP TABLE t_supplier';
@@ -407,8 +407,8 @@ create table t_supplier_sub_type (
 
 insert into t_mod values(44,'采购成本税收测算',null,'cost-tax','fa fa-asterisk',40);
 insert into t_mod values(45,'测算',null,null,null,44);
-insert into t_role_mod values(-57,-2,44);
-insert into t_role_mod values(-56,-2,45);
+insert into t_role_mod values(-2,44);
+insert into t_role_mod values(-2,45);
 
 BEGIN
   EXECUTE IMMEDIATE 'DROP TABLE t_project_purchase';
@@ -431,7 +431,7 @@ create table t_project_purchase (
   project_id int
 );
 insert into t_mod values(46,'实际实施采购管理',null,'purchase','fa fa-shopping-cart',40);
-insert into t_role_mod values(-55,-2,46);
+insert into t_role_mod values(-2,46);
 
 BEGIN
   EXECUTE IMMEDIATE 'DROP TABLE t_project_purchase_import';
@@ -499,8 +499,8 @@ create table t_composite_purchase (
 
 insert into t_mod values(47,'税务分析管理',null,null,'fa fa-cogs',0);
 insert into t_mod values(48,'项目收款管理',null,'receipt','fa fa-credit-card-alt',47);
-insert into t_role_mod values(-54,-2,47);
-insert into t_role_mod values(-53,-2,48);
+insert into t_role_mod values(-2,47);
+insert into t_role_mod values(-2,48);
 
 BEGIN
   EXECUTE IMMEDIATE 'DROP TABLE t_project_receipt';
@@ -527,11 +527,11 @@ create table t_project_addition (
 );
 
 insert into t_mod values(49,'税收管理分析',null,'tax-manager','fa fa-bookmark-o',47);
-insert into t_role_mod values(-52,-2,49);
+insert into t_role_mod values(-2,49);
 
 insert into t_mod values(50,'纳税人身份管理',null,'tax-man-manager','fa fa-address-book',47);
-insert into t_role_mod values(-51,-2,50);
+insert into t_role_mod values(-2,50);
 
 insert into t_mod values(51,'税收分析与管理建议',null,'advise','fa fa-envira',47);
-insert into t_role_mod values(-50,-2,51);
+insert into t_role_mod values(-2,51);
 

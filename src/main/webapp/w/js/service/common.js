@@ -25,7 +25,7 @@ services.service('common', ['$http', 'modal', '$q','$timeout', function($http, m
         });
     };
     this.relativeUrl = function(url) {
-        return '../' + url;
+        return '../' + (url.indexOf('/') == 0 ? url.substring(1) : url);
     };
     this.loadAllPage2 = function(url, params) {
         var deferred = $q.defer();
