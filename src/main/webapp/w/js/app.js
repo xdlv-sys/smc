@@ -4,7 +4,7 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
     this.isOpen = $scope.isOpen = function(section) {
         return menu.isSectionSelected(section);
     };
-
+ 
     this.toggleOpen = $scope.toggleOpen = function(section) {
         menu.toggleSelectSection(section);
     };

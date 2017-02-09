@@ -42,7 +42,7 @@ controllers.controller('UserCtrl', ['$scope', 'common', 'modal', 'module', '$fil
                     width: 500,
                     depts: depts,
                     canGo: function(data) {
-                        return data.password === data.password2;
+                        return conf.mod || data.password === data.password2;
                     },
                     ok: function(user) {
                         //TODO simply process
@@ -86,16 +86,10 @@ controllers.controller('UserCtrl', ['$scope', 'common', 'modal', 'module', '$fil
 
     $scope.modUser = function() {
         var user = $scope.userGrid.selection.getSelectedRows()[0];
-        user = angular.copy(user);
-        if (user.birthday) {
-            user.birthday = new Date(user.birthday);
-        }
-        if (user.entryTime) {
-            user.entryTime = new Date(user.entryTime);
-        }
         $scope.openUserInfo({
             title: '修改用户',
-            data: user
+            data: user,
+            mod : true
         }, $scope);
     };
 }]);

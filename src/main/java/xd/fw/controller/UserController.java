@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,7 +63,7 @@ public class UserController extends BaseController{
     @RequestMapping("obtainUsers")
     @ResponseBody
     public PageContent obtainUsers(int page, int limit){
-        Page<User> list = userRepository.findAll(pageRequest(page, limit));
+        Page<User> list = userRepository.findAll(pageRequest(page, limit,new Sort(Sort.Direction.ASC, "id")));
         return page(list);
     }
 
