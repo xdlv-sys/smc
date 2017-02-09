@@ -9,7 +9,8 @@ module.exports = function(grunt) {
             app: {
                 files: [{
                     expand: true,
-                    src: ['modules.js', 'app.js', 'router.js', 'controller/*.js', 'service/*.js'],
+                    src: ['modules.js', 'app.js'
+                    , 'router.js', 'controller/*.js', 'service/*.js'],
                     dest: './tmp',
                     ext: '.annotated.js', // Dest filepaths will have this extension.
                     extDot: 'last', // Extensions in filenames begin after the last dot
@@ -19,12 +20,12 @@ module.exports = function(grunt) {
         concat: {
             js: {
                 src: ['./tmp/modules.annotated.js','./tmp/**/*.annotated.js','!tmp/modules.annotated.js'],
-                dest: './tmp/tmp.js'
+                dest: './cache/min/app.debug.js'
             }
         },
         uglify: {
             js: { //target
-                src: ['./tmp/tmp.js'],
+                src: ['./cache/min/app.debug.js'],
                 dest: './cache/min/app.js'
             }
         }

@@ -102,6 +102,7 @@ services.service('common', ['$http', 'modal', '$q','$timeout', function($http, m
 
     this.createGridOption = function(columnDefs, scope, loadData, configuration) {
         return {
+            enableColumnMenus: false,
             paginationPageSizes: [25, 50, 75],
             paginationPageSize: 25,
             useExternalPagination: true,
