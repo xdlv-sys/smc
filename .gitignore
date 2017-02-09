@@ -20,3 +20,5 @@ build/
 /src/main/webapp/www/bootstrap.css
 /src/main/webapp/www/classic.json
 /src/main/webapp/www/bootstrap.js
+/src/main/webapp/w/js/node_modules/
+/src/main/webapp/w/js/tmp/
