@@ -73,7 +73,7 @@
     </md-input-container>
     <md-input-container flex>
         <label>合同金额（元）</label>
-        <input ng-model="modal.data.totalCount" type="text" ng-readonly="!modal.add" required>
+        <input ng-model="modal.data.totalCount" type="number" ng-readonly="!modal.add" required>
     </md-input-container>
 </div>
 <div layout="row">
@@ -85,7 +85,7 @@
     </md-input-container>
     <md-input-container flex>
         <label>不含税合同金额</label>
-        <input ng-model="modal.data.untaxedCount" type="text" ng-readonly="!modal.add" required="">
+        <input ng-model="modal.data.untaxedCount" type="number" ng-readonly="!modal.add" required="">
     </md-input-container>
 </div>
 <div layout="row">
@@ -167,7 +167,7 @@
             </md-input-container>
             <md-input-container flex>
                 <label>分包合同总金额</label>
-                <input ng-model="modal.data.outSources[$index].count" type="text" ng-readonly="!modal.add" required>
+                <input ng-model="modal.data.outSources[$index].count" type="number" ng-readonly="!modal.add" required>
             </md-input-container>
         </div>
     </div>

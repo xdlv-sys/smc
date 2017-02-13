@@ -4,7 +4,8 @@
         <input ng-model="modal.data.name" type="text" required>
     </md-input-container>
     <md-input-container flex>
-        <md-datepicker ng-model="modal.data.birthday" md-placeholder="出身日期" required xd-date></md-datepicker>
+        <label>出身日期</label>
+        <md-datepicker ng-model="modal.data.birthday" required xd-date></md-datepicker>
     </md-input-container>
 </div>
 <div layout="row">
@@ -39,6 +40,9 @@
         <label>再次输入</label>
         <input ng-model="modal.data.password2" type="password" required>
     </md-input-container>
+    <p ng-if="!modal.canGo(modal.data)" style="color:red;">
+      密码输入不一致
+    </p>
 </div>
 <div layout="row">
     <md-input-container flex>

@@ -17,9 +17,9 @@ services.config(['$httpProvider', function($httpProvider) {
     });*/
 }]);
 
-services.service('common', ['$http', 'modal', '$q','$timeout', function($http, modal, $q,$timeout) {
-    this.async = function(f){
-        var p = $timeout(function(){
+services.service('common', ['$http', 'modal', '$q', '$timeout', function($http, modal, $q, $timeout) {
+    this.async = function(f) {
+        var p = $timeout(function() {
             f();
             $timeout.cancel(p);
         });
@@ -50,7 +50,7 @@ services.service('common', ['$http', 'modal', '$q','$timeout', function($http, m
         //remove all undefined value
         params = params || {};
         for (var k in params) {
-            if (angular.isBlank(params[k])) {
+            if (angular.isBlank(params[k]) || parseInt(params[k]) === -198110100516) {
                 delete params[k];
             }
         }
@@ -88,8 +88,16 @@ services.service('common', ['$http', 'modal', '$q','$timeout', function($http, m
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).then(function(result) {
-            if (conf && conf.success) {
-                conf.success(result);
+            if (result && result.data.errorMsg) {
+                if (conf && conf.fail) {
+                    conf.fail(err);
+                } else {
+                    modal.alert('操作失败：' + result.data.errorMsg);
+                }
+            } else {
+                if (conf && conf.success) {
+                    conf.success(result);
+                }
             }
             modal.hide();
         }, function(err) {

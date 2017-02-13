@@ -124,9 +124,11 @@ public class CalculateController extends BaseController {
                         setCellValue(sheet,row[0],4, item.getCount().toString());
                         setCellValue(sheet,row[0],5, item.getPrice().toString());
                         setCellValue(sheet,row[0],6, item.getTotal().toString());
-                        setCellValue(sheet,row[0],7, String.format("%d%%",(int)(item.getTaxRatio() * 100)));
-                        setCellValue(sheet,row[0],8, String.valueOf(toFixed(item.getTotal()/(item.getTaxRatio() + 1),2)));
-                        setCellValue(sheet,row[0],9, String.valueOf(toFixed(item.getTotal() * item.getTaxRatio() /(item.getTaxRatio() + 1),2)));
+                        if (item.getTaxRatio() != null){
+                            setCellValue(sheet,row[0],7, String.format("%d%%",(int)(item.getTaxRatio() * 100)));
+                            setCellValue(sheet,row[0],8, String.valueOf(toFixed(item.getTotal()/(item.getTaxRatio() + 1),2)));
+                            setCellValue(sheet,row[0],9, String.valueOf(toFixed(item.getTotal() * item.getTaxRatio() /(item.getTaxRatio() + 1),2)));
+                        }
                         row[0] ++;
                     });
                 });

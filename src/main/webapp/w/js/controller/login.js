@@ -1,12 +1,13 @@
 controllers.controller('LoginCtrl', [
-    '$scope', '$mdSidenav', 'common', 'menu',
-    function ($scope, $mdSidenav, common, menu) {
+    '$scope', '$mdSidenav', 'common', 'menu','modal',
+    function ($scope, $mdSidenav, common, menu,modal) {
         $scope.login = function () {
             common.post('/user/userLogin.cmd', $scope.user, {
                 success: function (data) {
                     var mods = [];
                     var user = data.data;
                     if (!user){
+                        modal.alert('用户名或者密码有误，请重试。');
                         return;
                     }
                     user.roles.each(function (role) {

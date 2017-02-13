@@ -22,3 +22,4 @@ build/
 /src/main/webapp/www/bootstrap.js
 /src/main/webapp/w/js/node_modules/
 /src/main/webapp/w/js/tmp/
+/src/main/webapp/w/sftp-config.json

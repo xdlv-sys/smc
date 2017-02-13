@@ -2,7 +2,7 @@ angular.module('xdApp', [
     'xdApp.controllers',
     'ngAnimate',
     'ui.router',
-    'ngMaterial',
+    'ngMaterial', 'ngMessages',
     'ngAria',
     'ui.grid', 'ui.grid.pagination', 'ui.grid.selection', 'ui.grid.autoResize','ui.grid.edit',
     'multiselect-searchtree', 'ngPopover',

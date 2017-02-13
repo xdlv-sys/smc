@@ -32,6 +32,14 @@ controllers.controller('UserCtrl', ['$scope', 'common', 'modal', 'module', '$fil
                 		depts[index] = conf.data.dept;
                 	}
                 	//TODO simply process
+                    angular.forEach(conf.data.roles, function(r,i){
+                        angular.each(conf.data.dept.roles, function(r1,j){
+                            if (r.id === r1.id){
+                                conf.data.roles[i] = r1;
+                                return true;
+                            }
+                        });
+                    });
                 	if (conf.data.roles 
                 		&& conf.data.dept.roles.length === conf.data.roles.length){
                 		conf.data.roles = conf.data.dept.roles;
@@ -42,15 +50,18 @@ controllers.controller('UserCtrl', ['$scope', 'common', 'modal', 'module', '$fil
                     width: 500,
                     depts: depts,
                     canGo: function(data) {
+                        data = data || {};
                         return conf.mod || data.password === data.password2;
                     },
                     ok: function(user) {
                         //TODO simply process
-                        var roles = user.roles.length > 0 ? user.dept.roles : [];
-                        delete user.roles;
-                        angular.forEach(roles, function(v, i) {
+                        //var roles = user.roles.length > 0 ? user.dept.roles : [];
+                        
+                        angular.forEach(user.roles, function(v, i) {
                             user['roles[' + i + '].id'] = v.id;
                         });
+                        delete user.roles;
+
                         user['dept.id'] = user.dept.id;
                         delete user.dept;
 
