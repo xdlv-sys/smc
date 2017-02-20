@@ -1,46 +1,5 @@
-delete from t_mod;
-insert into t_mod values(-100,'系统配置',null,null,'fa fa-user-secret',0);
-insert into t_mod values(-99,'用户管理',null,'user','fa fa-user',-100);
-insert into t_mod values(-9901,'新增用户','/user/saveUser',null,null,-99);
-insert into t_mod values(-9902,'删除用户','/user/deleteUser',null,null,-99);
-insert into t_mod values(-9903,'修改用户','/user/saveUser',null,null,-99);
-
-insert into t_mod values(-9904,'新增角色','/role/saveRole',null,null,-99);
-insert into t_mod values(-9905,'删除角色','/role/deleteRole',null,null,-99);
-insert into t_mod values(-9906,'修改角色','/role/saveRole',null,null,-99);
-
-insert into t_mod values(-98,'动态参数',null,'conf','fa fa-pencil',-100);
-
-
-BEGIN
-  EXECUTE IMMEDIATE 'DROP TABLE t_user';
-  EXCEPTION WHEN OTHERS THEN NULL;
-END;
-create table t_user(
-  id int not null primary key,
-  name VARCHAR(50) CONSTRAINT user_name UNIQUE,
-  password VARCHAR(32),
-  birthday date,
-  sex number(2),
-  entry_time date,
-  mobile varchar2(11),
-  phone varchar2(16),
-  id_card varchar2(32),
-  mail varchar2(20),
-  dept int
-);
-
-insert into t_user(id,name,password,sex,mail,dept) values(-10,'a','0cc175b9c0f1b6a831c399e269772661',0,'a@a.com',1);
-insert into t_user(id,name,password,sex,mail,dept) values(-9,'g','b2f5ff47436671b6e533d8dc3614845d',1,'g@g.com',1);
-BEGIN
-  EXECUTE IMMEDIATE 'DROP TABLE t_dept';
-  EXCEPTION WHEN OTHERS THEN NULL;
-END;
-create table t_dept(
-  id int not null primary key,
-  parent int,
-  name varchar2(32)
-);
+insert into t_user(id,name,password,sex,mail,dept) values(-10,'a','0cc175b9c0f1b6a831c399e269772661',0,'a@a.com',0);
+insert into t_user_role values(-10,-2);
 
 insert into t_dept values(0,-1,'公司');
 insert into t_dept values(1,0,'事业部');
@@ -57,7 +16,6 @@ insert into t_dept values(11,2,'安全环保部');
 insert into t_dept values(12,2,'质量检查部');
 insert into t_dept values(13,2,'法务清欠部');
 
-delete from t_role;
 insert into t_role values(-2, '管理员');
 insert into t_role values(-1, '副总经理');
 insert into t_role values(0, '总经理');
@@ -72,38 +30,25 @@ insert into t_role values(8, '操作员(8)');
 insert into t_role values(9, '操作员(9)');
 insert into t_role values(10, '操作员(10)');
 insert into t_role values(11, '操作员(11)');
+insert into t_dept_role values(3,1);
+insert into t_dept_role values(4,2);
+insert into t_dept_role values(5,3);
+insert into t_dept_role values(6,4);
+insert into t_dept_role values(7,5);
+insert into t_dept_role values(8,6);
+insert into t_dept_role values(9,7);
+insert into t_dept_role values(10,8);
+insert into t_dept_role values(11,9);
+insert into t_dept_role values(12,10);
+insert into t_dept_role values(13,11);
+insert into t_dept_role values(0,-2);
+insert into t_dept_role values(0,-1);
+insert into t_dept_role values(0,0);
 
-BEGIN
-  EXECUTE IMMEDIATE 'DROP TABLE t_dept_role';
-  EXCEPTION WHEN OTHERS THEN NULL;
-END;
-create table t_dept_role(
-  id int primary key,
-  dept_id int not null,
-  role_id int not null
-);
-
-insert into t_dept_role values(1,3,1);
-insert into t_dept_role values(2,4,2);
-insert into t_dept_role values(3,5,3);
-insert into t_dept_role values(4,6,4);
-insert into t_dept_role values(5,7,5);
-insert into t_dept_role values(6,8,6);
-insert into t_dept_role values(7,9,7);
-insert into t_dept_role values(8,10,8);
-insert into t_dept_role values(9,11,9);
-insert into t_dept_role values(10,12,10);
-insert into t_dept_role values(11,13,11);
-insert into t_dept_role values(12,0,-2);
-insert into t_dept_role values(13,0,-1);
-insert into t_dept_role values(14,0,0);
-
-delete from t_mod;
 insert into t_mod values(1,'系统配置',null,null,'fa fa-user-secret',0);
 insert into t_mod values(2,'用户管理',null,'user','fa fa-user',1);
 insert into t_mod values(3,'动态参数',null,'conf','fa fa-pencil',1);
 
--- user manager
 insert into t_mod values(4,'新增用户','/user/saveUser',null,null,2);
 insert into t_mod values(5,'查看用户','/user/obtainUsers',null,null,2);
 insert into t_mod values(6,'删除用户','/user/deleteUser',null,null,2);
@@ -116,7 +61,6 @@ insert into t_mod values(11,'修改角色','/role/saveRole',null,null,2);
 
 insert into t_mod values(12,'查看部门','/dept/obtainDepts',null,null,2);
 
-delete from t_role_mod;
 insert into t_role_mod values(-2,1);
 insert into t_role_mod values(-2,2);
 insert into t_role_mod values(-2,3);
@@ -130,7 +74,6 @@ insert into t_role_mod values(-2,10);
 insert into t_role_mod values(-2,11);
 insert into t_role_mod values(-2,12);
 
--- product name manager
 BEGIN
   EXECUTE IMMEDIATE 'DROP TABLE t_product';
   EXCEPTION WHEN OTHERS THEN NULL;
@@ -172,8 +115,6 @@ create table t_product_import(
 
 insert into t_mod values(13,'商品管理',null,null,'fa fa-truck',0);
 insert into t_mod values(14,'商品导入及审核',null,'product','fa fa-truck',13);
--- insert into t_mod values(15,'商品审核',null,'product-approval','fa fa-check-circle',13);
-
 insert into t_mod values(16,'新增商品','/product/saveProduct',null,null,14);
 insert into t_mod values(17,'查看商品','/product/obtainProducts',null,null,14);
 insert into t_mod values(18,'删除商品','/product/deleteProduct',null,null,14);
@@ -188,7 +129,6 @@ insert into t_role_mod values(-2,18);
 insert into t_role_mod values(-2,19);
 insert into t_role_mod values(-2,20);
 
--- project
 BEGIN
   EXECUTE IMMEDIATE 'DROP TABLE t_project';
   EXCEPTION WHEN OTHERS THEN NULL;
@@ -327,7 +267,6 @@ create table t_contract_progress (
 );
 
 insert into t_mod values(31,'项目进度管理',null,'progress','fa fa-list-ol',21);
--- insert into t_mod values(32,'项目合同进度管理',null,'contract-progress','fa fa-outdent',21);
 
 insert into t_mod values(33,'查看工程进度','/construction-progress/obtainProgresses',null,null,31);
 insert into t_mod values(34,'新建工程进度','/construction-progress/saveProgress',null,null,31);
@@ -351,7 +290,6 @@ alter table t_group_item add tax_ratio float;
 insert into t_mod values(39,'预算税负计算','/calculate/showTaxCalculate',null,null,37);
 insert into t_role_mod values(-2,39);
 
--- ----------------supplier ------------------
 insert into t_mod values(40,'各部门采购',null,null,'fa fa-shopping-cart',0);
 insert into t_mod values(41,'供应商管理',null,'supplier','fa fa-address-book-o',40);
 insert into t_mod values(42,'新增供应商','supplier/saveSupplier',null,null,41);
