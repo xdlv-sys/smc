@@ -31,7 +31,7 @@ import static xd.fw.util.FwUtil.setCellValue;
  * Created by xd on 2016/12/7.
  */
 @Controller
-@RequestMapping("project")
+@RequestMapping("projecting")
 public class ProjectController extends BaseController {
     @Autowired
     ProjectRepository projectRepository;

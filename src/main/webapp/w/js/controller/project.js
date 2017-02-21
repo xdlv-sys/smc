@@ -8,7 +8,7 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
 
     $scope.query = {};
     $scope.loadProjects = function(page, limit) {
-        common.loadPage('/project/obtainProjects.cmd', angular.extend({
+        common.loadPage('/projecting/obtainProjects.cmd', angular.extend({
             page: page,
             limit: limit
         }, $scope.query), {
@@ -35,7 +35,7 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
             },
             ok: function(project) {
                 $scope.convertParams(project, 'outSources');
-                common.post('/project/saveProject.cmd', project, {
+                common.post('/projecting/saveProject.cmd', project, {
                     success: function() {
                         $scope.projectGrid.refresh();
                     }
@@ -52,7 +52,7 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
     };
 
     $scope.delProject = function() {
-        common.post('/project/deleteProject.cmd', $scope.constructSelectedId($scope.projectGrid, 'projectIds'), {
+        common.post('/projecting/deleteProject.cmd', $scope.constructSelectedId($scope.projectGrid, 'projectIds'), {
             success: function() {
                 $scope.projectGrid.refresh();
             }
@@ -64,7 +64,7 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
     };
 
     $scope.exportProject = function() {
-        var url = '../project/exportProject.cmd?projectId=';
+        var url = '../projecting/exportProject.cmd?projectId=';
         url += $scope.projectGrid.selection.getSelectedRows()[0].id;
         window.open(url, '_self');
     };
