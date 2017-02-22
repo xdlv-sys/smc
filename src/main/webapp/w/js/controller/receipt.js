@@ -64,7 +64,7 @@ controllers.controller('ReceiptCtrl', ['$scope', '$rootScope', 'configuration', 
     $scope.loadReceipt();
 
     $scope.deleteReceipt = function() {
-        common.post('/project-receipt/deleteReceipt.cmd', $scope.constructSelectedId($scope.itemGrid, 'receiptIds'), {
+        common.delete('/project-receipt/deleteReceipt.cmd', $scope.constructSelectedId($scope.itemGrid, 'receiptIds'), {
             success: function() {
                 $scope.itemGrid.refresh();
             }

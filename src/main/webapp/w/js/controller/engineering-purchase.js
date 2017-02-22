@@ -24,7 +24,7 @@ controllers.controller('EngineeringPurchaseCtrl', ['$scope', '$rootScope', 'conf
     });*/
     
     $scope.deletePurchases = function() {
-        common.post('/' + $scope.type +'-purchase/deletePurchases.cmd', $scope.constructSelectedId($scope.purchaseGrid, 'purchaseIds'), {
+        common.delete('/' + $scope.type +'-purchase/deletePurchases.cmd', $scope.constructSelectedId($scope.purchaseGrid, 'purchaseIds'), {
             success: function() {
                 $scope.purchaseGrid.refresh();
             }

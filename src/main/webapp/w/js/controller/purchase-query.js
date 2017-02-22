@@ -1,6 +1,6 @@
 controllers.controller('PurchaseQueryCtrl', ['$scope', '$rootScope', 'configuration', 'common', 'modal', 'module', '$filter', '$state', 'supplierTypeName', function($scope, $rootScope, configuration, common, modal, module, $filter, $state, supplierTypeName) {
     $scope.queryPorject = function(name) {
-        return common.loadAllPage2('/project/obtainProjects.cmd', {
+        return common.loadAllPage2('/projecting/obtainProjects.cmd', {
             name: name
         });
     };

@@ -134,7 +134,7 @@ services.service('module', ['common', 'configuration', function(common, configur
         }, {
             name: '项目承接方式',
             field: 'projectMode',
-            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{row.entity.projectMode === 0 ? "总包": "分包"}}' + '</div>'
+            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{row.entity.projectMode === 1 ? "总包": "分包"}}' + '</div>'
         }, {
             name: '项目类型',
             field: 'projectType',

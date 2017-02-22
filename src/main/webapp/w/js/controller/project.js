@@ -52,7 +52,7 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
     };
 
     $scope.delProject = function() {
-        common.post('/projecting/deleteProject.cmd', $scope.constructSelectedId($scope.projectGrid, 'projectIds'), {
+        common.delete('/projecting/deleteProject.cmd', $scope.constructSelectedId($scope.projectGrid, 'projectIds'), {
             success: function() {
                 $scope.projectGrid.refresh();
             }
@@ -85,6 +85,10 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
             projectId: $scope.projectGrid.selection.getSelectedRows()[0].id
         }, {
             success: function(result) {
+                if (result.data && result.data.right === 0){
+                    modal.alert('没有任何记录导入，请检查文件格式及内容');
+                    return;
+                }
                 $scope.budgetGrid.refresh();
                 modal.alert('成功导入:' + result.data.right + '条');
             }

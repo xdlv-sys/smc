@@ -53,7 +53,7 @@ controllers.controller('EngineeringPurchaseItemCtrl', ['$scope', '$rootScope', '
         }); 
     };
     $scope.queryPorject = function(name){
-        return common.loadAllPage2('/project/obtainProjects.cmd', {
+        return common.loadAllPage2('/projecting/obtainProjects.cmd', {
             name : name
         });
     };

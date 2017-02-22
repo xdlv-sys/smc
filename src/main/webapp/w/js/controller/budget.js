@@ -26,7 +26,7 @@ controllers.controller('BudgetCtrl', ['$scope', '$rootScope', 'configuration', '
             params.budgetIds.push(v.projectId);
         });
 
-        common.post('/budget/deleteBudget.cmd', params, {
+        common.delete('/budget/deleteBudget.cmd', params, {
             success: function() {
                 $scope.budgetGrid.refresh();
             }

@@ -109,14 +109,17 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
             title: '修改密码',
             url: 'js/tpl/change-password.html',
             canGo: function(user) {
-                console.log(user);
-                return user.password && user.newPassword && user.newPassword === user.newPassword2;
+                return user.newPassword === user.newPassword2;
             },
             ok: function(user) {
+                if (user.password === user.newPassword){
+                    modal.alert('新密码与密码相同，请重新输入');
+                    return;
+                }
                 user.name = $scope.user.name;
                 common.post('/user/changePassword.cmd', user, {
                     fail: function() {
-                        modal.alert('修改密码失败');
+                        modal.alert('修改密码失败: 原密码不正确');
                     }
                 });
             }

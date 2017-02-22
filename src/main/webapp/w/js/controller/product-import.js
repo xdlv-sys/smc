@@ -23,6 +23,9 @@ controllers.controller('ProductImportCtrl', ['$scope', 'common', 'modal', 'modul
             success: function(result) {
                 $scope.productImportGrid.refresh();
                 modal.alert('成功导入:' + result.data.right + '条，失败:' + result.data.wrong + '条');
+            },
+            fail: function(result){
+                modal.alert('导入文件失败，请检查文件格式是否正确。');
             }
         });
     };

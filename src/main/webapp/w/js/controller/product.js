@@ -42,7 +42,7 @@ controllers.controller('ProductCtrl', ['$scope', '$rootScope', 'configuration', 
     };
 
     $scope.delProduct = function() {
-        common.post('/product/deleteProduct.cmd', $scope.constructSelectedId($scope.productGrid, 'productIds'), {
+        common.delete('/product/deleteProduct.cmd', $scope.constructSelectedId($scope.productGrid, 'productIds'), {
             success: function() {
                 $scope.productGrid.refresh();
             }
