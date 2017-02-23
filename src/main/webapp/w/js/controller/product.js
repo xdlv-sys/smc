@@ -17,7 +17,7 @@ controllers.controller('ProductCtrl', ['$scope', '$rootScope', 'configuration', 
     };
 
     $scope.productGrid = module.createProductGrid($scope, $scope.loadProducts, configuration);
-    $scope.loadProducts(1, $scope.productGrid.paginationPageSize);
+    $scope.productGrid.refresh(true);
 
     $scope.openProductInfo = function(conf) {
         var params = module.getProductTypes({

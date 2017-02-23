@@ -1,4 +1,4 @@
-services.service('module', ['common', 'configuration', function(common, configuration) {
+services.service('module', function(common, configuration) {
     this.createUserGrid = function(scope, loadData) {
         return common.createGridOption([{
             name: '用户名',
@@ -391,4 +391,4 @@ services.service('module', ['common', 'configuration', function(common, configur
         }], scope, loadData, configuration);
     };
 
-}]);
+});

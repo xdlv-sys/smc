@@ -4,7 +4,7 @@ angular.module('xdApp', [
     'ui.router',
     'ngMaterial', 'ngMessages',
     'ngAria',
-    'ui.grid', 'ui.grid.pagination', 'ui.grid.selection', 'ui.grid.autoResize','ui.grid.edit',
+    'ui.grid', 'ui.grid.pagination', 'ui.grid.selection', 'ui.grid.autoResize', 'ui.grid.edit',
     'multiselect-searchtree', 'ngPopover',
     'ui.tree', 'lfNgMdFileInput'
 ]).config(['$mdDateLocaleProvider', function($mdDateLocaleProvider) {
@@ -40,14 +40,21 @@ angular.module('xdApp', [
 }]).config(['$stateProvider', '$urlRouterProvider', '$logProvider',
     function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/login");
-        $stateProvider.state('user', {
-            url: '/user',
-            templateUrl: 'user.html',
-            controller: 'UserCtrl'
-        }).state('login', {
+        var r = {
+            'config': ['configuration',
+                function(configuration) {
+                    return configuration.init();
+                }
+            ]
+        };
+        $stateProvider.state('login', {
             url: '/login',
             templateUrl: 'login.html',
             controller: 'LoginCtrl'
+        }).state('user', {
+            url: '/user',
+            templateUrl: 'user.html',
+            controller: 'UserCtrl'
         }).state('conf', {
             url: '/conf',
             templateUrl: 'conf.html',
@@ -55,7 +62,8 @@ angular.module('xdApp', [
         }).state('product', {
             url: '/product',
             templateUrl: 'product.html',
-            controller: 'ProductCtrl'
+            controller: 'ProductCtrl',
+            resolve: r
         }).state('product-item', {
             url: '/product-item',
             params: { product: null },
@@ -64,7 +72,8 @@ angular.module('xdApp', [
         }).state('project', {
             url: '/project',
             templateUrl: 'project.html',
-            controller: 'ProjectCtrl'
+            controller: 'ProjectCtrl',
+            resolve: r
         }).state('project-item', {
             url: '/project-item',
             params: { project: null },
@@ -119,7 +128,8 @@ angular.module('xdApp', [
         }).state('purchase', {
             url: '/purchase',
             templateUrl: 'purchase.html',
-            controller: 'ProjectCtrl'
+            controller: 'ProjectCtrl',
+            resolve: r
         }).state('purchase-import', {
             url: '/purchase-import',
             params: { project: null },
@@ -166,6 +176,6 @@ angular.module('xdApp', [
             controller: 'SupplierCtrl'
         });
 
-        
+
     }
 ]);

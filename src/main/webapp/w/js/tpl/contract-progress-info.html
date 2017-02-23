@@ -11,6 +11,6 @@
     </md-input-container>
     <md-input-container>
         <label>所属年月</label>
-        <md-datepicker ng-model="modal.data.belong" required xd-date ng-readonly="!modal.add" md-date-filter="modal.from.onlyTheFirstDayPredicate"></md-datepicker>
+        <md-datepicker ng-model="modal.data.belong" required xd-date ng-readonly="!modal.add" md-mode="month" md-date-locale="modal.from.monthFormat"></md-datepicker>
     </md-input-container>
 </div>

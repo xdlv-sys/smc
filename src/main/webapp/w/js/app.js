@@ -1,15 +1,15 @@
-controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'modal', 'menu', '$state', '$filter','$mdSidenav', function($scope, $rootScope, common, modal, menu, $state, $filter,$mdSidenav) {
+controllers.controller('taxController', function($scope, $rootScope, common, modal, menu, $state, $filter, $mdSidenav, $location, configuration) {
 
     //functions for menu-link and menu-toggle
     this.isOpen = $scope.isOpen = function(section) {
         return menu.isSectionSelected(section);
     };
- 
+
     this.toggleOpen = $scope.toggleOpen = function(section) {
         menu.toggleSelectSection(section);
     };
     $scope.menuOpen = true;
-    $scope.toggleMenu = function(){
+    $scope.toggleMenu = function() {
         $scope.menuOpen = !$scope.menuOpen;
     };
 
@@ -17,13 +17,26 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
 
     $scope.loginSuccess = false;
 
-    $scope.$on('loginSuccess', function(event, user, state, mods) {
+    $scope.$on('loginSuccess', function(event, user, goState) {
         $scope.loginSuccess = true;
         $rootScope.user = $scope.user = user;
-        $rootScope.mods = mods;
+
+        var mods = [];
+        user.roles.each(function(role) {
+            role.mods.each(function(mod) {
+                if (!mods.containsId(mod)) {
+                    mods.push(mod);
+                }
+            });
+        });
+        var userMods = angular.copy(mods);
+        mods = menu.parseMenu(mods, true);
+
+        $rootScope.mods = userMods;
         common.loadAllPage('/dept/obtainDepts.cmd', function(data) {
             $rootScope.depts = data.data;
         });
+
         $rootScope.back = function() {
             history.back();
         };
@@ -67,8 +80,21 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
             });
             delete param[key];
         };
+        
         $rootScope.onlyTheFirstDayPredicate = function(date) {
             return date.getDate() === 1;
+        };
+        $rootScope.monthFormat = {
+            formatDate: function(date) {
+                if (date) return $filter('date')(date,'yyyy-MM');
+                else return null;
+            },
+            parseDate: function(dateString) {
+                if (angular.isBlank(text)){
+                    return '';
+                }
+                return new Date(text);
+            }
         };
         //used to convert all date and list parameters to the right style
         $rootScope.convertParams = function(param, key) {
@@ -88,14 +114,23 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
             });
             delete param[key];
         };
-        $rootScope.onlyYearAndMonth = function(d){
-            if (angular.isBlank(d)){
+        $rootScope.onlyYearAndMonth = function(d) {
+            if (angular.isBlank(d)) {
                 return '';
             }
             return $filter('date')(new Date(d), 'yyyy-MM');
         };
 
-        $state.go(state);
+        if (!goState) {
+            var state = angular.each(mods, function(m) {
+                if (m.type === 'link') {
+                    return m.state;
+                } else {
+                    return m.pages[0].state;
+                }
+            });
+            $state.go(state);
+        }
     });
 
     $scope.logout = function() {
@@ -112,7 +147,7 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
                 return user.newPassword === user.newPassword2;
             },
             ok: function(user) {
-                if (user.password === user.newPassword){
+                if (user.password === user.newPassword) {
                     modal.alert('新密码与密码相同，请重新输入');
                     return;
                 }
@@ -124,5 +159,12 @@ controllers.controller('taxController', ['$scope', '$rootScope', 'common', 'moda
                 });
             }
         }, $scope);
-    }
-}]);
+    };
+
+    //refresh
+    common.post('/user/sessionUser.cmd', {}, function(data) {
+        if (data.data) {
+            $scope.$emit("loginSuccess", data.data, window.location.hash);
+        }
+    });
+});

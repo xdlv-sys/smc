@@ -13,7 +13,12 @@
 <div layout="row">
     <md-input-container flex>
         <label>纳税人识别号（三证合一号）</label>
-        <input ng-model="modal.data.licenseCode" type="text" ng-readonly="!modal.add" required>
+        <input name="licenseCode" ng-model="modal.data.licenseCode" type="text" ng-readonly="!modal.add" required ng-pattern="//">
+        <div ng-messages="supplierForm.licenseCode.$error" role="alert" multiple>
+            <div ng-message="required" class="my-message">纳税人识别号不能为空</div>
+            <div ng-message="pattern" class="my-message">纳税人识别号不能为空</div>
+        </div>
+        
     </md-input-container>
     <md-input-container flex>
         <label>供应商纳税人身份分类</label>

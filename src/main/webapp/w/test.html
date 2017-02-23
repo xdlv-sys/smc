@@ -6,102 +6,83 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>增值税管理平台</title>
-    <link rel="stylesheet" href="js/cache/angular-material.css" />
-    <script type="text/javascript" src="js/cache/angular.js"></script>
-    <script type="text/javascript" src="js/cache/angular-animate.js"></script>
-    <script type="text/javascript" src="js/cache/angular-material.js"></script>
-    <script type="text/javascript" src="js/cache/angular-aria.js"></script>
-    <script src="//cdn.bootcss.com/angular-ui-router/1.0.0-beta.3/angular-ui-router.min.js"></script>
-    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="//cdn.bootcss.com/angular-ui-grid/4.0.0/ui-grid.js"></script>
-    <link href="//cdn.bootcss.com/angular-ui-grid/4.0.0/ui-grid.min.css" rel="stylesheet">
-    <!-- tree -->
-    <link href="//cdn.bootcss.com/angular-ui-tree/2.22.1/angular-ui-tree.min.css" rel="stylesheet">
-    <script src="//cdn.bootcss.com/angular-ui-tree/2.22.1/angular-ui-tree.js"></script>
+    <link href="js/cache/min/angular-material.min.css" rel="stylesheet">
+
+    <script src="js/cache/min/angular.min.js"></script>
+    <script src="js/cache/min/angular-animate.min.js"></script>
+    <script src="js/cache/min/angular-aria.min.js"></script>
+    <script src="js/cache/min/angular-material-fork.min.js"></script>  
+    <script src="js/cache/min/angular-ui-router.min.js"></script>
+    <script src="js/cache/min/angular-messages.min.js"></script>
+    <link href="js/cache/min/font-awesome.min.css" rel="stylesheet">
+    <script src="js/cache/min/ui-grid.min.js"></script>
+    <link href="js/cache/min/ui-grid.min.css" rel="stylesheet">
+
+    <link href="js/cache/min/angular-ui-tree.min.css" rel="stylesheet">
+    <script src="js/cache/min/angular-ui-tree.min.js"></script>
+
     <link href="js/comp/kjvelarde-multiselect-searchtree-0.9.5.min.css" rel="stylesheet">
     <script src="js/comp/kjvelarde-multiselect-searchtree-0.9.5.min.js"></script>
     <script src="js/comp/kjvelarde-multiselect-searchtree-0.9.5.tpl.js"></script>
-    <script src="js/comp/ngPopover.js"></script>
+    <script src="js/comp/ngPopover.min.js"></script>
     <link href="js/comp/ngpopover.css" rel="stylesheet">
     <script src="js/comp/lf-ng-md-file-input.js"></script>
-    <link href="js/comp/lf-ng-md-file-input.css" rel="stylesheet">
+    <link href="js/comp/lf-ng-md-file-input.min.css" rel="stylesheet">
+
     <!-- my stuff-->
     <link rel="stylesheet" href="css/app.css" />
     <link rel="stylesheet" href="css/menu.css" />
-    <script type="text/javascript" src="js/modules.js"></script>
+     <script type="text/javascript" src="js/modules.js"></script>
     <script type="text/javascript" src="js/service/common.js"></script>
     <script type="text/javascript" src="js/service/menu.js"></script>
     <script type="text/javascript" src="js/service/xd-grid.js"></script>
     <script type="text/javascript" src="js/service/menu-directive.js"></script>
     <script type="text/javascript" src="js/service/modal.js"></script>
     <script type="text/javascript" src="js/service/module.js"></script>
+    <script type="text/javascript" src="js/service/configuration.js"></script>
+    <script type="text/javascript" src="js/service/util.js"></script>
+    <script type="text/javascript" src="js/service/consts.js"></script>
+    
     <script type="text/javascript" src="js/router.js"></script>
-    <script type="text/javascript" src="test/app.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/controller/user.js"></script>
+    <script type="text/javascript" src="js/controller/dept.js"></script>
+    <script type="text/javascript" src="js/controller/role.js"></script>
     <script type="text/javascript" src="js/controller/login.js"></script>
     <script type="text/javascript" src="js/controller/conf.js"></script>
-    <script type="text/ng-template" id="nodes_renderer.html">
-        <div ui-tree-handle class="tree-node tree-node-content">
-            <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)"><span
-        class="glyphicon"
-        ng-class="{
-          'glyphicon-chevron-right': collapsed,
-          'glyphicon-chevron-down': !collapsed
-        }"></span></a> {{node.title}}
-            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span
-        class="glyphicon glyphicon-remove"></span></a>
-            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span
-        class="glyphicon glyphicon-plus"></span></a>
-        </div>
-        <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
-            <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
-            </li>
-        </ol>
-    </script>
+    <script type="text/javascript" src="js/controller/product.js"></script>
+    <script type="text/javascript" src="js/controller/product-import.js"></script>
+    <script type="text/javascript" src="js/controller/product-item.js"></script>
+    <script type="text/javascript" src="js/controller/project.js"></script>
+    <script type="text/javascript" src="js/controller/project-item.js"></script>
+    <script type="text/javascript" src="js/controller/budget.js"></script>
+    <script type="text/javascript" src="js/controller/budget-item.js"></script>
+    <script type="text/javascript" src="js/controller/contract-progress.js"></script>
+    <script type="text/javascript" src="js/controller/construction-progress.js"></script>
+    <script type="text/javascript" src="js/controller/progress-item.js"></script>
+    <script type="text/javascript" src="js/controller/calculate.js"></script>
+    <script type="text/javascript" src="js/controller/calculate-item.js"></script>
+    <script type="text/javascript" src="js/controller/supplier.js"></script>
+    <script type="text/javascript" src="js/controller/supplier-item.js"></script>
+    <script type="text/javascript" src="js/controller/cost-tax.js"></script>
+    <script type="text/javascript" src="js/controller/project-purchase.js"></script>
+    <script type="text/javascript" src="js/controller/purchase-import.js"></script>
+    <script type="text/javascript" src="js/controller/engineering-purchase.js"></script>
+    <script type="text/javascript" src="js/controller/engineering-purchase-item.js"></script>
+    <script type="text/javascript" src="js/controller/purchase-query.js"></script>
+    <script type="text/javascript" src="js/controller/receipt.js"></script>
+    <script type="text/javascript" src="js/controller/receipt-progress-item.js"></script>
+    <script type="text/javascript" src="js/controller/tax-analysis.js"></script>
+    <script type="text/javascript" src="js/controller/tax-query-compare.js"></script>
+    <script type="text/javascript" src="js/controller/tax-analysis-tax.js"></script>
+    <!-- <script type="text/javascript" src="js/cache/min/app.js"></script> -->
 </head>
 
 <body ng-app="xdApp" layout="column" ng-controller="taxController">
-<lf-ng-md-file-input flex aria-label="fileupload2" lf-files='importFile' lf-placeholder="my placeholder" lf-browse-label="选择文件"> </lf-ng-md-file-input>
-    <!--  -->
-    
-    <!-- <md-content layout="column" class="max_height">
-        <div layout="row">
-            <md-button class="md-primary md-raised" ng-click="addProduct()">新增商品</md-button>
-            <md-button class="md-primary md-raised">删除商品</md-button>
-            <md-input-container style="margin:0;">
-                <div style="height:35px; top:18px;width:6px; border-left:1px #ccc solid"></div>
-            </md-input-container>
-            
-            <md-input-container style="margin:0;">
-                <label>Input phone number here</label>
-                <input type="text" style="margin-top:20px;">
-            </md-input-container>
-        </div>
-        <div flex></div>
-    </md-content> -->
-    <!-- <multiselect-searchtree data-input-model="departments" multi-select="true" data-output-model="selectedItem2" data-callback="treeCallback(item, selectedItems)" data-select-only-leafs="false" extra-buttons="true"></multiselect-searchtree> -->
-    <!--<ng-popover trigger="popover-trigger">
-        <multiselect-searchtree data-input-model="departments" multi-select="false" data-output-model="selectedItem2" data-callback="treeCallback(item, selectedItems)" data-select-only-leafs="false" extra-buttons="true"></multiselect-searchtree>
-    </ng-popover>
-    
-    <md-button id="popover-trigger" class="ng-popover-trigger">Open</md-button>
-    -->
-    <!-- <md-button ng-click="show()">OPEN</md-button>
-    <div class="row">
-        <div class="col-sm-6">
-            <div ui-tree id="tree-root">
-                <ol ui-tree-nodes ng-model="data">
-                    <li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"></li>
-                </ol>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="info">
-                {{info}}
-            </div>
-            <pre class="code">{{ data | json }}</pre>
-        </div>
-    </div> -->
+    <md-input-container style="margin-right:8px;">
+                    <label>所属年月</label>
+                    <md-datepicker ng-model="importDate" md-mode="month" md-date-locale="monthFormat"></md-datepicker>
+                </md-input-container>
 </body>
 
 </html>

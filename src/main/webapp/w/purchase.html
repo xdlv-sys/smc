@@ -6,7 +6,7 @@
                 <lf-ng-md-file-input class="upload_file" aria-label="fileupload" lf-files='importFile' lf-placeholder="选择Excel文件上传" lf-browse-label="选择文件" lf-mimetype="application/msexcel" lf-totalsize="5MB" progress> </lf-ng-md-file-input>
                 <md-input-container style="margin-right:8px;">
                     <label>所属年月</label>
-                    <md-datepicker ng-model="importDate" xd-date md-date-filter="onlyTheFirstDayPredicate"></md-datepicker>
+                    <md-datepicker ng-model="importDate" xd-date md-mode="month" md-date-locale="monthFormat"></md-datepicker>
                 </md-input-container>
                 <md-button class="md-primary md-raised" ng-click="importProjectPurchase()" ng-disabled="importFile.length < 1 || projectGrid.selection.getSelectedRows().length !== 1 || !importDate">导入采购</md-button>
             </div>
@@ -57,11 +57,11 @@
                 </md-autocomplete>
                 <md-input-container style="margin-right:8px;">
                     <label>开始年月</label>
-                    <md-datepicker ng-model="query2.startDate" xd-date md-date-filter="onlyTheFirstDayPredicate"></md-datepicker>
+                    <md-datepicker ng-model="query2.startDate" xd-date md-mode="month" md-date-locale="monthFormat"></md-datepicker>
                 </md-input-container>
                 <md-input-container style="margin-right:8px;">
                     <label>结束年月</label>
-                    <md-datepicker ng-model="query2.endDate" xd-date md-date-filter="onlyTheFirstDayPredicate"></md-datepicker>
+                    <md-datepicker ng-model="query2.endDate" xd-date md-mode="month" md-date-locale="monthFormat"></md-datepicker>
                 </md-input-container>
                 <md-input-container class="query-text" flex>
                     <label>采购类型</label>

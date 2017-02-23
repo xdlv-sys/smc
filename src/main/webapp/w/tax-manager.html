@@ -4,7 +4,7 @@
             <div layout="row" class="xd_tool_bar">
                 <md-input-container style="margin-right:8px;">
                     <label>所属年月</label>
-                    <md-datepicker ng-model="belong" xd-date md-date-filter="onlyTheFirstDayPredicate"></md-datepicker>
+                    <md-datepicker ng-model="belong" xd-date md-mode="month" md-date-locale="monthFormat"></md-datepicker>
                 </md-input-container>
                 <md-button class="md-primary md-raised" ng-click="inCountAnalysis()" ng-disabled="!belong || projectGrid.selection.getSelectedRows().length!==1">进项税分析</md-button>
                 <md-button class="md-primary md-raised" ng-click="taxAnalysis()" ng-disabled="!belong || projectGrid.selection.getSelectedRows().length!==1">税负分析</md-button>
@@ -17,7 +17,7 @@
             <div layout="row" class="xd_tool_bar">
                 <md-input-container style="margin-right:8px;">
                     <label>所属年月</label>
-                    <md-datepicker ng-model="belong" xd-date md-date-filter="onlyTheFirstDayPredicate"></md-datepicker>
+                    <md-datepicker ng-model="belong" xd-date md-mode="month" md-date-locale="monthFormat"></md-datepicker>
                 </md-input-container>
                 <md-input-container flex="20">
                     <md-select ng-model="desc" required>
