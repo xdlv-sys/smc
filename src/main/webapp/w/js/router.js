@@ -58,7 +58,8 @@ angular.module('xdApp', [
         }).state('conf', {
             url: '/conf',
             templateUrl: 'conf.html',
-            controller: 'ConfCtrl'
+            controller: 'ConfCtrl',
+            resolve: r
         }).state('product', {
             url: '/product',
             templateUrl: 'product.html',
@@ -68,7 +69,8 @@ angular.module('xdApp', [
             url: '/product-item',
             params: { product: null },
             templateUrl: 'product-item.html',
-            controller: 'ProductItemCtrl'
+            controller: 'ProductItemCtrl',
+            resolve: r
         }).state('project', {
             url: '/project',
             templateUrl: 'project.html',
@@ -78,53 +80,64 @@ angular.module('xdApp', [
             url: '/project-item',
             params: { project: null },
             templateUrl: 'project-item.html',
-            controller: 'ProjectItemCtrl'
+            controller: 'ProjectItemCtrl',
+            resolve: r
         }).state('budget', {
             url: '/budget',
             templateUrl: 'budget.html',
-            controller: 'BudgetCtrl'
+            controller: 'BudgetCtrl',
+            resolve: r
         }).state('budget-item', {
             url: '/budget-item',
             params: { budget: null },
             templateUrl: 'budget-item.html',
-            controller: 'BudgetItemCtrl'
+            controller: 'BudgetItemCtrl',
+            resolve: r
         }).state('progress', {
             url: '/progress',
             templateUrl: 'progress.html',
-            controller: 'ProjectCtrl'
+            controller: 'ProjectCtrl',
+            resolve: r
         }).state('progress-item', {
             url: '/progress-item',
             params: { project: null },
             templateUrl: 'progress-item.html',
-            controller: 'ProgressItemCtrl'
+            controller: 'ProgressItemCtrl',
+            resolve: r
         }).state('calculate', {
             url: '/calculate',
             templateUrl: 'calculate.html',
-            controller: 'BudgetCtrl'
+            controller: 'BudgetCtrl',
+            resolve: r
         }).state('calculate-item', {
             url: '/calculate-item',
             params: { budget: null },
             templateUrl: 'calculate-item.html',
-            controller: 'CalculateItemCtrl'
+            controller: 'CalculateItemCtrl',
+            resolve: r
         }).state('tax-calculate-item', {
             url: '/tax-calculate-item',
             params: { budgets: null },
             templateUrl: 'tax-calculate-item.html',
-            controller: 'CalculateCtrl'
+            controller: 'CalculateCtrl',
+            resolve: r
         }).state('supplier', {
             url: '/supplier',
             templateUrl: 'supplier.html',
-            controller: 'SupplierCtrl'
+            controller: 'SupplierCtrl',
+            resolve: r
         }).state('supplier-item', {
             url: '/supplier-item',
             params: { supplier: null },
             templateUrl: 'supplier-item.html',
-            controller: 'SupplierItemCtrl'
+            controller: 'SupplierItemCtrl',
+            resolve: r
         }).state('cost-tax', {
             url: '/cost-tax',
             params: { supplier: null },
             templateUrl: 'cost-tax.html',
-            controller: 'CostTaxCtrl'
+            controller: 'CostTaxCtrl',
+            resolve: r
         }).state('purchase', {
             url: '/purchase',
             templateUrl: 'purchase.html',
@@ -134,46 +147,55 @@ angular.module('xdApp', [
             url: '/purchase-import',
             params: { project: null },
             templateUrl: 'purchase-import.html',
-            controller: 'PurchaseImportCtrl'
+            controller: 'PurchaseImportCtrl',
+            resolve: r
         }).state('engineering-purchase-item', {
             url: '/engineering-purchase-item',
             params: { project: null },
             templateUrl: 'engineering-purchase-item.html',
-            controller: 'EngineeringPurchaseItemCtrl'
+            controller: 'EngineeringPurchaseItemCtrl',
+            resolve: r
         }).state('receipt', {
             url: '/receipt',
             templateUrl: 'receipt.html',
-            controller: 'ProjectCtrl'
+            controller: 'ProjectCtrl',
+            resolve: r
         }).state('receipt-item', {
             url: '/receipt-item',
             params: { project: null },
             templateUrl: 'receipt-item.html',
-            controller: 'ReceiptCtrl'
+            controller: 'ReceiptCtrl',
+            resolve: r
         }).state('receipt-progress-item', {
             url: '/receipt-progress-item',
             params: { project: null },
             templateUrl: 'receipt-progress-item.html',
-            controller: 'ReceiptProgressItemCtrl'
+            controller: 'ReceiptProgressItemCtrl',
+            resolve: r
         }).state('tax-manager', {
             url: '/tax-manager',
             params: { project: null },
             templateUrl: 'tax-manager.html',
-            controller: 'ProjectCtrl'
+            controller: 'ProjectCtrl',
+            resolve: r
         }).state('tax-analysis-in-count-item', {
             url: '/tax-analysis-in-count-item',
             params: { project: null },
             templateUrl: 'tax-analysis-in-count-item.html',
-            controller: 'TaxAnalysisCtrl'
+            controller: 'TaxAnalysisCtrl',
+            resolve: r
         }).state('tax-analysis-tax-item', {
             url: '/tax-analysis-tax-item',
             params: { project: null },
             templateUrl: 'tax-analysis-tax-item.html',
-            controller: 'TaxAnalysisTaxCtrl'
+            controller: 'TaxAnalysisTaxCtrl',
+            resolve: r
         }).state('tax-man-manager', {
             url: '/tax-man-manager',
             templateUrl: 'supplier.html',
             params: { man: true },
-            controller: 'SupplierCtrl'
+            controller: 'SupplierCtrl',
+            resolve: r
         });
 
 

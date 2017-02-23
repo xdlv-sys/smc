@@ -311,10 +311,10 @@ services.service('module', function(common, configuration) {
             name: '资质是否上传',
             width: '40%',
             cellTemplate:[
-            '<input type="checkbox" ng-checked="row.entity.licenseImg">营业执照</input>'
-            ,'<input type="checkbox" ng-checked="row.entity.registryImg">税务登记证</input>'
-            ,'<input type="checkbox" ng-checked="row.entity.organizationImg">组织机构代码证</input>'
-            ,'<input type="checkbox" ng-checked="row.entity.openAccountImg">开户许可证</input>'].join('')
+            '<input type="checkbox" disabled ng-checked="row.entity.licenseImg">营业执照</input>'
+            ,'<input type="checkbox" disabled ng-checked="row.entity.registryImg">税务登记证</input>'
+            ,'<input type="checkbox" disabled ng-checked="row.entity.organizationImg">组织机构代码证</input>'
+            ,'<input type="checkbox" disabled ng-checked="row.entity.openAccountImg">开户许可证</input>'].join('')
         }/*,{
             name: '纳税人身份复核',
             width: '10%',
@@ -338,7 +338,7 @@ services.service('module', function(common, configuration) {
         },{
             name: '纳税人身份复核',
             width: '40%',
-            cellTemplate: '<div class="ui-grid-cell-contents"><a href="http://www.yibannashuiren.com/">http://www.yibannashuiren.com</a></div>',
+            cellTemplate: '<div class="ui-grid-cell-contents"><a target="_blank" href="http://www.yibannashuiren.com/">http://www.yibannashuiren.com</a></div>',
 
         }], scope, loadData, configuration);
     };
