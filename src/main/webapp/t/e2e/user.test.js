@@ -8,7 +8,7 @@ describe('User Test', function() {
         element(by.model('user.name')).sendKeys('a');
         element(by.model('user.password')).sendKeys('a');
 
-        util.clickButton('登陆');
+        util.clickButton('登录');
         util.wait();
     });
 
@@ -26,10 +26,10 @@ describe('User Test', function() {
         util.selectText('modal.data.sex', '男');
         util.dateText('modal.data.entryTime', '2017-01-01');
         util.modelText('modal.data.mobile', '15951928787');
-        util.modelText('modal.data.phone', '02590888888');
+        util.modelText('modal.data.phone', '025-88888888');
         util.modelText('modal.data.password', userName);
         util.modelText('modal.data.password2', userName);
-        util.modelText('modal.data.idCard', '3403211990010170998');
+        util.modelText('modal.data.idCard', '340321199001017099');
         util.modelText('modal.data.mail', mail);
 
         util.selectText('modal.data.dept', '财务部');
@@ -63,6 +63,7 @@ describe('User Test', function() {
         //choose the last user for delete
         util.clickGridRow(0, 'last');
         util.clickButton('删除用户');
+        util.clickButton('继续');
 
         util.wait();
 
