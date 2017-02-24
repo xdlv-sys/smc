@@ -25,6 +25,7 @@ controllers.controller('CalculateCtrl', ['$scope', '$rootScope', 'configuration'
         });
     	$scope.taxCalculateGrid = {
     		configuration: configuration,
+            enableColumnMenus: false,
     		columnDefs: [{
     			name : '项目名称',
     			field: 'project.name'
