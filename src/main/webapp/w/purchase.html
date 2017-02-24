@@ -1,6 +1,6 @@
-<md-tabs flex>
+<md-tabs flex layout-fill>
     <md-tab label="项目采购">
-        <md-content layout="column" ng-controller="ProjectPurchaseCtrl" class="max_height">
+        <md-tab-content layout-fill layout="column" ng-controller="ProjectPurchaseCtrl">
             <div layout="row" class="xd_tool_bar">
                 <md-button class="md-primary md-raised" ng-click="showPurchase()" ng-disabled="projectGrid .selection.getSelectedRows().length !== 1">查看采购记录</md-button>
                 <lf-ng-md-file-input class="upload_file" aria-label="fileupload" lf-files='importFile' lf-placeholder="选择Excel文件上传" lf-browse-label="选择文件" lf-mimetype="application/msexcel" lf-totalsize="5MB" progress> </lf-ng-md-file-input>
@@ -10,11 +10,11 @@
                 </md-input-container>
                 <md-button class="md-primary md-raised" ng-click="importProjectPurchase()" ng-disabled="importFile.length < 1 || projectGrid.selection.getSelectedRows().length !== 1 || !importDate">导入采购</md-button>
             </div>
-            <div flex ui-grid="projectGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
-        </md-content>
+            <div ui-grid="projectGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height3"></div>
+        </md-tab-content>
     </md-tab>
     <md-tab label="工程采购">
-        <md-content layout="column" ng-controller="EngineeringPurchaseCtrl" ng-init="type='engineering'" class="max_height">
+        <md-tab-content layout-fill layout="column" ng-controller="EngineeringPurchaseCtrl" ng-init="type='engineering'">
             <div layout="row" class="xd_tool_bar">
                 <md-button class="md-primary md-raised" ng-click="addPurchase()" ng-disabled="projectGrid.selection.getSelectedRows().length > 1">新增工程采购</md-button>
                 <md-button class="md-primary md-raised" ng-click="modPurchase()" ng-disabled="purchaseGrid.selection.getSelectedRows().length!==1">编辑采购</md-button>
@@ -27,11 +27,11 @@
                     </md-select>
                 </md-input-container>
             </div>
-            <div flex ui-grid="purchaseGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
-        </md-content>
+            <div ui-grid="purchaseGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height3"></div>
+        </md-tab-content>
     </md-tab>
     <md-tab label="综合采购">
-        <md-content layout="column" ng-controller="EngineeringPurchaseCtrl" ng-init="type='composite'" class="max_height">
+        <md-tab-content layout-fill layout="column" ng-controller="EngineeringPurchaseCtrl" ng-init="type='composite'">
             <div layout="row" class="xd_tool_bar">
                 <md-button class="md-primary md-raised" ng-click="addPurchase()" ng-disabled="projectGrid.selection.getSelectedRows().length > 1">新增综合采购</md-button>
                 <md-button class="md-primary md-raised" ng-click="modPurchase()" ng-disabled="purchaseGrid.selection.getSelectedRows().length!==1">编辑采购</md-button>
@@ -44,11 +44,11 @@
                     </md-select>
                 </md-input-container>
             </div>
-            <div flex ui-grid="purchaseGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
-        </md-content>
+            <div ui-grid="purchaseGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height3"></div>
+        </md-tab-content>
     </md-tab>
     <md-tab label="项目采购查询">
-        <md-content layout="column" class="max_height" ng-controller="PurchaseQueryCtrl">
+        <md-tab-content layout-fill layout="column" ng-controller="PurchaseQueryCtrl">
             <div layout="row" class="xd_tool_bar">
                 <md-autocomplete flex md-selected-item="selectedProject" md-search-text="searchForPorject" md-items="item in queryPorject(searchForPorject)" md-item-text="item.name" md-min-length="0" md-floating-label="项目">
                     <md-item-template>
@@ -74,7 +74,7 @@
 
                 <md-button class="md-primary md-raised" ng-click="loadPurchases()" ng-disabled="!selectedProject || !queryType">查询</md-button>
             </div>
-            <div flex ui-grid="purchaseQueryGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
-        </md-content>
+            <div ui-grid="purchaseQueryGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height3"></div>
+        </md-tab-content>
     </md-tab>
 </md-tabs>

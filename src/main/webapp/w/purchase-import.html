@@ -1,6 +1,6 @@
-<md-tabs flex>
+<md-tabs flex layout-fill>
     <md-tab label="采购详情">
-        <md-content flex layout="column" class="max_height">
+        <md-tab-content layout-fill layout="column">
             <div layout="row" class="xd_tool_bar">
                 <md-button class="md-primary md-raised fa fa-backward" ng-click="back()">&nbsp;返回</md-button>
                 <md-input-container style="margin-right:8px;">
@@ -13,11 +13,11 @@
                 </md-input-container>
                 <md-button class="md-primary md-raised" ng-click="loadPurchases()">查询</md-button>
             </div>
-            <div flex ui-grid="purchaseGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
-        </md-content>
+            <div ui-grid="purchaseGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height3"></div>
+        </md-tab-content>
     </md-tab>
     <md-tab label="导入记录">
-        <md-content flex layout="column" class="max_height">
+        <md-tab-content layout-fill layout="column">
             <div layout="row" class="xd_tool_bar">
                 <md-button class="md-primary md-raised" ng-click="deletePurchaseImport()" ng-disabled="purchaseImportGrid.selection.getSelectedRows().length < 1">删除</md-button>
                 <md-input-container style="margin-right:8px;">
@@ -30,7 +30,7 @@
                 </md-input-container>
                 <md-button class="md-primary md-raised" ng-click="loadPurchaseImports()">查询</md-button>
             </div>
-            <div flex ui-grid="purchaseImportGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
-        </md-content>
+            <div flex ui-grid="purchaseImportGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height3"></div>
+        </md-tab-content>
     </md-tab>
 </md-tabs>

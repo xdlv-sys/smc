@@ -13,10 +13,10 @@
 <div layout="row">
     <md-input-container flex>
         <label>纳税人识别号（三证合一号）</label>
-        <input name="licenseCode" ng-model="modal.data.licenseCode" type="text" ng-readonly="!modal.add" required >
+        <input name="licenseCode" ng-model="modal.data.licenseCode" type="text" ng-readonly="!modal.add" required ng-pattern=" /^(\d{6}.*)$/">
         <div ng-messages="supplierForm.licenseCode.$error" role="alert" multiple>
             <div ng-message="required" class="my-message">纳税人识别号不能为空</div>
-            <div ng-message="pattern" class="my-message">纳税人识别号不能为空</div>
+            <div ng-message="pattern" class="my-message">纳税人识别号前6位为数字</div>
         </div>
         
     </md-input-container>
@@ -64,7 +64,10 @@
     </md-input-container>
     <md-input-container flex>
         <label>公司电话</label>
-        <input ng-model="modal.data.telephone" type="text" ng-readonly="!modal.add" required>
+        <input name="telephone" ng-model="modal.data.telephone" type="text" ng-readonly="!modal.add" required ng-pattern="/\d{3}-\d{8}|\d{4}-\d{7}/">
+        <div ng-messages="supplierForm.telephone.$error" role="alert" multiple>
+            <div ng-message="pattern" class="my-message">固定电话格式:025-888888</div>
+        </div>
     </md-input-container>
     <md-input-container>
         <label>营业期限</label>
@@ -78,7 +81,11 @@
     </md-input-container>
     <md-input-container flex>
         <label>银行账号</label>
-        <input ng-model="modal.data.bankNumber" type="text" ng-readonly="!modal.add" required>
+        <input name="bankNumber" ng-model="modal.data.bankNumber" type="text" ng-readonly="!modal.add" required ng-pattern=" /^(\d{16}|\d{19})$/">
+        <div ng-messages="supplierForm.bankNumber.$error" role="alert" multiple>
+            <div ng-message="required" class="my-message">银行账号不能为空</div>
+            <div ng-message="pattern" class="my-message">银行账号格式为16位或19位数字</div>
+        </div>
     </md-input-container>
 </div>
 <div layout="row" ng-if="modal.edit || !modal.add">

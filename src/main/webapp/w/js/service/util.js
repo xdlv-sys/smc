@@ -10,11 +10,28 @@ services.service('util', ['common', function(common) {
         });
         return rates;
     };
-    this.downloadFile = function(url, params){
+    this.downloadFile = function(url, params) {
         url += '?';
-        angular.forEach(params, function(v,k){
+        angular.forEach(params, function(v, k) {
             url += (k + '=' + v + '&');
         });
         window.open(url, '_self');
     };
+
+    this.preview = function(oper) {
+        if (oper < 10) {
+            bdhtml = window.document.body.innerHTML;
+            sprnstr = "<!--startprint" + oper + "-->";
+            eprnstr = "<!--endprint" + oper + "-->";
+            prnhtml = bdhtml.substring(bdhtml.indexOf(sprnstr) + 18);
+
+            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+            window.document.body.innerHTML = prnhtml;
+            window.print();
+            window.document.body.innerHTML = bdhtml;
+        } else {
+            window.print();
+        }
+    };
+    
 }]);

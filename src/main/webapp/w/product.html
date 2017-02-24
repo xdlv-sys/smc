@@ -1,7 +1,7 @@
-<md-tabs flex>
+<md-tabs flex layout-fill>
     <md-tab label="商品">
-        <md-content layout="column" class="max_height">
-            <div layout="row">
+        <md-tab-content layout-fill layout="column">
+            <div layout="row" class="xd_tool_bar">
                 <md-button class="md-primary md-raised" ng-click="addProduct()" ng-if="allow(16)">新增商品</md-button>
                 <md-button class="md-primary md-raised" ng-click="delProduct()" ng-disabled="productGrid.selection.getSelectedRows().length<1" ng-if="allow(18)">删除商品</md-button>
                 <md-button class="md-primary md-raised" ng-click="approvalProduct()" ng-disabled="!canApprove()" ng-if="allow(19)">审核通过</md-button>
@@ -18,18 +18,18 @@
                 <md-button class="md-primary md-raised" ng-click="queryProduct()">查询</md-button>
                 <md-button class="md-primary md-raised" ng-click="exportProduct()">导出</md-button>
             </div>
-            <div flex ui-grid="productGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height"></div>
-        </md-content>
+            <div ui-grid="productGrid" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="max_height3"></div>
+        </md-tab-content>
     </md-tab>
     <md-tab label="导入">
-        <md-content class="max_height" layout="column" ng-controller="ProductImportCtrl">
-            <div layout="row">
+        <md-tab-content layout-fill layout="column" ng-controller="ProductImportCtrl">
+            <div layout="row" class="xd_tool_bar">
                 <md-button class="md-primary md-raised" ng-click="approveImport()" ng-disabled="!canApprove()" ng-if="allow(20)">审核通过</md-button>
                 <md-button class="md-primary md-raised" ng-click="delImport()" ng-disabled="productImportGrid.selection.getSelectedRows().length<1" style="padding-right:10px;">删除</md-button>
                 <lf-ng-md-file-input class="upload_file" aria-label="fileupload" lf-files='importFile' lf-placeholder="选择Excel文件上传" lf-browse-label="选择文件" lf-mimetype="application/msexcel" lf-totalsize="5MB" progress> </lf-ng-md-file-input>
                 <md-button class="md-primary md-raised" ng-click="uploadFile()" ng-disabled="importFile.length < 1">上传</md-button>
             </div>
-            <div flex ui-grid="productImportGrid" ui-grid-pagination ui-grid-selection class="max_height"></div>
-        </md-content>
+            <div ui-grid="productImportGrid" ui-grid-pagination ui-grid-selection class="max_height3"></div>
+        </md-tab-content>
     </md-tab>
 </md-tabs>

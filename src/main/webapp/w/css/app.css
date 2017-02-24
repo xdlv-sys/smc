@@ -72,6 +72,9 @@ a:active {
 .max_height2 {
     height: 99%;
 }
+.max_height3 {
+    max-height: 90%;
+}
 
 .pull_center {
     text-align: center;
@@ -151,6 +154,7 @@ md-tabs {
 
 .xd_tool_bar {
     height: 58px;
+    max-height:58px;
     overflow: hidden;
 }
 .item_tool{

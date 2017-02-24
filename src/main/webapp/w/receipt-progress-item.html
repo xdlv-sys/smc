@@ -4,14 +4,14 @@
         <md-button class="md-primary md-raised" ng-click="exportProgress()">&nbsp;导出</md-button>
         <md-button class="md-primary md-raised" ng-click="print()">&nbsp;打印</md-button>
         <md-button class="md-primary md-raised" ng-click="modProgress()">编辑工程月进度、收款说明</md-button>
-        <md-button class="md-primary md-raised fa fa-plus" ng-click="tableWidth = tableWidth + 100"></md-button>
-        <md-button class="md-primary md-raised fa fa-minus" ng-click="tableWidth = tableWidth - 100"></md-button>
+        <!-- <md-button class="md-primary md-raised fa fa-plus" ng-click="tableWidth = tableWidth + 100"></md-button>
+        <md-button class="md-primary md-raised fa fa-minus" ng-click="tableWidth = tableWidth - 100"></md-button> -->
     </div>
     <h1 class="pull_center">{{show.year}}年{{show.month}}月已完工程月进度报表</h1>
     <b>项目:{{project.name}}</b>
     <br>
-    <md-content flex>
-        <table border="1" class="table" style="min-width:{{tableWidth}}px; margin: 0 auto;">
+    <md-content flex><!--startprint1-->
+        <table border="1" class="table" style="margin: 0 auto;">
             <tr>
                 <td colspan="4"></td>
                 <td colspan="4">合同情况</td>
@@ -71,7 +71,7 @@
                 <td>{{show.addition_progress2}}</td>
             </tr>
             
-        </table>
+        </table><!--endprint1-->
         <br>
     </md-content>
 </div>

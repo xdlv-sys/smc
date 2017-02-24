@@ -1,4 +1,4 @@
-controllers.controller('ReceiptProgressItemCtrl', ['$scope', '$rootScope', 'configuration', 'common', 'modal', 'module', '$filter', '$state', '$stateParams', 'supplierTypeName', function($scope, $rootScope, configuration, common, modal, module, $filter, $state, $stateParams, supplierTypeName) {
+controllers.controller('ReceiptProgressItemCtrl', function($scope, $rootScope, configuration, common, modal, module, $filter, $state, $stateParams, supplierTypeName, util) {
     $scope.project = $stateParams.project.project;
     $scope.config = configuration;
 
@@ -38,7 +38,7 @@ controllers.controller('ReceiptProgressItemCtrl', ['$scope', '$rootScope', 'conf
         window.open(url, '_self');
     };
     $scope.print = function(){
-        window.print();
+        util.preview(1);
     };
 
-}]);
+});
