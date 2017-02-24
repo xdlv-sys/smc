@@ -307,7 +307,7 @@ END;
 create table t_supplier (
   id INT PRIMARY KEY,
   license_code varchar2(64),
-  name varchar2(128),
+  name varchar2(512),
   identity_type number(2),
   legal_person varchar2(32),
   assets number(38,2),

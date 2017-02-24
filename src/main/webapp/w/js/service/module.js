@@ -349,20 +349,23 @@ services.service('module', function(common, configuration) {
             field: 'belong'
         }, {
             name: '合同金额',
-            field: 'project.totalCount'
+            field: 'project.totalCount',
+            cellFilter: 'toFixed'
         }, {
             name: '上期完成合同金额',
-            field: 'lastAllCount'
+            field: 'lastAllCount',
+            cellFilter: 'toFixed'
         }, {
             name: '已完成合同金额',
-            field: 'finished'
+            field: 'finished',
+            cellFilter: 'toFixed'
         }, {
             name: '剩余合同金额',
-            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{row.entity.project.totalCount - row.entity.lastAllCount - row.entity.finished}}' + '</div>'
+            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{(row.entity.project.totalCount - row.entity.lastAllCount - row.entity.finished).toFixed(2)}}' + '</div>'
         },{
             name: '合同完成率（%）',
             field: 'progressRate',
-            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{(row.entity.lastAllCount + row.entity.finished) * 100 / row.entity.project.totalCount}}' + '</div>'
+            cellTemplate: '<div class="ui-grid-cell-contents" >' + '{{((row.entity.lastAllCount + row.entity.finished) * 100 / row.entity.project.totalCount).toFixed(2)}}' + '</div>'
         }], scope, loadData, configuration);
     };
 
