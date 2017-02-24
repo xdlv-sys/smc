@@ -81,6 +81,7 @@ controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'modul
         return {
             columnDefs: angular.copy(columnDefs),
             data: data,
+            enableColumnMenus: false,
             onRegisterApi: function(gridApi) {
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                     $scope.$apply();
@@ -109,6 +110,7 @@ controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'modul
     });
 
     $scope.totalBudgetGrid = {
+        enableColumnMenus: false,
     	columnDefs : [{
     		name : '人工',
     		field: 'man',

@@ -4,27 +4,27 @@
         <md-button class="md-primary md-raised" ng-click="exportCalculate()">&nbsp;导出</md-button>
     </div>
     <h1 class="pull_center">{{budget.importName}}</h1>
-    <md-tabs flex >
+    <md-tabs flex layout-fill>
         <md-tab label="人工">
-            <md-content layout="column" class="max_height md-padding">
-                <div flex ui-grid-auto-resize ui-grid-edit ui-grid="manBudgetGrid"></div>
-            </md-content>
+            <md-tab-content layout-fill layout="column">
+                <div ui-grid-auto-resize ui-grid-edit ui-grid="manBudgetGrid" class="max_height3"></div>
+            </md-tab-content>
             
         </md-tab>
         <md-tab label="材料">
-            <md-content layout="column" class="max_height md-padding">
-                <div flex ui-grid-auto-resize ui-grid-edit ui-grid="materialBudgetGrid"></div>
-            </md-content>
+            <md-tab-content layout-fill layout="column" class="md-padding">
+                <div ui-grid-auto-resize ui-grid-edit ui-grid="materialBudgetGrid" class="max_height3"></div>
+            </md-tab-content>
         </md-tab>
         <md-tab label="机械">
-            <md-content layout="column" class="max_height md-padding">
-                <div flex ui-grid-auto-resize ui-grid-edit ui-grid="machineBudgetGrid"></div>
-            </md-content>
+            <md-tab-content layout-fill layout="column" class="md-padding">
+                <div ui-grid-auto-resize ui-grid-edit ui-grid="machineBudgetGrid" class="max_height3"></div>
+            </md-tab-content>
         </md-tab>
         <md-tab label="合计">
-            <md-content layout="column" class="max_height md-padding">
-                <div flex ui-grid-auto-resize ui-grid-edit ui-grid="totalBudgetGrid"></div>
-            </md-content>
+            <md-tab-content layout-fill layout="column" class="md-padding">
+                <div ui-grid-auto-resize ui-grid-edit ui-grid="totalBudgetGrid" class="max_height3"></div>
+            </md-tab-content>
         </md-tab>
     </md-tabs>
 </md-content>
