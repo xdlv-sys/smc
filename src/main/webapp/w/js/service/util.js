@@ -18,20 +18,12 @@ services.service('util', ['common', function(common) {
         window.open(url, '_self');
     };
 
-    this.preview = function(oper) {
-        if (oper < 10) {
-            bdhtml = window.document.body.innerHTML;
-            sprnstr = "<!--startprint" + oper + "-->";
-            eprnstr = "<!--endprint" + oper + "-->";
-            prnhtml = bdhtml.substring(bdhtml.indexOf(sprnstr) + 18);
-
-            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
-            window.document.body.innerHTML = prnhtml;
-            window.print();
-            window.document.body.innerHTML = bdhtml;
-        } else {
-            window.print();
-        }
+    this.preview = function(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var popupWin = window.open('', '_blank', 'width=600,height=600');
+        popupWin.document.open();
+        popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="css/app.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+        popupWin.document.close();
     };
-    
+
 }]);

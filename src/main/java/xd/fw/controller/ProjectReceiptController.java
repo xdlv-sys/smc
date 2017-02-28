@@ -16,6 +16,7 @@ import xd.fw.dao.*;
 import xd.fw.mk.ExcelStreamView;
 import xd.fw.service.IConst;
 import xd.fw.util.FwException;
+import xd.fw.util.FwUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import java.util.*;
 
 import static xd.fw.util.FwUtil.getCurrentYearAndMonth;
 import static xd.fw.util.FwUtil.setCellValue;
+import static xd.fw.util.FwUtil.toFixed;
 
 /**
  * Created by xd on 2016/12/7.
@@ -159,8 +161,16 @@ public class ProjectReceiptController extends BaseController {
             ret.put("addition_progress2", addition.getProgress2());
             ret.put("addition_id", addition.getId());
         }
+        Map<String, Object > retConvert = new HashMap<>();
+        ret.forEach((k,v)->{
+            if (v instanceof Double){
+                retConvert.put(k, toFixed((Double)v,2));
+            } else {
+                retConvert.put(k, v);
+            }
+        });
 
-        return ret;
+        return retConvert;
     }
 
     @RequestMapping("exportProgress")

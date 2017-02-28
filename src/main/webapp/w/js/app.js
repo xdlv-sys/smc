@@ -165,6 +165,8 @@ controllers.controller('taxController', function($scope, $rootScope, common, mod
     common.post('/user/sessionUser.cmd', {}, function(data) {
         if (data.data) {
             $scope.$emit("loginSuccess", data.data, window.location.hash);
+        } else {
+            $state.go('login');
         }
     });
 });

@@ -38,7 +38,7 @@ controllers.controller('ReceiptProgressItemCtrl', function($scope, $rootScope, c
         window.open(url, '_self');
     };
     $scope.print = function(){
-        util.preview(1);
+        util.preview('receiptProgressItem');
     };
 
 });
