@@ -12,6 +12,7 @@ controllers.controller('CostTaxCtrl', ['$scope', 'common', 'modal', 'module', '$
     $scope.identityType = 1;
 
     $scope.costTaxGrid = {
+        enableColumnMenus: false,
         columnDefs: [{
             name: '供应商类别',
             field: 'supplierType'

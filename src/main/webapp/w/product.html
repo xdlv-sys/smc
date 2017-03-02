@@ -10,7 +10,8 @@
                     <input ng-model="query.name" type="text">
                 </md-input-container>
                 <md-input-container flex class="query-text" >
-                    <md-select placeholder="导入记录" ng-model="query.importId" md-on-open="loadImports()">
+                    <label>导入记录</label>
+                    <md-select ng-model="query.importId" md-on-open="loadImports()">
                         <md-option value="-198110100516">全部</md-option>
                         <md-option ng-value="import.id" ng-repeat="import in imports">{{'操作者 ' + import.operator + '  时间 ' + import.createTime}}</md-option>
                     </md-select>
