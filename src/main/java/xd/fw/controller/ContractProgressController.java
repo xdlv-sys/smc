@@ -6,7 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xd.fw.bean.ContractProgress;
+import xd.fw.bean.Project;
 import xd.fw.dao.ContractProgressRepository;
+import xd.fw.dao.ProjectRepository;
 import xd.fw.util.FwException;
 
 /**
@@ -17,6 +19,8 @@ import xd.fw.util.FwException;
 public class ContractProgressController extends BaseController {
     @Autowired
     ContractProgressRepository contractProgressRepository;
+    @Autowired
+    ProjectRepository projectRepository;
 
     @RequestMapping("obtainProgresses")
     @ResponseBody
@@ -35,6 +39,13 @@ public class ContractProgressController extends BaseController {
             throw new FwException(1,"special period contract progress exists "
                     + progress.getBelong());
         }
+        Project project = projectRepository.findOne(progress.getProject().getId());
+        Double sumFinished = contractProgressRepository.sumFinishedByProjectId(project.getId());
+
+        if (progress.getFinished() + sumFinished > project.getTotalCount()){
+            throw new FwException(2,"should not over the total count");
+        }
+
         contractProgressRepository.save(progress);
         return DONE;
     }

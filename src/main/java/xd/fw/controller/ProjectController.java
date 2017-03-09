@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,7 +48,7 @@ public class ProjectController extends BaseController {
     @ResponseBody
     public PageContent obtainProjects(int page, int limit, Project query) {
         Page<Project> list = projectRepository.findAll(
-                Example.of(query, queryMatcher()), pageRequest(page, limit));
+                Example.of(query, queryMatcher()), pageRequest(page, limit, new Sort(Sort.Direction.DESC, "id")));
         return page(list);
     }
 

@@ -13,6 +13,9 @@ controllers.controller('ContractProgressCtrl', ['$scope', '$rootScope', 'configu
                         if (data.errorCode === 1){
                             modal.alert('合同进度录入失败：己存在对应月份的记录。');
                         }
+                        if (data.errorCode === 2){
+                            modal.alert('合同进度录入失败：己超出项目总金额。');
+                        }
                     }
                 });
             }

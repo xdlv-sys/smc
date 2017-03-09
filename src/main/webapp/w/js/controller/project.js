@@ -71,9 +71,13 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
 
     $scope.modProject = function() {
         var project = $scope.projectGrid.selection.getSelectedRows()[0];
+        var duplicate = angular.copy(project);
+        duplicate.contractEndTime = $scope.safeDate(duplicate.contractEndTime);
+        duplicate.contractStartDate = $scope.safeDate(duplicate.contractStartDate);
+        
         $scope.openProjectInfo({
             title: '修改项目',
-            data: angular.copy(project)
+            data: duplicate
         }, $scope);
     };
 

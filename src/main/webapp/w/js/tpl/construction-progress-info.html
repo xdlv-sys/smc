@@ -7,7 +7,7 @@
 <div layout="row">
     <md-input-container flex>
         <label>施工面积</label>
-        <input ng-model="modal.data.area" type="text" required>
+        <input ng-model="modal.data.area" type="text" ui-number-mask required>
     </md-input-container>
     <md-input-container>
         <label>所属年月</label>
@@ -17,6 +17,6 @@
 <div layout="row">
     <md-input-container flex>
         <label>本月完工</label>
-        <input ng-model="modal.data.finished" type="text" required>
+        <input ng-model="modal.data.finished" ui-number-mask type="text" required>
     </md-input-container>
 </div>

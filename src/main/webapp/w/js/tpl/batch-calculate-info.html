@@ -1,0 +1,24 @@
+<div layout="row">
+    <md-input-container flex>
+        <label>人工适用税率</label>
+        <md-select flex ng-model="modal.data.manRate">
+            <md-option ng-repeat="n in modal.ratios" ng-value="n.value">{{n.name}}</md-option>
+        </md-select required>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>材料适用税率</label>
+        <md-select flex ng-model="modal.data.materialRate">
+            <md-option ng-repeat="n in modal.ratios" ng-value="n.value">{{n.name}}</md-option>
+        </md-select required>
+    </md-input-container>
+</div>
+<div layout="row">
+    <md-input-container flex>
+        <label>机械适用税率</label>
+        <md-select flex ng-model="modal.data.mechineRate">
+            <md-option ng-repeat="n in modal.ratios" ng-value="n.value">{{n.name}}</md-option>
+        </md-select required>
+    </md-input-container>
+</div>

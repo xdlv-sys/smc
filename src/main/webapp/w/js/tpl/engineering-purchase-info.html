@@ -82,7 +82,7 @@
 
     <md-input-container flex>
         <label>不含税单价</label>
-        <input ng-model="modal.data.price" type="number" ng-readonly="!modal.add" required>
+        <input ng-model="modal.data.price" type="text" ng-readonly="!modal.add" ui-number-mask required>
     </md-input-container>
     <md-input-container flex>
         <label>数量</label>
@@ -96,11 +96,11 @@
     </md-input-container>
     <md-input-container flex>
         <label>不含税金额</label>
-        <input type="number" ng-model="modal.data.unTaxCount" readonly required>
+        <input type="text" ng-model="modal.data.unTaxCount" readonly ui-number-mask required>
     </md-input-container>
     <md-input-container flex>
         <label>税额</label>
-        <input ng-model="modal.data.rateCount" type="number" readonly required>
+        <input ng-model="modal.data.rateCount" type="text" readonly ui-number-mask required>
     </md-input-container>
     <md-input-container flex>
         <label>价税合计金额</label>

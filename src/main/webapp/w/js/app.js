@@ -173,4 +173,10 @@ controllers.controller('taxController', function($scope, $rootScope, common, mod
         }
         return $filter('date')(new Date(d), 'yyyy-MM');
     };
+    $rootScope.safeDate = function(d) {
+        if (angular.isBlank(d)) {
+            return null;
+        }
+        return new Date(d);
+    };
 });

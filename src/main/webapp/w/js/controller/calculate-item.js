@@ -1,4 +1,4 @@
-controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'module', '$filter', '$stateParams', 'configuration','util', function($scope, common, modal, module, $filter, $stateParams, configuration,util) {
+controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'module', '$filter', '$stateParams', 'configuration', 'util', function($scope, common, modal, module, $filter, $stateParams, configuration, util) {
 
     $scope.budget = $stateParams.budget;
 
@@ -60,7 +60,7 @@ controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'modul
     }, {
         name: '税率',
         editModelField: 'taxRatio',
-        cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.taxRatio !== null? (row.entity.taxRatio* 100 + "%") : ""}}</div>',
+        cellTemplate: '<div class="ui-grid-cell-contents" style="text-align:right;">{{row.entity.taxRatio !== null? (row.entity.taxRatio* 100 + "%") : "▼"}}</div>',
         editableCellTemplate: 'ui-grid/dropdownEditor',
         enableCellEdit: true,
         editDropdownIdLabel: 'value',
@@ -86,8 +86,8 @@ controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'modul
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                     $scope.$apply();
                     $scope.updateTotal(); // update total info manually
-                    common.post('/calculate/updateRatio.cmd',{
-                        id : rowEntity.id,
+                    common.post('/calculate/updateRatio.cmd', {
+                        id: rowEntity.id,
                         taxRatio: rowEntity.taxRatio
                     });
                 });
@@ -98,7 +98,7 @@ controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'modul
     $scope.materialBudgetGrid = $scope.createGrid([]);
     $scope.machineBudgetGrid = $scope.createGrid([]);
 
-    
+
     angular.forEach($scope.budget.groups, function(g) {
         if (g.name === '人工') {
             $scope.manBudgetGrid = $scope.createGrid(g.items);
@@ -111,53 +111,79 @@ controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'modul
 
     $scope.totalBudgetGrid = {
         enableColumnMenus: false,
-    	columnDefs : [{
-    		name : '人工',
-    		field: 'man',
-    		cellFilter: 'toFixed'
-    	},{
-    		name : '材料',
-    		field: 'material',
-    		cellFilter: 'toFixed'
-    	},{
-    		name : '机械',
-    		field: 'machine',
-    		cellFilter: 'toFixed'
-    	},{
-    		name : '合计',
-    		field: 'total',
-    		cellFilter: 'toFixed'
-    	}],
-    	data:[]
+        columnDefs: [{
+            name: '人工',
+            field: 'man',
+            cellFilter: 'toFixed'
+        }, {
+            name: '材料',
+            field: 'material',
+            cellFilter: 'toFixed'
+        }, {
+            name: '机械',
+            field: 'machine',
+            cellFilter: 'toFixed'
+        }, {
+            name: '合计',
+            field: 'total',
+            cellFilter: 'toFixed'
+        }],
+        data: []
     };
 
-    $scope.updateTotal = function(){
-    	var manTotal = 0, 
-        materialTotal = 0, 
-        machineTotal = 0;
+    $scope.updateTotal = function(man, material, machine) {
+        var manTotal = 0,
+            materialTotal = 0,
+            machineTotal = 0,
+            ids = {}
+            i = 0;
 
-        angular.forEach($scope.manBudgetGrid.data, function(v){
-        	manTotal += util.taxCount(v);
-        });
-        angular.forEach($scope.materialBudgetGrid.data, function(v){
-        	materialTotal += util.taxCount(v);
-        });
-        angular.forEach($scope.machineBudgetGrid.data, function(v){
-        	machineTotal += util.taxCount(v);
-        });
+        function f(grid, ratio) {
+            var total = 0;
+            angular.forEach(grid.data, function(v) {
+                if (!angular.isBlank(ratio) && angular.isBlank(v.taxRatio)) {
+                    v.taxRatio = ratio;
+                    ids['items[' + i + '].id'] = v.id;
+                    ids['items[' + i + '].taxRatio'] = ratio;
+                    i++;
+                }
+                total += util.taxCount(v);
+            });
+            return total;
+        }
+        manTotal += f($scope.manBudgetGrid,man);
+        materialTotal += f($scope.materialBudgetGrid,material);
+        machineTotal += f($scope.machineBudgetGrid,machine);
+
         $scope.totalBudgetGrid.data = [{
-        	man : manTotal,
-    		material : materialTotal,
-    		machine : machineTotal,
-    		total: (manTotal + materialTotal + machineTotal)
+            man: manTotal,
+            material: materialTotal,
+            machine: machineTotal,
+            total: (manTotal + materialTotal + machineTotal)
         }];
+        return ids;
     };
     $scope.updateTotal();
 
-    $scope.exportCalculate = function(){
+    $scope.exportCalculate = function() {
         var url = '../calculate/exportCalculate.cmd?';
         url += 'id=' + $scope.budget.projectId;
-        window.open(url,'_self');
+        window.open(url, '_self');
+    };
+
+    $scope.batchCalculate = function() {
+        modal.open({
+            url: 'js/tpl/batch-calculate-info.html',
+            ratios: ratios,
+            title: '批量设置',
+            ok: function(data) {
+                var ids = $scope.updateTotal(data.manRate, data.materialRate, data.mechineRate);
+                common.post('/calculate/updateRatios.cmd', ids, function(){
+                    modal.alert('批量设置成功。');
+                });
+
+            }
+        });
     };
 
 }]);

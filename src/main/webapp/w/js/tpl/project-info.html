@@ -40,7 +40,7 @@
     </md-input-container>
     <md-input-container flex>
         <label>施工开工日期</label>
-        <md-datepicker ng-model="modal.data.contractStartDate" required xd-date ng-readonly="!modal.add"></md-datepicker>
+        <md-datepicker ng-model="modal.data.contractStartDate" required ng-readonly="!modal.add" md-max-date="modal.data.contractEndTime"></md-datepicker>
     </md-input-container>
 </div>
 <div layout="row">
@@ -50,7 +50,7 @@
     </md-input-container>
     <md-input-container flex>
         <label>预计峻工日期</label>
-        <md-datepicker ng-model="modal.data.contractEndTime" required xd-date ng-readonly="!modal.add"></md-datepicker>
+        <md-datepicker name="contractEndTime" ng-model="modal.data.contractEndTime" required ng-readonly="!modal.add" md-min-date="modal.data.contractStartDate"></md-datepicker>
     </md-input-container>
 </div>
 <div layout="row">
@@ -73,7 +73,7 @@
     </md-input-container>
     <md-input-container flex>
         <label>合同金额（元）</label>
-        <input ng-model="modal.data.totalCount" type="number" ng-readonly="!modal.add" required>
+        <input ng-model="modal.data.totalCount" type="text" ng-readonly="!modal.add" ui-number-mask required>
     </md-input-container>
 </div>
 <div layout="row">
@@ -85,7 +85,7 @@
     </md-input-container>
     <md-input-container flex>
         <label>不含税合同金额</label>
-        <input ng-model="modal.data.untaxedCount" type="number" ng-readonly="!modal.add" required="">
+        <input ng-model="modal.data.untaxedCount" type="text" ui-number-mask ng-readonly="!modal.add" required="">
     </md-input-container>
 </div>
 <div layout="row">
@@ -167,7 +167,7 @@
             </md-input-container>
             <md-input-container flex>
                 <label>分包合同总金额</label>
-                <input ng-model="modal.data.outSources[$index].count" type="number" ng-readonly="!modal.add" required>
+                <input ng-model="modal.data.outSources[$index].count" type="text" ui-number-mask ng-readonly="!modal.add" required>
             </md-input-container>
         </div>
     </div>

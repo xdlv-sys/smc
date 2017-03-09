@@ -17,6 +17,8 @@ import xd.fw.mk.ExcelStreamView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static xd.fw.util.FwUtil.*;
@@ -50,6 +52,29 @@ public class CalculateController extends BaseController {
             GroupItem record = groupItemRepository.getOne(item.getId());
             record.setTaxRatio(item.getTaxRatio());
             groupItemRepository.save(record);
+        });
+        return DONE;
+    }
+    static class ItemForm{
+        List<GroupItem> items;
+
+        public List<GroupItem> getItems() {
+            return items;
+        }
+
+        public void setItems(List<GroupItem> items) {
+            this.items = items;
+        }
+    }
+    @RequestMapping("updateRatios")
+    @ResponseBody
+    public String updateRatios(ItemForm form){
+        userRepositoryCustom.runSessionCommit(()->{
+            form.getItems().forEach(item->{
+                GroupItem record = groupItemRepository.getOne(item.getId());
+                record.setTaxRatio(item.getTaxRatio());
+                groupItemRepository.save(record);
+            });
         });
         return DONE;
     }
