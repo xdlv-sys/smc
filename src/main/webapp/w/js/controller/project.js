@@ -1,9 +1,15 @@
-controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 'common', 'modal', 'module', '$filter', '$state', function($scope, $rootScope, configuration, common, modal, module, $filter, $state) {
+controllers.controller('ProjectCtrl', function(util,$scope, $rootScope, configuration, common, modal, module, $filter, $state) {
 
     $scope.modal = module.getProjectTypes();
 
     $scope.showDetail = function(row) {
-        $state.go('project-item', { project: row.entity });
+        var project = $scope.convertStartAndEndTime(angular.copy(row.entity));
+        $state.go('project-item', { project: project });
+    };
+    $scope.convertStartAndEndTime = function(project){
+        project.contractStartDate = new Date(project.contractStartDate);
+        project.contractEndTime = new Date(project.contractEndTime);
+        return project;
     };
 
     $scope.query = {};
@@ -27,6 +33,15 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
             url: 'js/tpl/project-info.html',
             width: 750,
             add: true,
+            unTax: function(index){
+                var rate = angular.each(this.rates, function(r){
+                    if (r.index === index){
+                        return util.rate(r.value)[0];
+                    }
+                });
+                return this.data.totalCount > 0 && rate ? (this.data.totalCount / (1 + rate / 100.0)).toFixed(2) : 0;
+
+            },
             addOutSource: function() {
                 if (!this.data.outSources) {
                     this.data.outSources = [];
@@ -117,4 +132,4 @@ controllers.controller('ProjectCtrl', ['$scope', '$rootScope', 'configuration', 
             } 
         });
     };
-}]);
+});
