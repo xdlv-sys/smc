@@ -26,6 +26,7 @@ module.exports = function(config) {
 
       '../../w/js/controller/*.js',
       '../../w/js/service/*.js',
+      'login.test.js',
       '*.test.js',
     ],
 
