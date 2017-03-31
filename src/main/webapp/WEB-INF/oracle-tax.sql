@@ -231,12 +231,15 @@ create table t_group_item (
   id INT PRIMARY KEY,
   group_id int,
   item_index int,
+  code varchar2(16),
   material_name varchar2(64),
   model varchar2(32),
   unit varchar2(16),
   count number(38,4),
   price number(38,4),
-  total number(38,4)
+  total number(38,4),
+  location varchar2(128),
+  producer varchar2(128)
 );
 
 BEGIN
