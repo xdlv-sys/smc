@@ -6,6 +6,12 @@ controllers.controller('BudgetItemCtrl', ['$scope', 'common', 'modal', 'module',
         data: $scope.project
     });*/
     $scope.budget = $stateParams.budget;
+    $scope.items = [];
+    angular.forEach($scope.budget.groups, function(g){
+    	angular.forEach(g.items, function(i){
+    		$scope.items.push(i);
+    	});
+    });
     
-    $scope.indexes = ['一、','二、','三、','四、','五、','六、','七、','八、','九、','十、'];
+    //$scope.indexes = ['一、','二、','三、','四、','五、','六、','七、','八、','九、','十、'];
 }]);

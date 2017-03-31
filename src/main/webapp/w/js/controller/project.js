@@ -20,6 +20,13 @@ controllers.controller('ProjectCtrl', function(util,$scope, $rootScope, configur
         }, $scope.query), {
             success: function(data) {
                 $scope.projectGrid.data = data.data;
+                angular.forEach($scope.projectGrid.data, function(d){
+                    if (d.supplyMode === 3){
+                        d.supplyMode = [1,2];
+                    } else {
+                        d.supplyMode = [d.supplyMode];
+                    }
+                });
                 $scope.projectGrid.totalItems = data.total;
             }
         });
@@ -50,6 +57,12 @@ controllers.controller('ProjectCtrl', function(util,$scope, $rootScope, configur
             },
             ok: function(project) {
                 $scope.convertParams(project, 'outSources');
+                var supplyMode = 0;
+                angular.forEach(project.supplyMode, function(s){
+                    supplyMode += s;
+                });
+                project.supplyMode = supplyMode;
+                
                 common.post('/projecting/saveProject.cmd', project, {
                     success: function() {
                         $scope.projectGrid.refresh();
@@ -98,7 +111,7 @@ controllers.controller('ProjectCtrl', function(util,$scope, $rootScope, configur
 
     // upload budget for projects
     $scope.uploadFile = function() {
-        common.uploadFile('/budget/importBudget.cmd', {
+        common.uploadFile('/budget/importBudget2.cmd', {
             file: $scope.importFile[0].lfFile,
             userName: $scope.user.name,
             projectId: $scope.projectGrid.selection.getSelectedRows()[0].id

@@ -65,8 +65,8 @@ insert into t_dynamic_conf values(47,'2','projectType.6','装修装饰','项目�
 insert into t_dynamic_conf values(48,'2','projectType.7','钢结构','项目类型');
 insert into t_dynamic_conf values(49,'2','projectType.8','其它','项目类型');
 
-insert into t_dynamic_conf values(50,'2','rate.1','11%','项目类型');
-insert into t_dynamic_conf values(51,'2','rate.2','3%','项目类型');
+insert into t_dynamic_conf values(50,'2','rate.1','11%一般计税','项目类型');
+insert into t_dynamic_conf values(51,'2','rate.2','3%简易计税','项目类型');
 insert into t_dynamic_conf values(52,'2','projectMode.1','总包','项目承接方式');
 insert into t_dynamic_conf values(53,'2','projectMode.2','分包','项目承接方式');
 insert into t_dynamic_conf values(54,'2','supplyMode.1','部分甲供材','项目承接方式');

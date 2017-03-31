@@ -15,14 +15,17 @@ import org.springframework.web.multipart.MultipartFile;
 import xd.fw.bean.Budget;
 import xd.fw.bean.BudgetGroup;
 import xd.fw.bean.GroupItem;
+import xd.fw.bean.Product;
 import xd.fw.dao.BudgetRepository;
-import xd.fw.util.FwException;
+import xd.fw.dao.ProductRepository;
 
+import javax.annotation.PostConstruct;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import static xd.fw.util.FwUtil.*;
+import static xd.fw.util.FwUtil.getCellValue;
+import static xd.fw.util.FwUtil.parseFile;
 
 /**
  * Created by xd on 2016/12/7.
@@ -30,13 +33,25 @@ import static xd.fw.util.FwUtil.*;
 @Controller
 @RequestMapping("budget")
 public class BudgetController extends BaseController {
+    final static Byte MAN = 1, MATERIAL = 2, MACHINE = 3;
     @Autowired
     BudgetRepository budgetRepository;
+    @Autowired
+    ProductRepository productRepository;
     @Value("${project_name}")
     String projectName;
 
     @Value("${group_index}")
     String groupIndex;
+
+    @Value("${calculate_groups}")
+    String calculateGroups;
+
+    String[] calculateGroupNames;
+    @PostConstruct
+    public void init(){
+        calculateGroupNames = calculateGroups.split(" ");
+    }
 
     @RequestMapping("obtainBudgets")
     @ResponseBody
@@ -54,7 +69,91 @@ public class BudgetController extends BaseController {
         return DONE;
     }
 
-    @RequestMapping("importBudget")
+    @RequestMapping("importBudget2")
+    @ResponseBody
+    public String importBudget2(@RequestParam("file") MultipartFile file, @RequestParam("userName") String userName, @RequestParam("projectId") int projectId) throws Exception {
+        Workbook wb = parseFile(file.getInputStream());
+        Budget budget = new Budget();
+        budget.setProjectId(projectId);
+        budget.setImportUser(userName);
+        budget.setImportDate(new Timestamp(System.currentTimeMillis()));
+        budget.setGroups(new HashSet<>());
+
+        Sheet sheet = wb.getSheetAt(0);
+        Cell cell;
+        Row row;
+        String value;
+        int allCount = 0;
+        BudgetGroup manGroup = null, materialGroup = null, machineGroup = null;
+        GroupItem groupItem;
+
+        for (int i = 0; ; i++) {
+            row = sheet.getRow(i);
+            if (row == null) {
+                break;
+            }
+            cell = row.getCell(0);
+            if (cell == null) {
+                continue;
+            }
+            value = getCellValue(cell);
+            if (value != null && value.startsWith(projectName)) {
+                budget.setImportName(value.substring(projectName.length()));
+                i++; // skip the table header
+                continue;
+            }
+            if (parseInt(value) == null){
+                continue;
+            }
+            groupItem = new GroupItem();
+            groupItem.setCode(getCellValue(row.getCell(1)));
+            groupItem.setMaterialName(getCellValue(row.getCell(2)));
+            groupItem.setModel(getCellValue(row.getCell(3)));
+            groupItem.setUnit(getCellValue(row.getCell(5)));
+            groupItem.setCount(Double.parseDouble(getCellValue(row.getCell(6))));
+            groupItem.setPrice(Double.parseDouble(getCellValue(row.getCell(7))));
+            groupItem.setTotal(Double.parseDouble(getCellValue(row.getCell(9))));
+            groupItem.setLocation(getCellValue(row.getCell(10)));
+            groupItem.setProducer(getCellValue(row.getCell(11)));
+
+            String code = groupItem.getCode();
+            groupItem.setTaxRatio(userRepositoryCustom.runSessionProcess(()->{
+                Product product = productRepository.findByCode(code);
+                if (product != null){
+                    return product.getRate().floatValue();
+                }
+                return null;
+            }));
+            allCount++;
+
+            if (groupItem.getCode().startsWith("1")){
+                manGroup = put(MAN,budget,manGroup, groupItem);
+            } else if (groupItem.getCode().startsWith("2") || groupItem.getCode().startsWith("3")){
+                materialGroup = put(MATERIAL,budget,materialGroup, groupItem);
+            } else {
+                machineGroup = put(MACHINE,budget,machineGroup, groupItem);
+            }
+        }
+        userRepositoryCustom.saveBudget(budget);
+        return String.format("{\"success\":true,\"right\":%d}", allCount);
+    }
+
+    private BudgetGroup put(Byte type, Budget budget,BudgetGroup group, GroupItem groupItem){
+        // man
+        if (group == null){
+            group = new BudgetGroup();
+            group.setGroupIndex(type);
+            group.setName(calculateGroupNames[type - 1]);
+            group.setItems(new ArrayList<>());
+            budget.getGroups().add(group);
+            group.setBudget(budget);
+        }
+        group.getItems().add(groupItem);
+        groupItem.setGroup(group);
+        return group;
+    }
+
+    /*@RequestMapping("importBudget")
     @ResponseBody
     public String importBudget(@RequestParam("file") MultipartFile file, @RequestParam("userName") String userName, @RequestParam("projectId") int projectId) throws Exception {
         Workbook wb = parseFile(file.getInputStream());
@@ -145,7 +244,7 @@ public class BudgetController extends BaseController {
         userRepositoryCustom.saveBudget(budget);
         return String.format("{\"success\":true,\"right\":%d}", allCount);
     }
-
+*/
     private Integer parseInt(String value) {
         try {
              return (int)Double.parseDouble(value);

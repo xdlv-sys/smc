@@ -272,13 +272,18 @@ create table t_group_item (
   id INT PRIMARY KEY,
   group_id int,
   item_index int,
+  code varchar2(16),
   material_name varchar(64),
   model varchar(32),
   unit varchar(16),
   count double,
   price double,
-  total double
+  total double,
+  location varchar2(128),
+  producer varchar2(128)
 )ENGINE = INNODB;
+
+alter table t_group_item add code varchar2(16) not null after item_index;
 
 drop table if exists t_construction_progress;
 create table t_construction_progress (

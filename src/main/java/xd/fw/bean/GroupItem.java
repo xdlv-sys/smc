@@ -16,6 +16,7 @@ public class GroupItem {
             pkColumnName = "table_name", valueColumnName = "current_id",
             initialValue = 100, allocationSize = 100)
     private Integer id;
+    private String code;
     private Integer itemIndex;
     private String materialName;
     private String model;
@@ -24,6 +25,8 @@ public class GroupItem {
     private Double price;
     private Double total;
     private Float taxRatio;
+    String location;
+    String producer;
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "group_id")
@@ -36,6 +39,30 @@ public class GroupItem {
 
     public BudgetGroup getGroup() {
         return group;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getProducer() {
+        return producer;
+    }
+
+    public void setProducer(String producer) {
+        this.producer = producer;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Integer getId() {

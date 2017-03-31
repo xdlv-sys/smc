@@ -22,7 +22,11 @@ describe("User Module ", function() {
         /*注入你期望的HTTP返回*/
         httpBackend.when('POST', '../user/saveUser.cmd').respond({
             success: true
-        });
+        }); userScope.userGrid.selection = {
+            getSelectedRows: function(){
+                return [{id: 1},{id:2}];
+            }
+        };
 
         // 构造参数
         var user = {
@@ -44,4 +48,45 @@ describe("User Module ", function() {
         });
 
     });
+    
+    it("mod user", function() {
+        /*注入你期望的HTTP返回*/
+        httpBackend.when('POST', '../user/saveUser.cmd').respond({
+            success: true
+        });
+
+        var user = {
+            id: 1,
+            name: '修改值'
+        };
+        // 发送http 请求
+        com.post('/user/saveUser.cmd', user, {
+            success: function(d) {
+                //验证成功
+                expect(d.success).toBe(true);
+            }
+        });
+        
+    });
+
+    it("delete user", function() {
+        /*注入你期望的HTTP返回*/
+        httpBackend.when('POST', '../user/deleteUser.cmd').respond({
+            success: true
+        });
+
+        /*模拟表格选择，具体要看controller下被测试的代码*/
+        userScope.userGrid.selection = {
+            getSelectedRows: function(){
+                return [{id: 1},{id:2}];
+            }
+        };
+        userScope.userGrid.refresh = function(d){
+            expect(d).toBe(undefined);
+        }
+
+        userScope.delUser();
+        
+    });
+
 });

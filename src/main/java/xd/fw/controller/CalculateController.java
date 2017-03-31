@@ -69,13 +69,11 @@ public class CalculateController extends BaseController {
     @RequestMapping("updateRatios")
     @ResponseBody
     public String updateRatios(ItemForm form){
-        userRepositoryCustom.runSessionCommit(()->{
-            form.getItems().forEach(item->{
-                GroupItem record = groupItemRepository.getOne(item.getId());
-                record.setTaxRatio(item.getTaxRatio());
-                groupItemRepository.save(record);
-            });
-        });
+        userRepositoryCustom.runSessionCommit(()-> form.getItems().forEach(item->{
+            GroupItem record = groupItemRepository.getOne(item.getId());
+            record.setTaxRatio(item.getTaxRatio());
+            groupItemRepository.save(record);
+        }));
         return DONE;
     }
 

@@ -1,5 +1,5 @@
 <md-tabs class="tab_tool">
-    <md-tab label="工程进度">
+    <md-tab label="产值进度">
         <md-content layout="column" ng-controller="ConstructionProgressCtrl">
             <div layout="row" class="xd_tool_bar">
                 <md-button class="md-primary md-raised" ng-click="addProgress()" ng-if="allow(34)" ng-disabled="projectGrid.selection.getSelectedRows().length!==1">&nbsp;新增工程进度&nbsp;</md-button>
@@ -7,7 +7,7 @@
             </div>
         </md-content>
     </md-tab>
-    <md-tab label="合同进度">
+    <md-tab label="三方审核进度">
         <md-content layout="column" ng-controller="ContractProgressCtrl">
             <div layout="row" class="xd_tool_bar">
                 <md-button class="md-primary md-raised" ng-click="addProgress()" ng-if="allow(36)" ng-disabled="projectGrid.selection.getSelectedRows().length!==1">&nbsp;新增合同进度&nbsp;</md-button>

@@ -2,36 +2,33 @@
     <div layout="row" class="item_tool">
         <md-button class="md-primary md-raised fa fa-backward" ng-click="back()">&nbsp;返回</md-button>
     </div>
-    <h1 class="pull_center">单位工程人材机汇总表</h1>
-    <div ng-repeat="g in budget.groups" class="pull_center">
-        <b>工程名称:{{budget.importName}}</b>
-        <table border="1" width="80%" class="table"style="margin:0 auto">
+    <h1 class="pull_center">人材机汇总表</h1>
+    <b class="pull_center">工程名称:{{budget.importName}}</b>
+    <div class="pull_center">
+        <table border="1" width="90%" class="table" style="margin:0 auto">
             <tr>
                 <td>序号</td>
+                <td>材料编号</td>
                 <td>材料名称</td>
                 <td>型号规格</td>
                 <td>单位</td>
                 <td>数量</td>
-                <td>预算价</td>
-                <td>合计</td>
+                <td>市场单价(元)</td>
+                <td>合价(元)</td>
+                <td>产地</td>
+                <td>厂家</td>
             </tr>
-            <tr>
-                <td>{{indexes[g.groupIndex]}}</td>
-                <td>{{g.name}}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>{{g.total}}</td>
-            </tr>
-            <tr ng-repeat="i in g.items">
-            	<td>{{i.itemIndex}}</td>
+            <tr ng-repeat="i in items">
+                <td>{{$index + 1}}</td>
+                <td>{{i.code}}</td>
                 <td>{{i.materialName}}</td>
                 <td>{{i.model}}</td>
                 <td>{{i.unit}}</td>
                 <td>{{i.count}}</td>
                 <td>{{i.price}}</td>
                 <td>{{i.total}}</td>
+                <td>{{i.location}}</td>
+                <td>{{i.producer}}</td>
             </tr>
         </table>
         <br>

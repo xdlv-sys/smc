@@ -4,8 +4,10 @@
         <input ng-model="modal.data.name" type="text" ng-readonly="!modal.add" required>
     </md-input-container>
     <md-input-container flex>
-        <label>发包方</label>
-        <input ng-model="modal.data.employer" type="text" ng-readonly="!modal.add" required>
+        <label>适用税率</label>
+        <md-select flex ng-model="modal.data.rate" ng-disabled="!modal.add" required>
+            <md-option ng-repeat="n in modal.rates" ng-value="n.index">{{n.value}}</md-option>
+        </md-select required>
     </md-input-container>
 </div>
 <div layout="row">
@@ -66,7 +68,7 @@
 <div layout="row">
     <md-input-container flex>
         <label>项目材料供应方式</label>
-        <md-select flex ng-model="modal.data.supplyMode" ng-disabled="!modal.add" required>
+        <md-select flex ng-model="modal.data.supplyMode" ng-disabled="!modal.add" required multiple>
             <md-option ng-value="1">部分甲供材</md-option>
             <md-option ng-value="2">清包工</md-option>
         </md-select>
@@ -78,10 +80,8 @@
 </div>
 <div layout="row">
     <md-input-container flex>
-        <label>适用税率</label>
-        <md-select flex ng-model="modal.data.rate" ng-disabled="!modal.add" required>
-            <md-option ng-repeat="n in modal.rates" ng-value="n.index">{{n.value}}</md-option>
-        </md-select required>
+        <label>发包方</label>
+        <input ng-model="modal.data.employer" type="text" ng-readonly="!modal.add" required>
     </md-input-container>
     <md-input-container flex>
         <label>不含税合同金额</label>
@@ -97,7 +97,7 @@
         </md-select required>
     </md-input-container>
     <md-input-container flex>
-        <label>是否为挂靠工程</label>
+        <label>是否为联营工程</label>
         <md-select flex ng-model="modal.data.attach" ng-disabled="!modal.add" required>
             <md-option ng-value="1">是</md-option>
             <md-option ng-value="2">否</md-option>

@@ -32,7 +32,7 @@ controllers.controller('CalculateItemCtrl', ['$scope', 'common', 'modal', 'modul
     var columnDefs = [{
         name: '序号',
         enableCellEdit: false,
-        field: 'itemIndex'
+        cellTemplate: '<div class="ui-grid-cell-contents">{{rowRenderIndex + 1}}</div>'
     }, {
         name: '材料名称',
         enableCellEdit: false,
